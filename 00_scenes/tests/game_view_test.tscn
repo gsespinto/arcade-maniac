@@ -1,8 +1,9 @@
-[gd_scene load_steps=8 format=3 uid="uid://bma26lnrtxwbd"]
+[gd_scene load_steps=11 format=3 uid="uid://bma26lnrtxwbd"]
 
 [ext_resource type="PackedScene" uid="uid://b4n2ggcse2yq7" path="res://00_scenes/tests/viewport_content_test.tscn" id="1_f0apk"]
 [ext_resource type="PackedScene" uid="uid://c5co72s5pe4qt" path="res://00_scenes/tv.tscn" id="2_c0b5j"]
 [ext_resource type="Script" path="res://01_scripts/camera_look_at.gd" id="2_kf7m0"]
+[ext_resource type="Script" path="res://01_scripts/tvs_holder.gd" id="3_tbq2h"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_bdqev"]
 
@@ -16,6 +17,13 @@ sky = SubResource("Sky_sbhwe")
 [sub_resource type="ViewportTexture" id="ViewportTexture_ays0e"]
 viewport_path = NodePath("SubViewport")
 
+[sub_resource type="Gradient" id="Gradient_knjk4"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_pqk71"]
+gradient = SubResource("Gradient_knjk4")
+width = 800
+height = 600
+
 [node name="GameViewTest" type="Node3D"]
 
 [node name="SubViewport" type="SubViewport" parent="."]
@@ -23,21 +31,27 @@ size = Vector2i(800, 600)
 
 [node name="TvTest" parent="SubViewport" instance=ExtResource("1_f0apk")]
 
-[node name="Camera3D" type="Camera3D" parent="." node_paths=PackedStringArray("sprite_3D", "target_node_2D")]
+[node name="Camera3D" type="Camera3D" parent="." node_paths=PackedStringArray("tvs_holder", "target_node_2D")]
 environment = SubResource("Environment_lqimh")
 script = ExtResource("2_kf7m0")
-sprite_3D = NodePath("../TV/tv/Sprite3D")
+tvs_holder = NodePath("../TVsHolder")
 target_node_2D = NodePath("../SubViewport/TvTest/TestCharacter")
 lerp_weight = 0.05
-
-[node name="TV" parent="." instance=ExtResource("2_c0b5j")]
-transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, -0.201932, -2.13465, -6.6165)
-
-[node name="Sprite3D" parent="TV/tv" index="1"]
-texture = SubResource("ViewportTexture_ays0e")
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 omni_range = 27.6032
 
+[node name="TVsHolder" type="Node3D" parent="."]
+script = ExtResource("3_tbq2h")
+game_viewport_texture = SubResource("ViewportTexture_ays0e")
+idle_texture = SubResource("GradientTexture2D_pqk71")
+
+[node name="TV" parent="TVsHolder" instance=ExtResource("2_c0b5j")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.170339, 0, -4.58673)
+
+[node name="TV2" parent="TVsHolder" instance=ExtResource("2_c0b5j")]
+transform = Transform3D(0.450488, 0, -0.892782, 0, 1, 0, 0.892782, 0, 0.450488, 4.67364, 0, -2.10699)
+
 [editable path="SubViewport/TvTest"]
-[editable path="TV"]
+[editable path="TVsHolder/TV"]
+[editable path="TVsHolder/TV2"]
