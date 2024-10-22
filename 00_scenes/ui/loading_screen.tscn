@@ -1,0 +1,117 @@
+[gd_scene load_steps=9 format=3 uid="uid://ceh57abpcnas7"]
+
+[ext_resource type="Script" path="res://01_scripts/ui/loading_screen.gd" id="1_5n0ig"]
+[ext_resource type="Shader" path="res://01_scripts/tv_static.gdshader" id="2_kqkjt"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_64ch1"]
+viewport_path = NodePath("SubViewport")
+
+[sub_resource type="Animation" id="Animation_8dv17"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_aktl4"]
+resource_name = "load"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Holder:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.7, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1), Color(1, 1, 1, 1)]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.9),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [],
+"method": &"_start_loading_scene"
+}]
+}
+
+[sub_resource type="Animation" id="Animation_o5c46"]
+resource_name = "unload"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Holder:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_y46xr"]
+_data = {
+"RESET": SubResource("Animation_8dv17"),
+"load": SubResource("Animation_aktl4"),
+"unload": SubResource("Animation_o5c46")
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_gfy1h"]
+shader = ExtResource("2_kqkjt")
+shader_parameter/amount = 2.515
+
+[node name="LoadingScreen" type="CanvasLayer" node_paths=PackedStringArray("animator")]
+layer = 128
+script = ExtResource("1_5n0ig")
+animator = NodePath("AnimationPlayer")
+
+[node name="Holder" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Background" type="TextureRect" parent="Holder"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("ViewportTexture_64ch1")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+process_mode = 3
+libraries = {
+"": SubResource("AnimationLibrary_y46xr")
+}
+autoplay = "unload"
+
+[node name="SubViewport" type="SubViewport" parent="."]
+
+[node name="Background" type="ColorRect" parent="SubViewport"]
+material = SubResource("ShaderMaterial_gfy1h")
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0923971, 0.0923971, 0.0923971, 1)

@@ -15,6 +15,10 @@ run/main_scene="res://00_scenes/tests/game_test.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 config/icon="res://icon.svg"
 
+[autoload]
+
+LoadingScreen="*res://00_scenes/ui/loading_screen.tscn"
+
 [input]
 
 move_up={
