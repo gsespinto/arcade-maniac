@@ -1,11 +1,10 @@
 extends Camera3D
 
 
+@export var game_viewport_manager : GameViewportManager
+
 ## Sprite 3D that is rendering the 2D game subviewport.
 @export var tvs_holder : TVsHolder
-
-## 2D node within the subviewport the camera is supposed to follow.
-@export var target_node_2D : Node2D
 
 ## Look at lerp weight to adjust smothness of movement.
 @export_range(0.0, 1.0, 0.01) var lerp_weight : float = 1.0
@@ -28,6 +27,7 @@ func _physics_process(delta) -> void:
 # node 2D that is within the sprite 3D.
 func get_look_at_pos() -> Vector3:
 	var sprite_3D : Sprite3D = tvs_holder.get_current_tv().sprite
+	var target_node_2D : Node2D = game_viewport_manager.get_current_game().look_at_target
 	
 	var local_pos : Vector2 = target_node_2D.position * sprite_3D.pixel_size \
 		- sprite_3D.get_item_rect().size / 2 * sprite_3D.pixel_size

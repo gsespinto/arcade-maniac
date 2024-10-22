@@ -1,6 +1,7 @@
 extends Node3D
 class_name TVsHolder
 
+@export var game_viewport_manager : GameViewportManager
 ## Viewport texture that will be displayed on the current tv.
 @export var game_viewport_texture : ViewportTexture
 ## Texture that will be displayed on idle tvs.
@@ -23,27 +24,19 @@ func _enter_tree() -> void:
 	
 	# Set initial tv texture
 	for i in _tvs.size():
-		if i == _current_tv_index:
-			_tvs[i].set_texture(game_viewport_texture)
-		else:
-			_tvs[i].set_texture(idle_texture)
-
-
-func _process(delta: float) -> void:
-	if Input.is_action_just_pressed("next_tv"):
-		_go_to_next_tv()
-
-
-func _go_to_next_tv() -> void:
-	_set_current_tv((_current_tv_index + 1) % _tvs.size())
+		_tvs[i].set_texture(idle_texture)
+	
+	game_viewport_manager.on_game_changed.connect(_set_current_tv)
 
 
 # Sets current tv index to given value and 
 # updates the previous and current tvs textures
 func _set_current_tv(index : int) -> void:
-	if index < 0 or index >= _tvs.size():
+	if index < 0:
 		print("Couldn't set current tv as invalid index was given!")
 		return
+	
+	index = index % _tvs.size()
 	
 	_tvs[_current_tv_index].set_texture(idle_texture)
 	_tvs[index].set_texture(game_viewport_texture)

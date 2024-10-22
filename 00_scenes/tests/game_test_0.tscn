@@ -1,5 +1,6 @@
-[gd_scene load_steps=5 format=3 uid="uid://b4n2ggcse2yq7"]
+[gd_scene load_steps=6 format=3 uid="uid://b4n2ggcse2yq7"]
 
+[ext_resource type="Script" path="res://01_scripts/game_viewport.gd" id="1_d0qup"]
 [ext_resource type="PackedScene" uid="uid://32qa435ruy8m" path="res://00_scenes/tests/test_character.tscn" id="1_tfa1c"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wam2b"]
@@ -11,7 +12,9 @@ size = Vector2(24, 618)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h00bs"]
 size = Vector2(797, 20)
 
-[node name="TvTest" type="Node2D"]
+[node name="GameTest0" type="Node2D" node_paths=PackedStringArray("look_at_target")]
+script = ExtResource("1_d0qup")
+look_at_target = NodePath("TestCharacter")
 
 [node name="ReferenceRect" type="ReferenceRect" parent="."]
 anchors_preset = 15
