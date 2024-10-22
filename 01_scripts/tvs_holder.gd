@@ -29,6 +29,15 @@ func _enter_tree() -> void:
 			_tvs[i].set_texture(idle_texture)
 
 
+func _process(delta: float) -> void:
+	if Input.is_action_just_pressed("next_tv"):
+		_go_to_next_tv()
+
+
+func _go_to_next_tv() -> void:
+	_set_current_tv((_current_tv_index + 1) % _tvs.size())
+
+
 # Sets current tv index to given value and 
 # updates the previous and current tvs textures
 func _set_current_tv(index : int) -> void:
