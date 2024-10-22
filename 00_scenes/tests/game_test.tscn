@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dwehlo3xi6uvy" path="res://00_scenes/tests/game_test_1.tscn" id="2_jsioq"]
 [ext_resource type="Script" path="res://01_scripts/tvs_holder.gd" id="3_41cxm"]
 [ext_resource type="PackedScene" uid="uid://c5co72s5pe4qt" path="res://00_scenes/tv.tscn" id="4_tgcfr"]
+[ext_resource type="PackedScene" uid="uid://t6kste4a4hvi" path="res://00_scenes/tv_static.tscn" id="7_sdi7f"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_bdqev"]
 
@@ -19,12 +20,8 @@ sky = SubResource("Sky_sbhwe")
 [sub_resource type="ViewportTexture" id="ViewportTexture_ays0e"]
 viewport_path = NodePath("GameViewport")
 
-[sub_resource type="Gradient" id="Gradient_knjk4"]
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_pqk71"]
-gradient = SubResource("Gradient_knjk4")
-width = 800
-height = 600
+[sub_resource type="ViewportTexture" id="ViewportTexture_0ykes"]
+viewport_path = NodePath("TVStaticViewport")
 
 [node name="GameTest" type="Node3D"]
 
@@ -42,7 +39,7 @@ omni_range = 27.6032
 script = ExtResource("3_41cxm")
 game_viewport_manager = NodePath("../GameViewport")
 game_viewport_texture = SubResource("ViewportTexture_ays0e")
-idle_texture = SubResource("GradientTexture2D_pqk71")
+idle_texture = SubResource("ViewportTexture_0ykes")
 
 [node name="TV" parent="TVsHolder" instance=ExtResource("4_tgcfr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.170339, 0, -4.58673)
@@ -58,6 +55,18 @@ size = Vector2i(800, 600)
 script = ExtResource("1_y7v8l")
 games = [NodePath("GameTest0"), NodePath("GameTest1")]
 
+[node name="StaticOverlay" type="TextureRect" parent="GameViewport"]
+self_modulate = Color(1, 1, 1, 0.196078)
+z_index = 100
+offset_right = 800.0
+offset_bottom = 600.0
+texture = SubResource("ViewportTexture_0ykes")
+
 [node name="GameTest0" parent="GameViewport" instance=ExtResource("1_twfr0")]
 
 [node name="GameTest1" parent="GameViewport" instance=ExtResource("2_jsioq")]
+
+[node name="TVStaticViewport" type="SubViewport" parent="."]
+size = Vector2i(800, 600)
+
+[node name="TVStatic" parent="TVStaticViewport" instance=ExtResource("7_sdi7f")]
