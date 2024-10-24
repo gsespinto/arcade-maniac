@@ -7,7 +7,7 @@ shader = ExtResource("1_tvc5l")
 shader_parameter/amount = 100.0
 
 [sub_resource type="Gradient" id="Gradient_c4hv7"]
-colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 1)
+colors = PackedColorArray(0.643137, 0.643137, 0.643137, 1, 0.641934, 0.641934, 0.641934, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_qg2x0"]
 gradient = SubResource("Gradient_c4hv7")

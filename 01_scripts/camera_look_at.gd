@@ -27,9 +27,9 @@ func _physics_process(delta) -> void:
 # node 2D that is within the sprite 3D.
 func get_look_at_pos() -> Vector3:
 	var sprite_3D : Sprite3D = tvs_holder.get_current_tv().sprite
-	var target_node_2D : Node2D = game_viewport_manager.get_current_game().look_at_target
+	var target_node_pos : Vector2 = game_viewport_manager.get_look_at_pos()
 	
-	var local_pos : Vector2 = target_node_2D.position * sprite_3D.pixel_size \
+	var local_pos : Vector2 = target_node_pos * sprite_3D.pixel_size \
 		- sprite_3D.get_item_rect().size / 2 * sprite_3D.pixel_size
 	
 	return sprite_3D.to_global(Vector3(local_pos.x, -local_pos.y, 0))

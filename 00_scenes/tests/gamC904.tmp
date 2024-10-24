@@ -1,7 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://b4n2ggcse2yq7"]
+[gd_scene load_steps=14 format=3 uid="uid://b4n2ggcse2yq7"]
 
 [ext_resource type="Script" path="res://01_scripts/games/pong/game_viewport.gd" id="1_apqod"]
 [ext_resource type="Script" path="res://01_scripts/games/pong/player.gd" id="3_3swnk"]
+[ext_resource type="Script" path="res://01_scripts/games/pong/ball.gd" id="3_lpjw3"]
+[ext_resource type="Script" path="res://01_scripts/games/pong/enemy.gd" id="3_py5mh"]
+[ext_resource type="Texture2D" uid="uid://bak52kmoomev6" path="res://02_sprites/circle.png" id="4_tbea0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h00bs"]
 size = Vector2(800, 80)
@@ -23,11 +26,17 @@ gradient = SubResource("Gradient_npq8s")
 width = 20
 height = 200
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uml8h"]
+size = Vector2(551, 611)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_p0cf8"]
+radius = 24.0
+
 [node name="GameTest0" type="Node2D" node_paths=PackedStringArray("win_area", "lose_area", "look_at_target")]
 script = ExtResource("1_apqod")
 win_area = NodePath("WinArea")
 lose_area = NodePath("LoseArea")
-look_at_target = NodePath("")
+look_at_target = NodePath("Ball")
 
 [node name="ReferenceRect" type="ReferenceRect" parent="."]
 anchors_preset = 15
@@ -73,3 +82,35 @@ shape = SubResource("RectangleShape2D_ac28e")
 
 [node name="Sprite2D" type="Sprite2D" parent="PlayerCharacter"]
 texture = SubResource("GradientTexture2D_ulmkn")
+
+[node name="EnemyCharacter" type="CharacterBody2D" parent="." node_paths=PackedStringArray("ball", "prediction_area") groups=["player"]]
+position = Vector2(775, 300)
+motion_mode = 1
+script = ExtResource("3_py5mh")
+ball = NodePath("../Ball")
+prediction_area = NodePath("../EnemyPredictionArea")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyCharacter"]
+shape = SubResource("RectangleShape2D_ac28e")
+
+[node name="Sprite2D" type="Sprite2D" parent="EnemyCharacter"]
+texture = SubResource("GradientTexture2D_ulmkn")
+
+[node name="EnemyPredictionArea" type="Area2D" parent="."]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyPredictionArea"]
+position = Vector2(601.5, 295.5)
+shape = SubResource("RectangleShape2D_uml8h")
+
+[node name="Ball" type="CharacterBody2D" parent="."]
+position = Vector2(252, 176)
+collision_layer = 3
+script = ExtResource("3_lpjw3")
+
+[node name="Sprite2D" type="Sprite2D" parent="Ball"]
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("4_tbea0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ball"]
+shape = SubResource("CircleShape2D_p0cf8")

@@ -42,5 +42,5 @@ func _set_current_game(index : int) -> void:
 	on_game_changed.emit(index)
 
 
-func get_current_game() -> GameViewport:
-	return games[_current_game]
+func get_look_at_pos() -> Vector2:
+	return games[_current_game].look_at_target.position

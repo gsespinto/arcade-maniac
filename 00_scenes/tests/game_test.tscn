@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bma26lnrtxwbd"]
+[gd_scene load_steps=17 format=3 uid="uid://bma26lnrtxwbd"]
 
 [ext_resource type="PackedScene" uid="uid://b4n2ggcse2yq7" path="res://00_scenes/tests/game_test_0.tscn" id="1_twfr0"]
 [ext_resource type="Script" path="res://01_scripts/game_viewport_manager.gd" id="1_y7v8l"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dwehlo3xi6uvy" path="res://00_scenes/tests/game_test_1.tscn" id="2_jsioq"]
 [ext_resource type="Script" path="res://01_scripts/tvs_holder.gd" id="3_41cxm"]
 [ext_resource type="PackedScene" uid="uid://c5co72s5pe4qt" path="res://00_scenes/tv.tscn" id="4_tgcfr"]
+[ext_resource type="PackedScene" uid="uid://bqbsdq1ahl2dc" path="res://00_scenes/ui/tv_ui.tscn" id="5_n8pjq"]
 [ext_resource type="PackedScene" uid="uid://t6kste4a4hvi" path="res://00_scenes/tv_static.tscn" id="7_sdi7f"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_bdqev"]
@@ -17,6 +18,45 @@ sky_material = SubResource("ProceduralSkyMaterial_bdqev")
 background_mode = 2
 sky = SubResource("Sky_sbhwe")
 
+[sub_resource type="Animation" id="Animation_okjf8"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 1.8, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_7st4y"]
+resource_name = "breathing"
+length = 4.5
+loop_mode = 1
+step = 0.05
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 2.25, 2.5, 4.5),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 1.8, 0), Vector3(0, 1.815, 0), Vector3(0, 1.7, 0), Vector3(0, 1.685, 0), Vector3(0, 1.8, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gi0yc"]
+_data = {
+"RESET": SubResource("Animation_okjf8"),
+"breathing": SubResource("Animation_7st4y")
+}
+
 [sub_resource type="ViewportTexture" id="ViewportTexture_ays0e"]
 viewport_path = NodePath("GameViewport")
 
@@ -25,12 +65,21 @@ viewport_path = NodePath("TVStaticViewport")
 
 [node name="GameTest" type="Node3D"]
 
-[node name="Camera3D" type="Camera3D" parent="." node_paths=PackedStringArray("game_viewport_manager", "tvs_holder")]
+[node name="PovCharacter" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
+
+[node name="Camera3D" type="Camera3D" parent="PovCharacter" node_paths=PackedStringArray("game_viewport_manager", "tvs_holder")]
 environment = SubResource("Environment_lqimh")
 script = ExtResource("2_1qouj")
-game_viewport_manager = NodePath("../GameViewport")
-tvs_holder = NodePath("../TVsHolder")
+game_viewport_manager = NodePath("../../GameViewport")
+tvs_holder = NodePath("../../TVsHolder")
 lerp_weight = 0.05
+
+[node name="BreathingAnimation" type="AnimationPlayer" parent="PovCharacter"]
+libraries = {
+"": SubResource("AnimationLibrary_gi0yc")
+}
+autoplay = "breathing"
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
 omni_range = 27.6032
@@ -54,6 +103,8 @@ transform = Transform3D(-0.614285, 0.295596, 0.731626, 0, 0.927184, -0.374606, -
 size = Vector2i(800, 600)
 script = ExtResource("1_y7v8l")
 games = [NodePath("GameTest0"), NodePath("GameTest1")]
+
+[node name="TvUi" parent="GameViewport" instance=ExtResource("5_n8pjq")]
 
 [node name="StaticOverlay" type="TextureRect" parent="GameViewport"]
 self_modulate = Color(1, 1, 1, 0.196078)
