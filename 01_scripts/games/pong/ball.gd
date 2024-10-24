@@ -1,4 +1,6 @@
+@tool
 extends CharacterBody2D
+class_name PongBall
 
 
 @export var initial_speed : float = 200.0
@@ -10,6 +12,9 @@ extends CharacterBody2D
 
 
 func _physics_process(delta: float) -> void:
+	if Engine.is_editor_hint():
+		return
+	
 	velocity = mov_direction * _current_speed
 
 	move_and_slide()
