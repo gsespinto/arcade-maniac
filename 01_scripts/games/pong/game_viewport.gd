@@ -1,6 +1,9 @@
 extends GameViewport
 
+## Should be on a mask layer that only has the pong ball.
 @export var win_area : Area2D
+
+## Should be on a mask layer that only has the pong ball.
 @export var lose_area : Area2D
 
 

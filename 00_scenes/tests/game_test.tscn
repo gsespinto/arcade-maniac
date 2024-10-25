@@ -1,6 +1,6 @@
 [gd_scene load_steps=17 format=3 uid="uid://bma26lnrtxwbd"]
 
-[ext_resource type="PackedScene" uid="uid://b4n2ggcse2yq7" path="res://00_scenes/tests/game_test_0.tscn" id="1_twfr0"]
+[ext_resource type="PackedScene" uid="uid://b4n2ggcse2yq7" path="res://00_scenes/games/pong.tscn" id="1_twfr0"]
 [ext_resource type="Script" path="res://01_scripts/game_viewport_manager.gd" id="1_y7v8l"]
 [ext_resource type="Script" path="res://01_scripts/camera_look_at.gd" id="2_1qouj"]
 [ext_resource type="PackedScene" uid="uid://dwehlo3xi6uvy" path="res://00_scenes/tests/game_test_1.tscn" id="2_jsioq"]
