@@ -1,17 +1,13 @@
-extends CharacterBody2D
-
-
-@export var speed : float = 300.0
+extends PongCharacter
 
 
 func _physics_process(delta: float) -> void:
+	super._physics_process(delta)
+	
 	var direction : float = Input.get_axis("move_up", "move_down")
 	if direction:
-		velocity.y = direction * speed
+		velocity.y = direction * SPEED
 	else:
-		velocity.y = move_toward(velocity.y, 0, speed)
-	
-	# Force the character to not move horizontally
-	velocity.x = 0
+		velocity.y = move_toward(velocity.y, 0, SPEED)
 
 	move_and_slide()

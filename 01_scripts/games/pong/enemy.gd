@@ -1,9 +1,8 @@
 @tool
-extends CharacterBody2D
+extends PongCharacter
 
 const RAYCAST_LENGTH : float = 1000
 
-@export var speed : float = 300.0
 @export var ball : PongBall
 
 ## Distance needed that the character needs 
@@ -29,6 +28,13 @@ var _target_position : float = 0
 @export_category("Debug")
 @export var debug_prediction : bool = false
 var _prediction_points : Array[Vector2] = []
+
+
+func _ready() -> void:
+	if Engine.is_editor_hint():
+		return
+	
+	super._ready()
 
 
 func _enter_tree() -> void:
@@ -61,10 +67,12 @@ func _physics_process(delta: float) -> void:
 		queue_redraw()
 		return
 	
+	super._physics_process(delta)
+	
 	if abs(_target_position - global_position.y) > move_threshold:
-		velocity.y = sign(_target_position - global_position.y) * speed
+		velocity.y = sign(_target_position - global_position.y) * SPEED
 	else:
-		velocity.y = move_toward(velocity.y, 0, speed)
+		velocity.y = move_toward(velocity.y, 0, SPEED)
 	
 	# Force the character to not move horizontally
 	velocity.x = 0
