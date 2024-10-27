@@ -9,6 +9,10 @@ signal on_won
 var has_won : bool = false
 
 
+func _ready() -> void:
+	visibility_changed.connect(_on_visibility_changed)
+
+
 func win() -> void:
 	has_won = true
 	on_won.emit()
@@ -18,3 +22,11 @@ func win() -> void:
 func lose() -> void:
 	on_game_over.emit()
 	set_process_mode(Node.PROCESS_MODE_DISABLED)
+
+
+func _on_visibility_changed():
+	if not visible:
+		return
+	
+	if has_won:
+		set_process_mode(Node.PROCESS_MODE_DISABLED)

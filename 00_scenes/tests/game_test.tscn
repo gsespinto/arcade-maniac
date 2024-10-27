@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bma26lnrtxwbd"]
+[gd_scene load_steps=18 format=3 uid="uid://bma26lnrtxwbd"]
 
 [ext_resource type="PackedScene" uid="uid://b4n2ggcse2yq7" path="res://00_scenes/games/pong.tscn" id="1_twfr0"]
 [ext_resource type="Script" path="res://01_scripts/game_viewport_manager.gd" id="1_y7v8l"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://dwehlo3xi6uvy" path="res://00_scenes/tests/game_test_1.tscn" id="2_jsioq"]
 [ext_resource type="Script" path="res://01_scripts/tvs_holder.gd" id="3_41cxm"]
 [ext_resource type="PackedScene" uid="uid://c5co72s5pe4qt" path="res://00_scenes/tv.tscn" id="4_tgcfr"]
+[ext_resource type="Script" path="res://01_scripts/viewport_holder.gd" id="5_gjolp"]
 [ext_resource type="PackedScene" uid="uid://bqbsdq1ahl2dc" path="res://00_scenes/ui/tv_ui.tscn" id="5_n8pjq"]
 [ext_resource type="PackedScene" uid="uid://t6kste4a4hvi" path="res://00_scenes/tv_static.tscn" id="7_sdi7f"]
 
@@ -58,7 +59,7 @@ _data = {
 }
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_ays0e"]
-viewport_path = NodePath("GameViewport")
+viewport_path = NodePath("ViewportHolder/GameViewport")
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_0ykes"]
 viewport_path = NodePath("TVStaticViewport")
@@ -71,7 +72,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
 [node name="Camera3D" type="Camera3D" parent="PovCharacter" node_paths=PackedStringArray("game_viewport_manager", "tvs_holder")]
 environment = SubResource("Environment_lqimh")
 script = ExtResource("2_1qouj")
-game_viewport_manager = NodePath("../../GameViewport")
+game_viewport_manager = NodePath("../../ViewportHolder/GameViewport")
 tvs_holder = NodePath("../../TVsHolder")
 lerp_weight = 0.05
 
@@ -86,7 +87,7 @@ omni_range = 27.6032
 
 [node name="TVsHolder" type="Node3D" parent="." node_paths=PackedStringArray("game_viewport_manager")]
 script = ExtResource("3_41cxm")
-game_viewport_manager = NodePath("../GameViewport")
+game_viewport_manager = NodePath("../ViewportHolder/GameViewport")
 game_viewport_texture = SubResource("ViewportTexture_ays0e")
 idle_texture = SubResource("ViewportTexture_0ykes")
 
@@ -99,25 +100,32 @@ transform = Transform3D(-0.0898502, 0, -0.995955, 0, 1, 0, 0.995955, 0, -0.08985
 [node name="TV3" parent="TVsHolder" instance=ExtResource("4_tgcfr")]
 transform = Transform3D(-0.614285, 0.295596, 0.731626, 0, 0.927184, -0.374606, -0.789084, -0.230115, -0.569555, -6.73293, 3.39686, 5.2344)
 
-[node name="GameViewport" type="SubViewport" parent="." node_paths=PackedStringArray("games")]
-size = Vector2i(800, 600)
-script = ExtResource("1_y7v8l")
-games = [NodePath("GameTest0"), NodePath("GameTest1")]
-
-[node name="TvUi" parent="GameViewport" instance=ExtResource("5_n8pjq")]
-
-[node name="StaticOverlay" type="TextureRect" parent="GameViewport"]
-self_modulate = Color(1, 1, 1, 0.196078)
-z_index = 100
-offset_right = 800.0
-offset_bottom = 600.0
-texture = SubResource("ViewportTexture_0ykes")
-
-[node name="GameTest0" parent="GameViewport" instance=ExtResource("1_twfr0")]
-
-[node name="GameTest1" parent="GameViewport" instance=ExtResource("2_jsioq")]
-
 [node name="TVStaticViewport" type="SubViewport" parent="."]
 size = Vector2i(800, 600)
 
 [node name="TVStatic" parent="TVStaticViewport" instance=ExtResource("7_sdi7f")]
+
+[node name="ViewportHolder" type="Node3D" parent="."]
+script = ExtResource("5_gjolp")
+
+[node name="GameViewport" type="SubViewport" parent="ViewportHolder" node_paths=PackedStringArray("games", "ui")]
+gui_embed_subwindows = true
+size = Vector2i(800, 600)
+render_target_update_mode = 4
+script = ExtResource("1_y7v8l")
+games = [NodePath("GameTest0"), NodePath("GameTest1")]
+ui = NodePath("TvUi")
+
+[node name="GameTest0" parent="ViewportHolder/GameViewport" instance=ExtResource("1_twfr0")]
+
+[node name="GameTest1" parent="ViewportHolder/GameViewport" instance=ExtResource("2_jsioq")]
+
+[node name="TvUi" parent="ViewportHolder/GameViewport" instance=ExtResource("5_n8pjq")]
+z_index = 5
+
+[node name="StaticOverlay" type="TextureRect" parent="ViewportHolder/GameViewport"]
+self_modulate = Color(1, 1, 1, 0.196078)
+z_index = 10
+offset_right = 800.0
+offset_bottom = 600.0
+texture = SubResource("ViewportTexture_0ykes")

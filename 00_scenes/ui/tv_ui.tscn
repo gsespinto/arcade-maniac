@@ -1,10 +1,16 @@
-[gd_scene format=3 uid="uid://bqbsdq1ahl2dc"]
+[gd_scene load_steps=3 format=3 uid="uid://bqbsdq1ahl2dc"]
 
-[node name="TvUi" type="Control"]
+[ext_resource type="Script" path="res://01_scripts/ui/tv_ui.gd" id="1_02oip"]
+[ext_resource type="Script" path="res://01_scripts/ui/tv_tab.gd" id="2_yh2qu"]
+
+[node name="TvUi" type="Control" node_paths=PackedStringArray("tabs")]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 0
 offset_right = 800.0
 offset_bottom = 600.0
+script = ExtResource("1_02oip")
+tabs = [NodePath("MainMenu"), NodePath("PauseMenu")]
 
 [node name="ReferenceRect" type="ReferenceRect" parent="."]
 layout_mode = 1
@@ -14,3 +20,109 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 border_width = 3.0
+
+[node name="MainMenu" type="Control" parent="." node_paths=PackedStringArray("buttons")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_yh2qu")
+buttons = [NodePath("StartGame"), NodePath("Quit")]
+
+[node name="Background" type="ColorRect" parent="MainMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.749322, 0.410768, 0.791871, 1)
+
+[node name="StartGame" type="Button" parent="MainMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -125.0
+offset_top = -70.0
+offset_right = 125.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Start Game"
+
+[node name="Quit" type="Button" parent="MainMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -125.0
+offset_top = 30.0
+offset_right = 125.0
+offset_bottom = 80.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Quit"
+
+[node name="PauseMenu" type="Control" parent="." node_paths=PackedStringArray("buttons")]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_yh2qu")
+buttons = [NodePath("Resume")]
+
+[node name="Background" type="ColorRect" parent="PauseMenu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.504579, 0.494809, 0.969075, 1)
+
+[node name="Label" type="Label" parent="PauseMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -291.5
+offset_top = -175.0
+offset_right = 291.5
+offset_bottom = 32.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 151
+text = "PAUSED"
+uppercase = true
+
+[node name="Resume" type="Button" parent="PauseMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -125.0
+offset_top = 67.0
+offset_right = 125.0
+offset_bottom = 117.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Resume
+"
+
+[connection signal="pressed" from="MainMenu/StartGame" to="." method="start_game"]
+[connection signal="pressed" from="MainMenu/Quit" to="." method="quit_game"]
+[connection signal="pressed" from="PauseMenu/Resume" to="." method="resume_game"]

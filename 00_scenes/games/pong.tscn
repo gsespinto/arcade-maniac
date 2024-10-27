@@ -116,7 +116,7 @@ position = Vector2(400, 300)
 collision_layer = 3
 script = ExtResource("3_lpjw3")
 max_speed = 750.0
-mov_direction = Vector2(0.958226, 0.286014)
+mov_direction = Vector2(0.988598, -0.150581)
 
 [node name="Sprite2D" type="Sprite2D" parent="Ball"]
 scale = Vector2(0.75, 0.75)
