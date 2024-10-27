@@ -1,9 +1,8 @@
-[gd_scene load_steps=21 format=3 uid="uid://bma26lnrtxwbd"]
+[gd_scene load_steps=20 format=3 uid="uid://bma26lnrtxwbd"]
 
 [ext_resource type="PackedScene" uid="uid://b4n2ggcse2yq7" path="res://00_scenes/games/pong.tscn" id="1_twfr0"]
 [ext_resource type="Script" path="res://01_scripts/game_viewport_manager.gd" id="1_y7v8l"]
 [ext_resource type="Script" path="res://01_scripts/camera_look_at.gd" id="2_1qouj"]
-[ext_resource type="PackedScene" uid="uid://dwehlo3xi6uvy" path="res://00_scenes/tests/game_test_1.tscn" id="2_jsioq"]
 [ext_resource type="Script" path="res://01_scripts/tvs_holder.gd" id="3_41cxm"]
 [ext_resource type="PackedScene" uid="uid://c5co72s5pe4qt" path="res://00_scenes/tv.tscn" id="4_tgcfr"]
 [ext_resource type="Script" path="res://01_scripts/viewport_holder.gd" id="5_gjolp"]
@@ -114,17 +113,16 @@ size = Vector2i(800, 600)
 [node name="ViewportHolder" type="Node3D" parent="."]
 script = ExtResource("5_gjolp")
 
-[node name="GameViewport" type="SubViewport" parent="ViewportHolder" node_paths=PackedStringArray("games", "ui")]
+[node name="GameViewport" type="SubViewport" parent="ViewportHolder" node_paths=PackedStringArray("games", "ui", "character_viewport")]
 gui_embed_subwindows = true
 size = Vector2i(800, 600)
 render_target_update_mode = 4
 script = ExtResource("1_y7v8l")
-games = [NodePath("GameTest0"), NodePath("GameTest1")]
+games = [NodePath("GameTest0")]
 ui = NodePath("TvUi")
+character_viewport = NodePath("../CharacterViewport/Character")
 
 [node name="GameTest0" parent="ViewportHolder/GameViewport" instance=ExtResource("1_twfr0")]
-
-[node name="GameTest1" parent="ViewportHolder/GameViewport" instance=ExtResource("2_jsioq")]
 
 [node name="TvUi" parent="ViewportHolder/GameViewport" instance=ExtResource("5_n8pjq")]
 z_index = 5

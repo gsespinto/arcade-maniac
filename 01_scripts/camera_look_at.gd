@@ -13,7 +13,10 @@ var _look_at_pos : Vector3
 
 
 func _ready() -> void:
+	await get_tree().process_frame
+	
 	_look_at_pos = get_look_at_pos()
+	look_at(get_look_at_pos(), Vector3.UP)
 
 
 func _physics_process(delta) -> void:

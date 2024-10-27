@@ -1,6 +1,8 @@
 extends Control
 class_name TvTab
 
+signal changed_focus
+
 @export var buttons : Array[Button] = []
 var _current_bt : int
 
@@ -18,6 +20,7 @@ func _on_button_focus(button : Button):
 		return
 	
 	_current_bt = buttons.find(button)
+	changed_focus.emit()
 
 
 func get_focus_position() -> Vector2:

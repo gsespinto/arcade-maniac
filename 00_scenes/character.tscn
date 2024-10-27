@@ -1,10 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://dqbdsd36558yw"]
+[gd_scene load_steps=4 format=3 uid="uid://dqbdsd36558yw"]
 
+[ext_resource type="Script" path="res://01_scripts/character_viewport.gd" id="1_bkqhi"]
 [ext_resource type="PackedScene" uid="uid://bhk1c3n25wyl" path="res://03_models/character.tscn" id="1_sk6wc"]
 
 [sub_resource type="Environment" id="Environment_my3ny"]
 
-[node name="Character" type="Node3D"]
+[node name="Character" type="Node3D" node_paths=PackedStringArray("animator")]
+script = ExtResource("1_bkqhi")
+animator = NodePath("character/AnimationPlayer")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0573031, -0.0962422)
@@ -18,5 +21,11 @@ omni_range = 27.6032
 [node name="character" parent="." instance=ExtResource("1_sk6wc")]
 transform = Transform3D(-2.00123, 0, -1.74953e-07, 0, 2.00123, 0, 1.74953e-07, 0, -2.00123, 0, -2.69007, -0.1)
 
+[node name="Skeleton3D" parent="character/Armature" index="0"]
+bones/28/rotation = Quaternion(0.240648, -0.0294631, -0.286349, 0.926944)
+bones/30/position = Vector3(-5.6655, -4.66243e-06, -6.57236e-06)
+
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, -0.699414, 0.714717, 0, -0.714717, -0.699414, 0, 0, -4.30196)
+
+[editable path="character"]

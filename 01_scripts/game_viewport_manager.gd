@@ -5,8 +5,9 @@ signal on_game_changed
 
 @export var games : Array[GameViewport]
 @export var ui : TvUi
+@export var character_viewport : CharacterViewport
 
-var _current_game : int = 0
+var _current_game : GameViewport
 var _is_paused : bool = false
 
 # Called when the node enters the scene tree for the first time.
@@ -16,10 +17,13 @@ func _enter_tree() -> void:
 	
 	for game in games:
 		game.set_process_mode(PROCESS_MODE_DISABLED)
+		game.on_game_over.connect(_open_ui.bind("GameOver"))
+		game.on_won.connect(_won_game.bind(game))
 		remove_child(game)
 	
 	ui.started_game.connect(_close_ui)
 	ui.resumed_game.connect(_unpause)
+	ui.changed_focus.connect(character_viewport.play_animation.bind("ButtonPress"))
 
 
 func _ready() -> void:
@@ -43,7 +47,7 @@ func _go_to_next_game() -> void:
 	if ui.visible:
 		return
 	
-	_set_current_game((_current_game + 1) % games.size())
+	_set_current_game((games.find(_current_game) + 1) % games.size())
 
 
 func _set_current_game(index : int) -> void:
@@ -51,25 +55,30 @@ func _set_current_game(index : int) -> void:
 		print("Invalid index! Couldn't set current game!")
 		return
 	
-	games[_current_game].set_process_mode(PROCESS_MODE_DISABLED)
-	remove_child(games[_current_game])
+	if is_instance_valid(_current_game):
+		_current_game.set_process_mode(PROCESS_MODE_DISABLED)
+		remove_child(_current_game)
 	
 	games[index].set_process_mode(PROCESS_MODE_INHERIT)
 	add_child(games[index])
 	
-	_current_game = index
+	_current_game = games[index]
+	
 	on_game_changed.emit(index)
+	character_viewport.play_animation("ButtonPress")
 
 
 func _open_ui(tab : String) -> void:
-	games[_current_game].set_process_mode(PROCESS_MODE_DISABLED)
+	character_viewport.play_animation("ButtonPress")
+	_current_game.set_process_mode(PROCESS_MODE_DISABLED)
 	ui.open_tab(tab)
 	ui.set_process_mode(PROCESS_MODE_INHERIT)
 	ui.set_visible(true)
 
 
 func _close_ui() -> void:
-	games[_current_game].set_process_mode(PROCESS_MODE_INHERIT)
+	character_viewport.play_animation("ButtonPress")
+	_current_game.set_process_mode(PROCESS_MODE_INHERIT)
 	ui.set_process_mode(PROCESS_MODE_DISABLED)
 	ui.set_visible(false)
 
@@ -78,7 +87,10 @@ func get_look_at_pos() -> Vector2:
 	if ui.visible:
 		return ui.get_focus_position()
 	
-	return games[_current_game].look_at_target.position
+	if is_instance_valid(_current_game):
+		return _current_game.look_at_target.position
+	
+	return Vector2.ZERO
 
 
 func _pause() -> void:
@@ -89,3 +101,17 @@ func _pause() -> void:
 func _unpause() -> void:
 	_close_ui()
 	_is_paused = false
+
+
+func _remove_game(game : GameViewport) -> void:
+	game.queue_free()
+	games.erase(game)
+
+
+func _won_game(game : GameViewport) -> void:
+	if games.size() > 1:
+		_go_to_next_game()
+	else:
+		_open_ui("Won")
+	
+	_remove_game(game)

@@ -10,7 +10,8 @@ anchors_preset = 0
 offset_right = 800.0
 offset_bottom = 600.0
 script = ExtResource("1_02oip")
-tabs = [NodePath("MainMenu"), NodePath("PauseMenu")]
+game_scene = "res://00_scenes/tests/game_test.tscn"
+tabs = [NodePath("MainMenu"), NodePath("PauseMenu"), NodePath("GameOver"), NodePath("Won")]
 
 [node name="ReferenceRect" type="ReferenceRect" parent="."]
 layout_mode = 1
@@ -123,6 +124,108 @@ grow_vertical = 2
 text = "Resume
 "
 
+[node name="GameOver" type="Control" parent="." node_paths=PackedStringArray("buttons")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_yh2qu")
+buttons = [NodePath("Restart"), NodePath("Quit")]
+
+[node name="Background" type="ColorRect" parent="GameOver"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.802304, 0.464158, 0.302667, 1)
+
+[node name="Restart" type="Button" parent="GameOver"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -125.0
+offset_top = -70.0
+offset_right = 125.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Restart"
+
+[node name="Quit" type="Button" parent="GameOver"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -125.0
+offset_top = 30.0
+offset_right = 125.0
+offset_bottom = 80.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Quit"
+
+[node name="Won" type="Control" parent="." node_paths=PackedStringArray("buttons")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_yh2qu")
+buttons = [NodePath("Restart"), NodePath("Quit")]
+
+[node name="Background" type="ColorRect" parent="Won"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.46736, 0.614803, 0.408412, 1)
+
+[node name="Restart" type="Button" parent="Won"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -125.0
+offset_top = -70.0
+offset_right = 125.0
+offset_bottom = -20.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Restart"
+
+[node name="Quit" type="Button" parent="Won"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -125.0
+offset_top = 30.0
+offset_right = 125.0
+offset_bottom = 80.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "Quit"
+
 [connection signal="pressed" from="MainMenu/StartGame" to="." method="start_game"]
 [connection signal="pressed" from="MainMenu/Quit" to="." method="quit_game"]
 [connection signal="pressed" from="PauseMenu/Resume" to="." method="resume_game"]
+[connection signal="pressed" from="GameOver/Restart" to="." method="restart_game"]
+[connection signal="pressed" from="GameOver/Quit" to="." method="quit_game"]
+[connection signal="pressed" from="Won/Restart" to="." method="restart_game"]
+[connection signal="pressed" from="Won/Quit" to="." method="quit_game"]
