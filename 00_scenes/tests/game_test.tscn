@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://bma26lnrtxwbd"]
+[gd_scene load_steps=21 format=3 uid="uid://bma26lnrtxwbd"]
 
 [ext_resource type="PackedScene" uid="uid://b4n2ggcse2yq7" path="res://00_scenes/games/pong.tscn" id="1_twfr0"]
 [ext_resource type="Script" path="res://01_scripts/game_viewport_manager.gd" id="1_y7v8l"]
@@ -9,6 +9,8 @@
 [ext_resource type="Script" path="res://01_scripts/viewport_holder.gd" id="5_gjolp"]
 [ext_resource type="PackedScene" uid="uid://bqbsdq1ahl2dc" path="res://00_scenes/ui/tv_ui.tscn" id="5_n8pjq"]
 [ext_resource type="PackedScene" uid="uid://t6kste4a4hvi" path="res://00_scenes/tv_static.tscn" id="7_sdi7f"]
+[ext_resource type="PackedScene" uid="uid://dqbdsd36558yw" path="res://00_scenes/character.tscn" id="10_4symn"]
+[ext_resource type="Script" path="res://01_scripts/resizable_viewport.gd" id="10_dqvp8"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_bdqev"]
 
@@ -64,12 +66,16 @@ viewport_path = NodePath("ViewportHolder/GameViewport")
 [sub_resource type="ViewportTexture" id="ViewportTexture_0ykes"]
 viewport_path = NodePath("TVStaticViewport")
 
+[sub_resource type="ViewportTexture" id="ViewportTexture_ajbyk"]
+viewport_path = NodePath("ViewportHolder/CharacterViewport")
+
 [node name="GameTest" type="Node3D"]
 
 [node name="PovCharacter" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
 
 [node name="Camera3D" type="Camera3D" parent="PovCharacter" node_paths=PackedStringArray("game_viewport_manager", "tvs_holder")]
+cull_mask = 1048573
 environment = SubResource("Environment_lqimh")
 script = ExtResource("2_1qouj")
 game_viewport_manager = NodePath("../../ViewportHolder/GameViewport")
@@ -129,3 +135,30 @@ z_index = 10
 offset_right = 800.0
 offset_bottom = 600.0
 texture = SubResource("ViewportTexture_0ykes")
+
+[node name="CharacterViewport" type="SubViewport" parent="ViewportHolder" node_paths=PackedStringArray("reference_rect")]
+transparent_bg = true
+size = Vector2i(1920, 1080)
+render_target_update_mode = 4
+script = ExtResource("10_dqvp8")
+reference_rect = NodePath("../../Control")
+
+[node name="Character" parent="ViewportHolder/CharacterViewport" instance=ExtResource("10_4symn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("ViewportTexture_ajbyk")

@@ -1,0 +1,22 @@
+[gd_scene load_steps=3 format=3 uid="uid://dqbdsd36558yw"]
+
+[ext_resource type="PackedScene" uid="uid://bhk1c3n25wyl" path="res://03_models/character.tscn" id="1_sk6wc"]
+
+[sub_resource type="Environment" id="Environment_my3ny"]
+
+[node name="Character" type="Node3D"]
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0573031, -0.0962422)
+cull_mask = 1048574
+environment = SubResource("Environment_my3ny")
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="."]
+layers = 2
+omni_range = 27.6032
+
+[node name="character" parent="." instance=ExtResource("1_sk6wc")]
+transform = Transform3D(-2.00123, 0, -1.74953e-07, 0, 2.00123, 0, 1.74953e-07, 0, -2.00123, 0, -2.69007, -0.1)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.699414, 0.714717, 0, -0.714717, -0.699414, 0, 0, -4.30196)

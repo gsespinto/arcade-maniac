@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://ca38d07ra0vej" path="res://03_models/tv.blend" id="1_0ftp6"]
 [ext_resource type="Script" path="res://01_scripts/tv.gd" id="1_1uroe"]
 
-[node name="TV" type="Node3D" node_paths=PackedStringArray("sprite")]
+[node name="TV" type="MeshInstance3D" node_paths=PackedStringArray("sprite")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.122, 0, 0)
 script = ExtResource("1_1uroe")
 sprite = NodePath("tv/Sprite3D")

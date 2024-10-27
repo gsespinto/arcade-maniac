@@ -6,4 +6,5 @@ extends Node3D
 
 
 func _unhandled_input(event: InputEvent) -> void:
-	$GameViewport.push_input(event)
+	for child in get_children():
+		child.push_input(event)
