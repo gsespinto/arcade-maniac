@@ -118,11 +118,16 @@ gui_embed_subwindows = true
 size = Vector2i(800, 600)
 render_target_update_mode = 4
 script = ExtResource("1_y7v8l")
-games = [NodePath("GameTest0")]
+games = [NodePath("GameTest0"), NodePath("GameTest1"), NodePath("GameTest2")]
 ui = NodePath("TvUi")
 character_viewport = NodePath("../CharacterViewport/Character")
+sequential = false
 
 [node name="GameTest0" parent="ViewportHolder/GameViewport" instance=ExtResource("1_twfr0")]
+
+[node name="GameTest1" parent="ViewportHolder/GameViewport" instance=ExtResource("1_twfr0")]
+
+[node name="GameTest2" parent="ViewportHolder/GameViewport" instance=ExtResource("1_twfr0")]
 
 [node name="TvUi" parent="ViewportHolder/GameViewport" instance=ExtResource("5_n8pjq")]
 z_index = 5

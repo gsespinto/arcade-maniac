@@ -27,6 +27,7 @@ func _enter_tree() -> void:
 		_tvs[i].set_texture(idle_texture)
 	
 	game_viewport_manager.on_game_changed.connect(_set_current_tv)
+	game_viewport_manager.on_game_removed.connect(_remove_tv)
 
 
 # Sets current tv index to given value and 
@@ -38,10 +39,21 @@ func _set_current_tv(index : int) -> void:
 	
 	index = index % _tvs.size()
 	
-	_tvs[_current_tv_index].set_texture(idle_texture)
+	if _current_tv_index >= 0 and _current_tv_index < _tvs.size():
+		_tvs[_current_tv_index].set_texture(idle_texture)
 	_tvs[index].set_texture(game_viewport_texture)
 	_current_tv_index = index
 
 
 func get_current_tv() -> TV:
 	return _tvs[_current_tv_index]
+
+
+func _remove_tv(index : int) -> void:
+	if _tvs.size() <= 1:
+		return
+	
+	_tvs[index].set_texture(idle_texture)
+	_tvs.remove_at(index)
+	if _current_tv_index >= index:
+		_current_tv_index -= 1
