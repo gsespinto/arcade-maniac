@@ -3,6 +3,7 @@ class_name GameViewportManager
 
 signal on_game_changed
 signal on_game_removed
+signal on_end
 
 @export var games : Array[GameViewport]
 @export var ui : TvUi
@@ -23,7 +24,7 @@ func _enter_tree() -> void:
 	
 	for game in games:
 		game.set_process_mode(PROCESS_MODE_DISABLED)
-		game.on_game_over.connect(_open_ui.bind("GameOver"))
+		game.on_game_over.connect(_game_over)
 		game.on_won.connect(_won_game.bind(game))
 		remove_child(game)
 	
@@ -58,14 +59,17 @@ func _start_game() -> void:
 	_change_game_timer.start(randf_range(change_game_time_range.x, change_game_time_range.y))
 
 
-func _go_to_next_game() -> void:
+func _go_to_next_game(exclude_current : bool = false) -> void:
 	if ui.visible or games.size() <= 1:
 		return
 	
 	if sequential:
 		_set_current_game((games.find(_current_game) + 1) % games.size())
 	else:
-		_set_current_game(randi_range(0, games.size() - 1))
+		var available_games : Array = games.duplicate()
+		if exclude_current:
+			available_games.erase(_current_game)
+		_set_current_game(randi_range(0, available_games.size() - 1))
 	_change_game_timer.start(randf_range(change_game_time_range.x, change_game_time_range.y))
 
 
@@ -88,7 +92,9 @@ func _set_current_game(index : int) -> void:
 	character_viewport.play_animation("ButtonPress")
 	
 	if not is_first_game:
+		_open_ui("WarmUp")
 		await get_tree().create_timer(1.0).timeout
+		_close_ui()
 		games[index].set_process_mode(PROCESS_MODE_INHERIT)
 	
 	character_viewport.play_animation("ButtonPress")
@@ -148,8 +154,14 @@ func _won_game(game : GameViewport) -> void:
 	_change_game_timer.set_paused(false)
 
 	if games.size() > 1:
-		_go_to_next_game()
+		_go_to_next_game(true)
 	else:
 		_open_ui("Won")
+		on_end.emit()
 	
 	_remove_game(game)
+
+
+func _game_over() -> void:
+	_open_ui("GameOver")
+	on_end.emit()

@@ -2,13 +2,20 @@ extends Node3D
 class_name TVsHolder
 
 @export var game_viewport_manager : GameViewportManager
+
 ## Viewport texture that will be displayed on the current tv.
 @export var game_viewport_texture : ViewportTexture
+
 ## Texture that will be displayed on idle tvs.
 @export var idle_texture : Texture
 
+## If true, will change back to the first TV
+## once the game has ended by winning or losing
+@export var reset_tv_on_end : bool = false
+
 var _tvs : Array[TV] = []
 var _current_tv_index : int = 0
+var _default_tv : TV = null
 
 
 # Called when the node enters the scene tree for the first time.
@@ -21,6 +28,7 @@ func _enter_tree() -> void:
 		_tvs.append(child)
 	
 	assert(not _tvs.is_empty(), "TVsHolder must have at least on TV child node!")
+	_default_tv = _tvs.front()
 	
 	# Set initial tv texture
 	for i in _tvs.size():
@@ -28,6 +36,7 @@ func _enter_tree() -> void:
 	
 	game_viewport_manager.on_game_changed.connect(_set_current_tv)
 	game_viewport_manager.on_game_removed.connect(_remove_tv)
+	game_viewport_manager.on_end.connect(_reset_tv)
 
 
 # Sets current tv index to given value and 
@@ -57,3 +66,13 @@ func _remove_tv(index : int) -> void:
 	_tvs.remove_at(index)
 	if _current_tv_index >= index:
 		_current_tv_index -= 1
+
+
+func _reset_tv() -> void:
+	if not reset_tv_on_end:
+		return
+	
+	if not _tvs.has(_default_tv):
+		_tvs.insert(0, _default_tv)
+	
+	_set_current_tv(0)

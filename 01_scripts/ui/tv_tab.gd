@@ -25,11 +25,14 @@ func _on_button_focus(button : Button):
 
 func get_focus_position() -> Vector2:
 	if buttons.is_empty():
-		return Vector2.ZERO
+		return get_rect().size / 2
 	
 	return buttons[_current_bt].get_rect().position
 
 
 func reset_focus():
+	if buttons.is_empty():
+		return
+	
 	_current_bt = 0
 	buttons[_current_bt].grab_focus()
