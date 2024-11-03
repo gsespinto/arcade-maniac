@@ -1,21 +1,44 @@
 extends SubViewport
 class_name GameViewportManager
 
+## Emitted whenever the current game changes with the new index
 signal on_game_changed
+
+## Emitted whenever a game is removed with its index
 signal on_game_removed
+
+## Emitted whenever the game ends, either by winning or game over
 signal on_end
 
+
+## Array of games that need to be completed to beat the game
 @export var games : Array[GameViewport]
+
+## Parent of TV tabs, when this node is visible
+## the current game viewport is paused
 @export var ui : TvUi
+
+## Viewport of the character POV, so that we may
+## animate the character button press whenever
+## there's a meaningful interaction in the game
 @export var character_viewport : CharacterViewport
 
+## Time range to switch between the current available games
+## (x: min, y: max)
 @export var change_game_time_range : Vector2 = Vector2(5, 10)
+
+## Should the game switch between the games in the array order or
+## pick the next game randomly?
+@export var switch_sequentially : bool = true
+
+@export_category("Delays")
+@export var warm_up_delay : float = 1.0
+@export var win_delay : float = 1.0
+
 var _change_game_timer : Timer = null
-
-@export var sequential : bool = true
-
 var _current_game : GameViewport
 var _is_paused : bool = false
+
 
 # Called when the node enters the scene tree for the first time.
 func _enter_tree() -> void:
@@ -43,7 +66,8 @@ func _ready() -> void:
 
 
 func _process(delta: float) -> void:
-	if Input.is_action_just_pressed("next_game"):
+	# Debug input to switch between games
+	if not OS.has_feature("standalone") and Input.is_action_just_pressed("next_game"):
 		_go_to_next_game()
 	
 	if Input.is_action_just_pressed("pause"):
@@ -59,76 +83,120 @@ func _start_game() -> void:
 	_change_game_timer.start(randf_range(change_game_time_range.x, change_game_time_range.y))
 
 
+# Change to next available game, either it be sequentially or randomly.
+# If exclude_current, it'll ensure that the current game isn't picked randomly.
 func _go_to_next_game(exclude_current : bool = false) -> void:
 	if ui.visible or games.size() <= 1:
 		return
 	
-	if sequential:
+	if switch_sequentially:
 		_set_current_game((games.find(_current_game) + 1) % games.size())
 	else:
 		var available_games : Array = games.duplicate()
 		if exclude_current:
 			available_games.erase(_current_game)
 		_set_current_game(randi_range(0, available_games.size() - 1))
+	
+	# Reset change timer
 	_change_game_timer.start(randf_range(change_game_time_range.x, change_game_time_range.y))
 
-
+# Pauses and removes previous game from tree, and sets game at given index
+# as current by unpausing it and adding it as child of this subviewport.
+# When switching between games, there's a delay before the new game is unpaused.
 func _set_current_game(index : int) -> void:
+	# Ensure the given game index is valid
 	if index < 0 or index >= games.size():
 		print("Invalid index! Couldn't set current game!")
 		return
 	
+	# If the given game index is already the current
+	# we don't have to do anything
 	if index == games.find(_current_game):
 		return
 	
+	# Pause previous game and remove it from the scene tree
+	# This is so that physics bodies from this game don't interact
+	# with ones of the current game
 	if is_instance_valid(_current_game):
 		_current_game.set_process_mode(PROCESS_MODE_DISABLED)
 		remove_child(_current_game)
 	
 	var is_first_game : bool = _current_game == null
+	
+	# Set current game
 	add_child(games[index])
 	_current_game = games[index]
 	on_game_changed.emit(index)
-	character_viewport.play_animation("ButtonPress")
 	
+	# Set character animation
+	play_character_animation()
+	
+	# If we're switching between two games, they set
+	# a delay to give the player some warm up
 	if not is_first_game:
 		_open_ui("WarmUp")
-		await get_tree().create_timer(1.0).timeout
+		
+		await get_tree().create_timer(warm_up_delay).timeout
+		
 		_close_ui()
-		games[index].set_process_mode(PROCESS_MODE_INHERIT)
+		play_character_animation()
 	
-	character_viewport.play_animation("ButtonPress")
+	games[index].set_process_mode(PROCESS_MODE_INHERIT)
 
 
+# Requests tv ui to open target tab,
+# when successful pauses the game
 func _open_ui(tab : String) -> void:
+	# If we couldn't open target tab
+	# then do nothing
+	if not ui.open_tab(tab):
+		return
+	
+	# Pause current game
+	_current_game.set_process_mode(PROCESS_MODE_DISABLED)
 	_change_game_timer.set_paused(true)
 	
-	character_viewport.play_animation("ButtonPress")
-	_current_game.set_process_mode(PROCESS_MODE_DISABLED)
-	ui.open_tab(tab)
+	# Show ui
 	ui.set_process_mode(PROCESS_MODE_INHERIT)
 	ui.set_visible(true)
 
+	play_character_animation()
 
+
+# If opened, closes tv ui and unpauses the current game
 func _close_ui() -> void:
+	# Do nothing if the tv ui isn't openned
+	if not ui.visible:
+		return
+	
+	# Unpause change game timer
 	_change_game_timer.set_paused(false)
 	if _change_game_timer.time_left > 0:
 		_change_game_timer.start(_change_game_timer.time_left)
 	
-	character_viewport.play_animation("ButtonPress")
-	_current_game.set_process_mode(PROCESS_MODE_INHERIT)
+	# Pause and hide ui
 	ui.set_process_mode(PROCESS_MODE_DISABLED)
 	ui.set_visible(false)
+	
+	# Unpause current game
+	_current_game.set_process_mode(PROCESS_MODE_INHERIT)
+	
+	play_character_animation()
 
 
+# Returns target look position in the tv local position
 func get_look_at_pos() -> Vector2:
+	# When ui is visible, get the current focus position
 	if ui.visible:
 		return ui.get_focus_position()
 	
+	# If there's a valid current game
+	# get the look at taget position
 	if is_instance_valid(_current_game):
 		return _current_game.look_at_target.position
 	
-	return Vector2.ZERO
+	# Return center screen
+	return size / 2.0
 
 
 func _pause() -> void:
@@ -141,27 +209,46 @@ func _unpause() -> void:
 	_is_paused = false
 
 
+# Frees given game with given name
 func _remove_game(game : GameViewport) -> void:
 	on_game_removed.emit(games.find(game))
 	game.queue_free()
 	games.erase(game)
 
 
+# Called whenever a game is won, if all games have been won
+# triggers the win ending, otherwise changes to next game
+# and removes current game so it isn't picked further on
 func _won_game(game : GameViewport) -> void:
 	game.set_process_mode(PROCESS_MODE_DISABLED)
 	_change_game_timer.set_paused(true)
-	await get_tree().create_timer(2.0).timeout
+	
+	await get_tree().create_timer(win_delay).timeout
 	_change_game_timer.set_paused(false)
-
+	
+	# If there are still games to be won
+	# go to next game
 	if games.size() > 1:
 		_go_to_next_game(true)
+	# If all games have been won
+	# trigger win ending
 	else:
 		_open_ui("Won")
 		on_end.emit()
 	
+	# Remove this game so it isn't playble anymore
 	_remove_game(game)
 
 
+# Called whenever any game is lost,
+# triggers game over ending
 func _game_over() -> void:
 	_open_ui("GameOver")
 	on_end.emit()
+
+
+func play_character_animation() -> void:
+	if not is_instance_valid(character_viewport):
+		return
+	
+	character_viewport.play_animation("ButtonPress")

@@ -121,7 +121,6 @@ script = ExtResource("1_y7v8l")
 games = [NodePath("GameTest0"), NodePath("GameTest1"), NodePath("GameTest2")]
 ui = NodePath("TvUi")
 character_viewport = NodePath("../CharacterViewport/Character")
-sequential = false
 
 [node name="GameTest0" parent="ViewportHolder/GameViewport" instance=ExtResource("1_twfr0")]
 

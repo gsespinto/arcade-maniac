@@ -13,8 +13,14 @@ class_name TVsHolder
 ## once the game has ended by winning or losing
 @export var reset_tv_on_end : bool = false
 
+# Array of tvs currently avaible to switch to
+# Gathered from TV instances that are children of this node
 var _tvs : Array[TV] = []
 var _current_tv_index : int = 0
+
+# First TV child of this node, if flagged
+# the holder will switch to this tv once
+# the game ends
 var _default_tv : TV = null
 
 
@@ -58,20 +64,27 @@ func get_current_tv() -> TV:
 	return _tvs[_current_tv_index]
 
 
+# Removes tv at given index, this is useful so that the
+# game index from the game viewport manager matches
+# the target tv it is supposed to be displayed at
 func _remove_tv(index : int) -> void:
 	if _tvs.size() <= 1:
 		return
 	
 	_tvs[index].set_texture(idle_texture)
 	_tvs.remove_at(index)
+	
+	# Offset current index if needed
 	if _current_tv_index >= index:
 		_current_tv_index -= 1
 
 
+# If flagged, resets current tv to first one
 func _reset_tv() -> void:
 	if not reset_tv_on_end:
 		return
 	
+	# Ensure the default tv is available
 	if not _tvs.has(_default_tv):
 		_tvs.insert(0, _default_tv)
 	

@@ -1,10 +1,18 @@
 extends Control
+## Node responsible to handle ui interactions within
+## the tv interface (the game's HUD).
 class_name TvUi
+
+
+## Emitted when the focus target of the current tab changes
+## useful to give audiovisual feedback 
+signal changed_focus
 
 signal started_game
 signal resumed_game
-signal changed_focus
 
+
+## File path to the game scene to load to restart the game
 @export var game_scene : String = ""
 
 @export var tabs : Array[TvTab] = []
@@ -33,13 +41,22 @@ func restart_game() -> void:
 	LoadingScreen.load_scene(game_scene)
 
 
-func open_tab(tab_name : String):
+# Sets tab with target name visible and hides all the rest
+# Returns whether it successfully opened a tab
+func open_tab(tab_name : String) -> bool:
+	var success : bool = false
 	for i in tabs.size():
 		if tabs[i].name == tab_name:
 			_current_tab = i
 			tabs[i].reset_focus()
+			success = true
 		
 		tabs[i].set_visible(tabs[i].name == tab_name)
+	
+	if not success:
+		print("'%s' tab doesn't exist in tv ui!" % [tab_name])
+	
+	return success
 
 
 func get_focus_position() -> Vector2:
