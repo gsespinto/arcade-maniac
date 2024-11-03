@@ -18,22 +18,25 @@ signal on_end
 ## the current game viewport is paused
 @export var ui : TvUi
 
-## Viewport of the character POV, so that we may
-## animate the character button press whenever
-## there's a meaningful interaction in the game
-@export var character_viewport : CharacterViewport
-
-## Time range to switch between the current available games
-## (x: min, y: max)
-@export var change_game_time_range : Vector2 = Vector2(5, 10)
-
 ## Should the game switch between the games in the array order or
 ## pick the next game randomly?
 @export var switch_sequentially : bool = true
 
 @export_category("Delays")
+## Time range to switch between the current available games
+## (x: min, y: max)
+@export var change_game_time_range : Vector2 = Vector2(5, 10)
 @export var warm_up_delay : float = 1.0
 @export var win_delay : float = 1.0
+
+@export_category("Feedback")
+## Viewport of the character POV, so that we may
+## animate the character button press whenever
+## there's a meaningful interaction in the game
+@export var character_viewport : CharacterViewport
+
+## Audio to play whenever there's a character interaction in the game
+@export var interaction_audio : AudioStreamPlayer2D
 
 var _change_game_timer : Timer = null
 var _current_game : GameViewport
@@ -53,7 +56,7 @@ func _enter_tree() -> void:
 	
 	ui.started_game.connect(_start_game)
 	ui.resumed_game.connect(_unpause)
-	ui.changed_focus.connect(character_viewport.play_animation.bind("ButtonPress"))
+	ui.changed_focus.connect(_play_interaction)
 
 
 func _ready() -> void:
@@ -129,7 +132,7 @@ func _set_current_game(index : int) -> void:
 	on_game_changed.emit(index)
 	
 	# Set character animation
-	play_character_animation()
+	_play_interaction()
 	
 	# If we're switching between two games, they set
 	# a delay to give the player some warm up
@@ -139,9 +142,9 @@ func _set_current_game(index : int) -> void:
 		await get_tree().create_timer(warm_up_delay).timeout
 		
 		_close_ui()
-		play_character_animation()
+		_play_interaction()
 	
-	games[index].set_process_mode(PROCESS_MODE_INHERIT)
+	_current_game.set_process_mode(PROCESS_MODE_INHERIT)
 
 
 # Requests tv ui to open target tab,
@@ -160,7 +163,7 @@ func _open_ui(tab : String) -> void:
 	ui.set_process_mode(PROCESS_MODE_INHERIT)
 	ui.set_visible(true)
 
-	play_character_animation()
+	_play_interaction()
 
 
 # If opened, closes tv ui and unpauses the current game
@@ -181,7 +184,7 @@ func _close_ui() -> void:
 	# Unpause current game
 	_current_game.set_process_mode(PROCESS_MODE_INHERIT)
 	
-	play_character_animation()
+	_play_interaction()
 
 
 # Returns target look position in the tv local position
@@ -247,8 +250,11 @@ func _game_over() -> void:
 	on_end.emit()
 
 
-func play_character_animation() -> void:
-	if not is_instance_valid(character_viewport):
-		return
+# Gives audiovisual feedback whenever there's 
+# a character interaction in the game
+func _play_interaction() -> void:
+	if is_instance_valid(character_viewport):
+		character_viewport.play_animation("ButtonPress")
 	
-	character_viewport.play_animation("ButtonPress")
+	if is_instance_valid(interaction_audio):
+		interaction_audio.play()

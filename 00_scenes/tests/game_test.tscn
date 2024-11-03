@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://bma26lnrtxwbd"]
+[gd_scene load_steps=21 format=3 uid="uid://bma26lnrtxwbd"]
 
 [ext_resource type="PackedScene" uid="uid://b4n2ggcse2yq7" path="res://00_scenes/games/pong.tscn" id="1_twfr0"]
 [ext_resource type="Script" path="res://01_scripts/game_viewport_manager.gd" id="1_y7v8l"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://t6kste4a4hvi" path="res://00_scenes/tv_static.tscn" id="7_sdi7f"]
 [ext_resource type="PackedScene" uid="uid://dqbdsd36558yw" path="res://00_scenes/character.tscn" id="10_4symn"]
 [ext_resource type="Script" path="res://01_scripts/resizable_viewport.gd" id="10_dqvp8"]
+[ext_resource type="AudioStream" uid="uid://bx87tfdkrye4v" path="res://04_sounds/click_sfx_0.wav" id="11_7ku0n"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_bdqev"]
 
@@ -95,6 +96,7 @@ script = ExtResource("3_41cxm")
 game_viewport_manager = NodePath("../ViewportHolder/GameViewport")
 game_viewport_texture = SubResource("ViewportTexture_ays0e")
 idle_texture = SubResource("ViewportTexture_0ykes")
+reset_tv_on_end = true
 
 [node name="TV" parent="TVsHolder" instance=ExtResource("4_tgcfr")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.170339, 0, -4.58673)
@@ -113,7 +115,7 @@ size = Vector2i(800, 600)
 [node name="ViewportHolder" type="Node3D" parent="."]
 script = ExtResource("5_gjolp")
 
-[node name="GameViewport" type="SubViewport" parent="ViewportHolder" node_paths=PackedStringArray("games", "ui", "character_viewport")]
+[node name="GameViewport" type="SubViewport" parent="ViewportHolder" node_paths=PackedStringArray("games", "ui", "character_viewport", "interaction_audio")]
 gui_embed_subwindows = true
 size = Vector2i(800, 600)
 render_target_update_mode = 4
@@ -121,6 +123,7 @@ script = ExtResource("1_y7v8l")
 games = [NodePath("GameTest0"), NodePath("GameTest1"), NodePath("GameTest2")]
 ui = NodePath("TvUi")
 character_viewport = NodePath("../CharacterViewport/Character")
+interaction_audio = NodePath("../../AudioStreamPlayer2D")
 
 [node name="GameTest0" parent="ViewportHolder/GameViewport" instance=ExtResource("1_twfr0")]
 
@@ -164,3 +167,6 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("ViewportTexture_ajbyk")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("11_7ku0n")
