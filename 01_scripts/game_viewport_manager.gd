@@ -10,6 +10,9 @@ signal on_game_removed
 ## Emitted whenever the game ends, either by winning or game over
 signal on_end
 
+## Emitted whenever there should be audiovisual interaction feedback in the game
+signal on_interaction_feedback
+
 
 ## Array of games that need to be completed to beat the game
 @export var games : Array[GameViewport]
@@ -29,15 +32,6 @@ signal on_end
 @export var warm_up_delay : float = 1.0
 @export var win_delay : float = 1.0
 
-@export_category("Feedback")
-## Viewport of the character POV, so that we may
-## animate the character button press whenever
-## there's a meaningful interaction in the game
-@export var character_viewport : CharacterViewport
-
-## Audio to play whenever there's a character interaction in the game
-@export var interaction_audio : AudioStreamPlayer2D
-
 var _change_game_timer : Timer = null
 var _current_game : GameViewport
 var _is_paused : bool = false
@@ -56,7 +50,7 @@ func _enter_tree() -> void:
 	
 	ui.started_game.connect(_start_game)
 	ui.resumed_game.connect(_unpause)
-	ui.changed_focus.connect(_play_interaction)
+	ui.changed_focus.connect(on_interaction_feedback.emit)
 
 
 func _ready() -> void:
@@ -132,7 +126,7 @@ func _set_current_game(index : int) -> void:
 	on_game_changed.emit(index)
 	
 	# Set character animation
-	_play_interaction()
+	on_interaction_feedback.emit()
 	
 	# If we're switching between two games, they set
 	# a delay to give the player some warm up
@@ -142,7 +136,7 @@ func _set_current_game(index : int) -> void:
 		await get_tree().create_timer(warm_up_delay).timeout
 		
 		_close_ui()
-		_play_interaction()
+		on_interaction_feedback.emit()
 	
 	_current_game.set_process_mode(PROCESS_MODE_INHERIT)
 
@@ -163,7 +157,7 @@ func _open_ui(tab : String) -> void:
 	ui.set_process_mode(PROCESS_MODE_INHERIT)
 	ui.set_visible(true)
 
-	_play_interaction()
+	on_interaction_feedback.emit()
 
 
 # If opened, closes tv ui and unpauses the current game
@@ -184,7 +178,7 @@ func _close_ui() -> void:
 	# Unpause current game
 	_current_game.set_process_mode(PROCESS_MODE_INHERIT)
 	
-	_play_interaction()
+	on_interaction_feedback.emit()
 
 
 # Returns target look position in the tv local position
@@ -248,13 +242,3 @@ func _won_game(game : GameViewport) -> void:
 func _game_over() -> void:
 	_open_ui("GameOver")
 	on_end.emit()
-
-
-# Gives audiovisual feedback whenever there's 
-# a character interaction in the game
-func _play_interaction() -> void:
-	if is_instance_valid(character_viewport):
-		character_viewport.play_animation("ButtonPress")
-	
-	if is_instance_valid(interaction_audio):
-		interaction_audio.play()

@@ -115,15 +115,13 @@ size = Vector2i(800, 600)
 [node name="ViewportHolder" type="Node3D" parent="."]
 script = ExtResource("5_gjolp")
 
-[node name="GameViewport" type="SubViewport" parent="ViewportHolder" node_paths=PackedStringArray("games", "ui", "character_viewport", "interaction_audio")]
+[node name="GameViewport" type="SubViewport" parent="ViewportHolder" node_paths=PackedStringArray("games", "ui")]
 gui_embed_subwindows = true
 size = Vector2i(800, 600)
 render_target_update_mode = 4
 script = ExtResource("1_y7v8l")
 games = [NodePath("GameTest0"), NodePath("GameTest1"), NodePath("GameTest2")]
 ui = NodePath("TvUi")
-character_viewport = NodePath("../CharacterViewport/Character")
-interaction_audio = NodePath("../../AudioStreamPlayer2D")
 
 [node name="GameTest0" parent="ViewportHolder/GameViewport" instance=ExtResource("1_twfr0")]
 
@@ -170,3 +168,6 @@ texture = SubResource("ViewportTexture_ajbyk")
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("11_7ku0n")
+
+[connection signal="on_interaction_feedback" from="ViewportHolder/GameViewport" to="AudioStreamPlayer2D" method="play"]
+[connection signal="on_interaction_feedback" from="ViewportHolder/GameViewport" to="ViewportHolder/CharacterViewport/Character" method="play_animation" binds= ["ButtonPress"]]
