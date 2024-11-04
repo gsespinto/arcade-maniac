@@ -3,12 +3,16 @@
 [ext_resource type="PackedScene" uid="uid://ca38d07ra0vej" path="res://03_models/tv.blend" id="1_0ftp6"]
 [ext_resource type="Script" path="res://01_scripts/tv.gd" id="1_1uroe"]
 
-[node name="TV" type="MeshInstance3D" node_paths=PackedStringArray("sprite")]
+[node name="TV" type="MeshInstance3D" node_paths=PackedStringArray("sprite", "audio_player")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.122, 0, 0)
 script = ExtResource("1_1uroe")
 sprite = NodePath("tv/Sprite3D")
+audio_player = NodePath("AudioStreamPlayer3D")
 
 [node name="tv" parent="." instance=ExtResource("1_0ftp6")]
 
 [node name="Sprite3D" type="Sprite3D" parent="tv"]
 transform = Transform3D(0.325, 0, -2.06612e-08, 0, 0.325, 0, 2.06612e-08, 0, 0.325, -0.601413, 1.87358, 0.87429)
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+unit_size = 5.0

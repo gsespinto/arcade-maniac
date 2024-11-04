@@ -43,6 +43,7 @@ func _enter_tree() -> void:
 	game_viewport_manager.on_game_changed.connect(_set_current_tv)
 	game_viewport_manager.on_game_removed.connect(_remove_tv)
 	game_viewport_manager.on_end.connect(_reset_tv)
+	game_viewport_manager.on_game_sfx.connect(_play_game_sfx)
 
 
 # Sets current tv index to given value and 
@@ -56,6 +57,8 @@ func _set_current_tv(index : int) -> void:
 	
 	if _current_tv_index >= 0 and _current_tv_index < _tvs.size():
 		_tvs[_current_tv_index].set_texture(idle_texture)
+		_tvs[_current_tv_index].stop_sfx()
+	
 	_tvs[index].set_texture(game_viewport_texture)
 	_current_tv_index = index
 
@@ -71,6 +74,7 @@ func _remove_tv(index : int) -> void:
 	if _tvs.size() <= 1:
 		return
 	
+	_tvs[index].stop_sfx()
 	_tvs[index].set_texture(idle_texture)
 	_tvs.remove_at(index)
 	
@@ -89,3 +93,11 @@ func _reset_tv() -> void:
 		_tvs.insert(0, _default_tv)
 	
 	_set_current_tv(0)
+
+
+func _play_game_sfx(game_index : int, sfx : AudioStream) -> void:
+	if game_index < 0 or game_index >= _tvs.size():
+		print("Couldn't play game sfx with invalid game index %d" % [game_index])
+		return
+	
+	_tvs[game_index].play_sfx(sfx)

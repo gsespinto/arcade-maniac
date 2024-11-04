@@ -2,16 +2,19 @@ extends SubViewport
 class_name GameViewportManager
 
 ## Emitted whenever the current game changes with the new index
-signal on_game_changed
+signal on_game_changed(game_index : int)
 
 ## Emitted whenever a game is removed with its index
-signal on_game_removed
+signal on_game_removed(game_index : int)
 
 ## Emitted whenever the game ends, either by winning or game over
 signal on_end
 
 ## Emitted whenever there should be audiovisual interaction feedback in the game
 signal on_interaction_feedback
+
+## Emitted whenever a game requests to play a sfx with the game index and audio stream
+signal on_game_sfx(game_index : int, sfx : AudioStream)
 
 
 ## Array of games that need to be completed to beat the game
@@ -46,6 +49,7 @@ func _enter_tree() -> void:
 		game.set_process_mode(PROCESS_MODE_DISABLED)
 		game.on_game_over.connect(_game_over)
 		game.on_won.connect(_won_game.bind(game))
+		game.on_sfx.connect(_trigger_sfx.bind(game))
 		remove_child(game)
 	
 	ui.started_game.connect(_start_game)
@@ -242,3 +246,7 @@ func _won_game(game : GameViewport) -> void:
 func _game_over() -> void:
 	_open_ui("GameOver")
 	on_end.emit()
+
+
+func _trigger_sfx(sfx : AudioStream, game : GameViewport) -> void:
+	on_game_sfx.emit(games.find(game), sfx)

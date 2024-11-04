@@ -5,8 +5,13 @@ class_name GameViewport
 
 signal on_game_over
 signal on_won
+signal on_sfx(sfx : AudioStream)
 
 var has_won : bool = false
+
+@export_category("SFX")
+@export var win_sfx : AudioStream
+@export var lose_sfx : AudioStream
 
 
 func _ready() -> void:
@@ -15,11 +20,13 @@ func _ready() -> void:
 
 func win() -> void:
 	has_won = true
+	on_sfx.emit(win_sfx)
 	on_won.emit()
 	set_process_mode(Node.PROCESS_MODE_DISABLED)
 
 
 func lose() -> void:
+	on_sfx.emit(lose_sfx)
 	on_game_over.emit()
 	set_process_mode(Node.PROCESS_MODE_DISABLED)
 
@@ -30,3 +37,7 @@ func _on_visibility_changed():
 	
 	if has_won:
 		set_process_mode(Node.PROCESS_MODE_DISABLED)
+
+
+func play_sfx(sfx : AudioStream) -> void:
+	on_sfx.emit(sfx)

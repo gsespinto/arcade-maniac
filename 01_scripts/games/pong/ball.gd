@@ -2,6 +2,9 @@
 extends CharacterBody2D
 class_name PongBall
 
+signal on_wall_collision
+signal on_player_collision
+
 
 @export var initial_speed : float = 200.0
 @export var col_speed_increase_ratio : float = 0.1
@@ -31,6 +34,9 @@ func _physics_process(delta: float) -> void:
 		if col.get_collider().is_in_group("player"):
 			_current_speed = clampf(_current_speed + _current_speed * col_speed_increase_ratio,
 				initial_speed, max_speed)
+			on_player_collision.emit()
+		else:
+			on_wall_collision.emit()
 		
 		mov_direction = mov_direction.bounce(col.get_normal())
 		mov_direction.x = sign(mov_direction.x) * max(abs(mov_direction.x), min_x_force)

@@ -1,9 +1,12 @@
-[gd_scene load_steps=14 format=3 uid="uid://b4n2ggcse2yq7"]
+[gd_scene load_steps=17 format=3 uid="uid://b4n2ggcse2yq7"]
 
 [ext_resource type="Script" path="res://01_scripts/games/pong/game_viewport.gd" id="1_apqod"]
+[ext_resource type="AudioStream" uid="uid://3ibeoymjerwm" path="res://04_sounds/pong/wall_collision.wav" id="2_0ejsf"]
 [ext_resource type="Script" path="res://01_scripts/games/pong/player.gd" id="3_3swnk"]
+[ext_resource type="AudioStream" uid="uid://0sou30rhmk0a" path="res://04_sounds/pong/player_collision.wav" id="3_id454"]
 [ext_resource type="Script" path="res://01_scripts/games/pong/ball.gd" id="3_lpjw3"]
 [ext_resource type="Script" path="res://01_scripts/games/pong/enemy.gd" id="3_py5mh"]
+[ext_resource type="AudioStream" uid="uid://bxcnq21eb74t4" path="res://04_sounds/pong/win.wav" id="4_6ygl4"]
 [ext_resource type="Texture2D" uid="uid://bak52kmoomev6" path="res://02_sprites/circle.png" id="4_tbea0"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h00bs"]
@@ -32,11 +35,15 @@ size = Vector2(400, 600)
 [sub_resource type="CircleShape2D" id="CircleShape2D_p0cf8"]
 radius = 25.0
 
-[node name="GameTest0" type="Node2D" node_paths=PackedStringArray("win_area", "lose_area", "look_at_target")]
+[node name="GameTest0" type="Node2D" node_paths=PackedStringArray("win_area", "lose_area", "ball", "look_at_target")]
 script = ExtResource("1_apqod")
 win_area = NodePath("WinArea")
 lose_area = NodePath("LoseArea")
+ball = NodePath("Ball")
+wall_sfx = ExtResource("2_0ejsf")
+player_sfx = ExtResource("3_id454")
 look_at_target = NodePath("Ball")
+win_sfx = ExtResource("4_6ygl4")
 
 [node name="ReferenceRect" type="ReferenceRect" parent="."]
 anchors_preset = 15
