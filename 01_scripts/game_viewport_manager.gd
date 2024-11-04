@@ -92,7 +92,7 @@ func _go_to_next_game(exclude_current : bool = false) -> void:
 		var available_games : Array = games.duplicate()
 		if exclude_current:
 			available_games.erase(_current_game)
-		_set_current_game(randi_range(0, available_games.size() - 1))
+		_set_current_game(available_games.pick_random())
 	
 	# Reset change timer
 	_change_game_timer.start(randf_range(change_game_time_range.x, change_game_time_range.y))

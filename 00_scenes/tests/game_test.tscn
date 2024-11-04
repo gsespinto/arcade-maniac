@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://bma26lnrtxwbd"]
+[gd_scene load_steps=25 format=3 uid="uid://bma26lnrtxwbd"]
 
 [ext_resource type="PackedScene" uid="uid://b4n2ggcse2yq7" path="res://00_scenes/games/pong.tscn" id="1_twfr0"]
 [ext_resource type="Script" path="res://01_scripts/game_viewport_manager.gd" id="1_y7v8l"]
@@ -11,6 +11,10 @@
 [ext_resource type="PackedScene" uid="uid://dqbdsd36558yw" path="res://00_scenes/character.tscn" id="10_4symn"]
 [ext_resource type="Script" path="res://01_scripts/resizable_viewport.gd" id="10_dqvp8"]
 [ext_resource type="AudioStream" uid="uid://bx87tfdkrye4v" path="res://04_sounds/click_sfx_0.wav" id="11_7ku0n"]
+[ext_resource type="Script" path="res://01_scripts/random_audio_player_2D.gd" id="11_mvquc"]
+[ext_resource type="AudioStream" uid="uid://crvfqepy2bjxg" path="res://04_sounds/click_sfx_1.wav" id="13_cdb8o"]
+[ext_resource type="AudioStream" uid="uid://cnvcc01fvxvgv" path="res://04_sounds/click_sfx_2.wav" id="14_cbn6h"]
+[ext_resource type="AudioStream" uid="uid://bx02id7ebkyfq" path="res://04_sounds/click_sfx_3.wav" id="15_0twfw"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_bdqev"]
 
@@ -148,6 +152,7 @@ reference_rect = NodePath("../../Control")
 
 [node name="Character" parent="ViewportHolder/CharacterViewport" instance=ExtResource("10_4symn")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
+blend_time = 0.0
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
@@ -166,8 +171,9 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("ViewportTexture_ajbyk")
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("11_7ku0n")
+[node name="ClickRandomAudio" type="Node" parent="."]
+script = ExtResource("11_mvquc")
+audio_clips = Array[AudioStream]([ExtResource("11_7ku0n"), ExtResource("13_cdb8o"), ExtResource("14_cbn6h"), ExtResource("15_0twfw")])
 
-[connection signal="on_interaction_feedback" from="ViewportHolder/GameViewport" to="AudioStreamPlayer2D" method="play"]
+[connection signal="on_interaction_feedback" from="ViewportHolder/GameViewport" to="ClickRandomAudio" method="play"]
 [connection signal="on_interaction_feedback" from="ViewportHolder/GameViewport" to="ViewportHolder/CharacterViewport/Character" method="play_animation" binds= ["ButtonPress"]]
