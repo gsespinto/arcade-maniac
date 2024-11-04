@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://b4n2ggcse2yq7"]
+[gd_scene load_steps=18 format=3 uid="uid://b4n2ggcse2yq7"]
 
 [ext_resource type="Script" path="res://01_scripts/games/pong/game_viewport.gd" id="1_apqod"]
 [ext_resource type="AudioStream" uid="uid://3ibeoymjerwm" path="res://04_sounds/pong/wall_collision.wav" id="2_0ejsf"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://01_scripts/games/pong/enemy.gd" id="3_py5mh"]
 [ext_resource type="AudioStream" uid="uid://bxcnq21eb74t4" path="res://04_sounds/pong/win.wav" id="4_6ygl4"]
 [ext_resource type="Texture2D" uid="uid://bak52kmoomev6" path="res://02_sprites/circle.png" id="4_tbea0"]
+[ext_resource type="AudioStream" uid="uid://c2654ua65mmnj" path="res://04_sounds/game_over.wav" id="5_mubof"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h00bs"]
 size = Vector2(800, 80)
@@ -44,6 +45,7 @@ wall_sfx = ExtResource("2_0ejsf")
 player_sfx = ExtResource("3_id454")
 look_at_target = NodePath("Ball")
 win_sfx = ExtResource("4_6ygl4")
+lose_sfx = ExtResource("5_mubof")
 
 [node name="ReferenceRect" type="ReferenceRect" parent="."]
 anchors_preset = 15
@@ -122,7 +124,7 @@ position = Vector2(400, 300)
 collision_layer = 3
 script = ExtResource("3_lpjw3")
 max_speed = 750.0
-mov_direction = Vector2(-0.796087, 0.605183)
+mov_direction = Vector2(0.741424, -0.671036)
 
 [node name="Sprite2D" type="Sprite2D" parent="Ball"]
 scale = Vector2(0.75, 0.75)

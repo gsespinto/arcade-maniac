@@ -39,9 +39,9 @@ func _enter_tree() -> void:
 	# Set initial tv texture
 	for i in _tvs.size():
 		_tvs[i].set_texture(idle_texture)
+		_tvs[i].play_idle()
 	
 	game_viewport_manager.on_game_changed.connect(_set_current_tv)
-	game_viewport_manager.on_game_removed.connect(_remove_tv)
 	game_viewport_manager.on_end.connect(_reset_tv)
 	game_viewport_manager.on_game_sfx.connect(_play_game_sfx)
 
@@ -57,8 +57,9 @@ func _set_current_tv(index : int) -> void:
 	
 	if _current_tv_index >= 0 and _current_tv_index < _tvs.size():
 		_tvs[_current_tv_index].set_texture(idle_texture)
-		_tvs[_current_tv_index].stop_sfx()
+		_tvs[_current_tv_index].play_idle()
 	
+	_tvs[index].stop_idle()
 	_tvs[index].set_texture(game_viewport_texture)
 	_current_tv_index = index
 
@@ -67,31 +68,17 @@ func get_current_tv() -> TV:
 	return _tvs[_current_tv_index]
 
 
-# Removes tv at given index, this is useful so that the
-# game index from the game viewport manager matches
-# the target tv it is supposed to be displayed at
-func _remove_tv(index : int) -> void:
-	if _tvs.size() <= 1:
-		return
-	
-	_tvs[index].stop_sfx()
-	_tvs[index].set_texture(idle_texture)
-	_tvs.remove_at(index)
-	
-	# Offset current index if needed
-	if _current_tv_index >= index:
-		_current_tv_index -= 1
-
-
 # If flagged, resets current tv to first one
 func _reset_tv() -> void:
 	if not reset_tv_on_end:
 		return
 	
+	var current_tv : TV = _tvs[_current_tv_index]
 	# Ensure the default tv is available
 	if not _tvs.has(_default_tv):
 		_tvs.insert(0, _default_tv)
 	
+	_current_tv_index = _tvs.find(current_tv)
 	_set_current_tv(0)
 
 

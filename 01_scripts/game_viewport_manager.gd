@@ -4,9 +4,6 @@ class_name GameViewportManager
 ## Emitted whenever the current game changes with the new index
 signal on_game_changed(game_index : int)
 
-## Emitted whenever a game is removed with its index
-signal on_game_removed(game_index : int)
-
 ## Emitted whenever the game ends, either by winning or game over
 signal on_end
 
@@ -35,8 +32,14 @@ signal on_game_sfx(game_index : int, sfx : AudioStream)
 @export var warm_up_delay : float = 1.0
 @export var win_delay : float = 1.0
 
+# Array of games that are ongoing
+var _current_games : Array[GameViewport]
+# On timeout, selects next game
 var _change_game_timer : Timer = null
+# Reference to the current game being played
 var _current_game : GameViewport
+# Flags whether the pause menu is opened at the moment
+# so that the player can toggle this state with the pause input
 var _is_paused : bool = false
 
 
@@ -45,7 +48,8 @@ func _enter_tree() -> void:
 	assert(not games.is_empty(), "Game Viewport Manager must at least have one GameViewport child!")
 	assert(is_instance_valid(ui), "Game Viewport Manager must have a valid TvUi reference!")
 	
-	for game in games:
+	_current_games = games.duplicate()
+	for game in _current_games:
 		game.set_process_mode(PROCESS_MODE_DISABLED)
 		game.on_game_over.connect(_game_over)
 		game.on_won.connect(_won_game.bind(game))
@@ -87,13 +91,13 @@ func _start_game() -> void:
 # Change to next available game, either it be sequentially or randomly.
 # If exclude_current, it'll ensure that the current game isn't picked randomly.
 func _go_to_next_game(exclude_current : bool = false) -> void:
-	if ui.visible or games.size() <= 1:
+	if ui.visible or _current_games.size() <= 1:
 		return
 	
 	if switch_sequentially:
-		_set_current_game((games.find(_current_game) + 1) % games.size())
+		_set_current_game((_current_games.find(_current_game) + 1) % _current_games.size())
 	else:
-		var available_games : Array = games.duplicate()
+		var available_games : Array = _current_games.duplicate()
 		if exclude_current:
 			available_games.erase(_current_game)
 		_set_current_game(available_games.pick_random())
@@ -106,13 +110,13 @@ func _go_to_next_game(exclude_current : bool = false) -> void:
 # When switching between games, there's a delay before the new game is unpaused.
 func _set_current_game(index : int) -> void:
 	# Ensure the given game index is valid
-	if index < 0 or index >= games.size():
+	if index < 0 or index >= _current_games.size():
 		print("Invalid index! Couldn't set current game!")
 		return
 	
 	# If the given game index is already the current
 	# we don't have to do anything
-	if index == games.find(_current_game):
+	if index == _current_games.find(_current_game):
 		return
 	
 	# Pause previous game and remove it from the scene tree
@@ -125,9 +129,9 @@ func _set_current_game(index : int) -> void:
 	var is_first_game : bool = _current_game == null
 	
 	# Set current game
-	add_child(games[index])
-	_current_game = games[index]
-	on_game_changed.emit(index)
+	add_child(_current_games[index])
+	_current_game = _current_games[index]
+	on_game_changed.emit(games.find(_current_game))
 	
 	# Set character animation
 	on_interaction_feedback.emit()
@@ -212,9 +216,8 @@ func _unpause() -> void:
 
 # Frees given game with given name
 func _remove_game(game : GameViewport) -> void:
-	on_game_removed.emit(games.find(game))
 	game.queue_free()
-	games.erase(game)
+	_current_games.erase(game)
 
 
 # Called whenever a game is won, if all games have been won
@@ -229,7 +232,7 @@ func _won_game(game : GameViewport) -> void:
 	
 	# If there are still games to be won
 	# go to next game
-	if games.size() > 1:
+	if _current_games.size() > 1:
 		_go_to_next_game(true)
 	# If all games have been won
 	# trigger win ending
