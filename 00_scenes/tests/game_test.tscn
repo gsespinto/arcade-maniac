@@ -213,6 +213,7 @@ grow_vertical = 2
 texture = SubResource("ViewportTexture_ajbyk")
 
 [node name="ClickRandomAudio" type="AudioStreamPlayer2D" parent="."]
+volume_db = 5.0
 script = ExtResource("11_mvquc")
 audio_clips = Array[AudioStream]([ExtResource("11_7ku0n"), ExtResource("13_cdb8o"), ExtResource("14_cbn6h"), ExtResource("15_0twfw")])
 
