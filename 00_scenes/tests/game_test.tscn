@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://bma26lnrtxwbd"]
+[gd_scene load_steps=26 format=3 uid="uid://bma26lnrtxwbd"]
 
 [ext_resource type="PackedScene" uid="uid://b4n2ggcse2yq7" path="res://00_scenes/games/pong.tscn" id="1_twfr0"]
 [ext_resource type="Script" path="res://01_scripts/game_viewport_manager.gd" id="1_y7v8l"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://c5co72s5pe4qt" path="res://00_scenes/tv.tscn" id="4_tgcfr"]
 [ext_resource type="Script" path="res://01_scripts/viewport_holder.gd" id="5_gjolp"]
 [ext_resource type="PackedScene" uid="uid://bqbsdq1ahl2dc" path="res://00_scenes/ui/tv_ui.tscn" id="5_n8pjq"]
+[ext_resource type="AudioStream" uid="uid://c3a2j4qemv6q2" path="res://04_sounds/victory.wav" id="7_5jm3g"]
 [ext_resource type="PackedScene" uid="uid://t6kste4a4hvi" path="res://00_scenes/tv_static.tscn" id="7_sdi7f"]
 [ext_resource type="PackedScene" uid="uid://dqbdsd36558yw" path="res://00_scenes/character.tscn" id="10_4symn"]
 [ext_resource type="Script" path="res://01_scripts/resizable_viewport.gd" id="10_dqvp8"]
@@ -126,6 +127,8 @@ render_target_update_mode = 4
 script = ExtResource("1_y7v8l")
 games = [NodePath("GameTest0"), NodePath("GameTest1"), NodePath("GameTest2")]
 ui = NodePath("TvUi")
+switch_sequentially = false
+win_sfx = ExtResource("7_5jm3g")
 
 [node name="GameTest0" parent="ViewportHolder/GameViewport" instance=ExtResource("1_twfr0")]
 
