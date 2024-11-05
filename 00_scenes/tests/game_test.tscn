@@ -1,9 +1,11 @@
-[gd_scene load_steps=26 format=3 uid="uid://bma26lnrtxwbd"]
+[gd_scene load_steps=45 format=3 uid="uid://bma26lnrtxwbd"]
 
 [ext_resource type="PackedScene" uid="uid://b4n2ggcse2yq7" path="res://00_scenes/games/pong.tscn" id="1_twfr0"]
 [ext_resource type="Script" path="res://01_scripts/game_viewport_manager.gd" id="1_y7v8l"]
 [ext_resource type="Script" path="res://01_scripts/camera_look_at.gd" id="2_1qouj"]
+[ext_resource type="PackedScene" uid="uid://ccs84f1vhfvgm" path="res://00_scenes/tests/spot_light_3d.tscn" id="2_cm3i2"]
 [ext_resource type="Script" path="res://01_scripts/tvs_holder.gd" id="3_41cxm"]
+[ext_resource type="PackedScene" uid="uid://bn671dic4npts" path="res://03_models/office/Book_Pile_1.glb" id="4_jcvre"]
 [ext_resource type="PackedScene" uid="uid://c5co72s5pe4qt" path="res://00_scenes/tv.tscn" id="4_tgcfr"]
 [ext_resource type="Script" path="res://01_scripts/viewport_holder.gd" id="5_gjolp"]
 [ext_resource type="PackedScene" uid="uid://bqbsdq1ahl2dc" path="res://00_scenes/ui/tv_ui.tscn" id="5_n8pjq"]
@@ -11,11 +13,25 @@
 [ext_resource type="PackedScene" uid="uid://t6kste4a4hvi" path="res://00_scenes/tv_static.tscn" id="7_sdi7f"]
 [ext_resource type="PackedScene" uid="uid://dqbdsd36558yw" path="res://00_scenes/character.tscn" id="10_4symn"]
 [ext_resource type="Script" path="res://01_scripts/resizable_viewport.gd" id="10_dqvp8"]
-[ext_resource type="AudioStream" uid="uid://bx87tfdkrye4v" path="res://04_sounds/click_sfx_0.wav" id="11_7ku0n"]
+[ext_resource type="AudioStream" uid="uid://bx87tfdkrye4v" path="res://04_sounds/click/click_sfx_0.wav" id="11_7ku0n"]
 [ext_resource type="Script" path="res://01_scripts/random_audio_player_2D.gd" id="11_mvquc"]
-[ext_resource type="AudioStream" uid="uid://crvfqepy2bjxg" path="res://04_sounds/click_sfx_1.wav" id="13_cdb8o"]
-[ext_resource type="AudioStream" uid="uid://cnvcc01fvxvgv" path="res://04_sounds/click_sfx_2.wav" id="14_cbn6h"]
-[ext_resource type="AudioStream" uid="uid://bx02id7ebkyfq" path="res://04_sounds/click_sfx_3.wav" id="15_0twfw"]
+[ext_resource type="AudioStream" uid="uid://crvfqepy2bjxg" path="res://04_sounds/click/click_sfx_1.wav" id="13_cdb8o"]
+[ext_resource type="AudioStream" uid="uid://cnvcc01fvxvgv" path="res://04_sounds/click/click_sfx_2.wav" id="14_cbn6h"]
+[ext_resource type="AudioStream" uid="uid://bx02id7ebkyfq" path="res://04_sounds/click/click_sfx_3.wav" id="15_0twfw"]
+[ext_resource type="PackedScene" uid="uid://ur0ki67r7wjf" path="res://03_models/office/Door_1.glb" id="17_emxj1"]
+[ext_resource type="PackedScene" uid="uid://csyvfyve88ubp" path="res://03_models/office/Door_Frame.glb" id="18_3upx8"]
+[ext_resource type="PackedScene" uid="uid://cynmxjucv4voa" path="res://03_models/office/Door_Handle_1.glb" id="19_uviya"]
+[ext_resource type="PackedScene" uid="uid://c1nfxdxqcwjt8" path="res://03_models/office/Ceiling_Lamp_1.glb" id="19_vn26u"]
+[ext_resource type="PackedScene" uid="uid://crbdu1ty11dge" path="res://03_models/office/Table.glb" id="20_e7cmb"]
+[ext_resource type="PackedScene" uid="uid://bqsxul28bbtaa" path="res://03_models/office/Chair_2.glb" id="23_nc2jk"]
+[ext_resource type="PackedScene" uid="uid://ct3nhm1no02lb" path="res://03_models/office/Chair_Base.glb" id="24_p4q4o"]
+[ext_resource type="PackedScene" uid="uid://l3woyxtknv8i" path="res://03_models/office/Chair_Body.glb" id="25_7rsfh"]
+[ext_resource type="PackedScene" uid="uid://dk437ndvsc7ex" path="res://03_models/office/Counter_1.glb" id="26_inia0"]
+[ext_resource type="PackedScene" uid="uid://cdophu8pjtndd" path="res://03_models/office/Notepad.glb" id="27_7ewpb"]
+[ext_resource type="PackedScene" uid="uid://bm4ehqw5sgdei" path="res://03_models/office/Stool.glb" id="28_cnans"]
+[ext_resource type="PackedScene" uid="uid://hjh6lpmfvfnu" path="res://03_models/office/Book_Pile_2.glb" id="29_k2xid"]
+[ext_resource type="PackedScene" uid="uid://blqyrmleygwsj" path="res://03_models/radio/radio.glb" id="31_qb33y"]
+[ext_resource type="AudioStream" uid="uid://b5uubtppue3qa" path="res://04_sounds/11 - Hold My Breath.mp3" id="32_wwwci"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_bdqev"]
 
@@ -25,20 +41,27 @@ sky_material = SubResource("ProceduralSkyMaterial_bdqev")
 [sub_resource type="Environment" id="Environment_lqimh"]
 background_mode = 2
 sky = SubResource("Sky_sbhwe")
+fog_enabled = true
+fog_light_color = Color(0.103559, 0.176483, 0.217289, 1)
+fog_sun_scatter = 0.75
+fog_density = 0.35
+adjustment_enabled = true
+adjustment_brightness = 0.8
+adjustment_contrast = 1.15
 
 [sub_resource type="Animation" id="Animation_okjf8"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
+tracks/0/path = NodePath("Camera3D:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector3(0, 1.8, 0)]
+"values": [Vector3(0, 0, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_7st4y"]
@@ -49,14 +72,14 @@ step = 0.05
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
+tracks/0/path = NodePath("Camera3D:position")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.25, 2.25, 2.5, 4.5),
+"times": PackedFloat32Array(0, 0.25, 2.25, 2.55, 4.5),
 "transitions": PackedFloat32Array(1, 1, 1, 1, 1),
 "update": 0,
-"values": [Vector3(0, 1.8, 0), Vector3(0, 1.815, 0), Vector3(0, 1.7, 0), Vector3(0, 1.685, 0), Vector3(0, 1.8, 0)]
+"values": [Vector3(0, 0, 0), Vector3(0, -0.005, 0), Vector3(0, 0.01, 0), Vector3(0, 0.015, 0), Vector3(0, 0, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_gi0yc"]
@@ -74,10 +97,21 @@ viewport_path = NodePath("TVStaticViewport")
 [sub_resource type="ViewportTexture" id="ViewportTexture_ajbyk"]
 viewport_path = NodePath("ViewportHolder/CharacterViewport")
 
+[sub_resource type="PlaneMesh" id="PlaneMesh_kbc75"]
+size = Vector2(7, 7)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_bjywb"]
+size = Vector2(7, 4)
+orientation = 0
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_xatlf"]
+size = Vector2(7, 4)
+orientation = 2
+
 [node name="GameTest" type="Node3D"]
 
 [node name="PovCharacter" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.8, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.3966, 0)
 
 [node name="Camera3D" type="Camera3D" parent="PovCharacter" node_paths=PackedStringArray("game_viewport_manager", "tvs_holder")]
 cull_mask = 1048573
@@ -94,7 +128,10 @@ libraries = {
 autoplay = "breathing"
 
 [node name="OmniLight3D" type="OmniLight3D" parent="."]
+light_energy = 0.451
 omni_range = 27.6032
+
+[node name="SpotLight3D" parent="." instance=ExtResource("2_cm3i2")]
 
 [node name="TVsHolder" type="Node3D" parent="." node_paths=PackedStringArray("game_viewport_manager")]
 script = ExtResource("3_41cxm")
@@ -104,13 +141,13 @@ idle_texture = SubResource("ViewportTexture_0ykes")
 reset_tv_on_end = true
 
 [node name="TV" parent="TVsHolder" instance=ExtResource("4_tgcfr")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.170339, 0, -4.58673)
+transform = Transform3D(0.225705, 0, 0.107506, 0, 0.25, 0, -0.107506, 0, 0.225705, -0.272482, 0.976299, -1.31753)
 
 [node name="TV2" parent="TVsHolder" instance=ExtResource("4_tgcfr")]
-transform = Transform3D(-0.0898502, 0, -0.995955, 0, 1, 0, 0.995955, 0, -0.0898502, 5.71082, 0, 2.17171)
+transform = Transform3D(0.207547, -0.0476677, -0.130966, 5.26208e-09, 0.234923, -0.0855052, 0.139371, 0.0709852, 0.195031, 2.98738, 2.92257, -2.68291)
 
 [node name="TV3" parent="TVsHolder" instance=ExtResource("4_tgcfr")]
-transform = Transform3D(-0.614285, 0.295596, 0.731626, 0, 0.927184, -0.374606, -0.789084, -0.230115, -0.569555, -6.73293, 3.39686, 5.2344)
+transform = Transform3D(-0.103947, 0, -0.227366, 0, 0.25, 0, 0.227366, 0, -0.103947, 2.91494, 0.0198968, 1.5309)
 
 [node name="TVStaticViewport" type="SubViewport" parent="."]
 size = Vector2i(800, 600)
@@ -147,6 +184,7 @@ offset_bottom = 600.0
 texture = SubResource("ViewportTexture_0ykes")
 
 [node name="CharacterViewport" type="SubViewport" parent="ViewportHolder" node_paths=PackedStringArray("reference_rect")]
+own_world_3d = true
 transparent_bg = true
 size = Vector2i(1920, 1080)
 render_target_update_mode = 4
@@ -174,9 +212,93 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = SubResource("ViewportTexture_ajbyk")
 
-[node name="ClickRandomAudio" type="Node" parent="."]
+[node name="ClickRandomAudio" type="AudioStreamPlayer2D" parent="."]
 script = ExtResource("11_mvquc")
 audio_clips = Array[AudioStream]([ExtResource("11_7ku0n"), ExtResource("13_cdb8o"), ExtResource("14_cbn6h"), ExtResource("15_0twfw")])
 
-[connection signal="on_interaction_feedback" from="ViewportHolder/GameViewport" to="ClickRandomAudio" method="play"]
+[node name="Office" type="Node3D" parent="."]
+
+[node name="Floor" type="MeshInstance3D" parent="Office"]
+mesh = SubResource("PlaneMesh_kbc75")
+
+[node name="Ceiling" type="MeshInstance3D" parent="Office"]
+transform = Transform3D(-1, 8.74228e-08, 0, -8.74228e-08, -1, 0, 0, 0, 1, 0, 3.89751, 0)
+mesh = SubResource("PlaneMesh_kbc75")
+
+[node name="Wall" type="MeshInstance3D" parent="Office"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.44753, 2, 0)
+mesh = SubResource("PlaneMesh_bjywb")
+
+[node name="Wall2" parent="Office" instance=ExtResource("2_cm3i2")]
+
+[node name="Wall3" type="MeshInstance3D" parent="Office"]
+transform = Transform3D(-1, 0, -8.74228e-08, 0, 1, 0, 8.74228e-08, 0, -1, 0, 2, 3.40887)
+mesh = SubResource("PlaneMesh_xatlf")
+
+[node name="Wall4" type="MeshInstance3D" parent="Office"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -3.44062)
+mesh = SubResource("PlaneMesh_xatlf")
+
+[node name="Props" type="Node3D" parent="Office"]
+
+[node name="Table2" parent="Office/Props" instance=ExtResource("20_e7cmb")]
+transform = Transform3D(1.5, 0, 0, 0, -6.55671e-08, -1, 0, 1.5, -4.37114e-08, -0.232035, 0, -1.32943)
+
+[node name="Book_Pile_1" parent="Office/Props" instance=ExtResource("4_jcvre")]
+transform = Transform3D(2.28629, 0.199743, -8.73105e-09, 7.72479e-15, -1.00318e-07, -2.295, -0.199743, 2.28629, -9.9937e-08, 0.603338, 0.990973, -1.17266)
+
+[node name="Book_Pile_3" parent="Office/Props" instance=ExtResource("4_jcvre")]
+transform = Transform3D(1.00829, -2.06164, 9.01173e-08, 8.03048e-15, -1.00318e-07, -2.295, 2.06164, 1.00829, -4.40739e-08, 3.00618, 1.0416, -2.67325)
+
+[node name="Ceiling_Lamp_1" parent="Office/Props" instance=ExtResource("19_vn26u")]
+transform = Transform3D(1, 0, 0, 0, -5.96046e-08, -1, 0, 1, -5.96046e-08, 0, 3.83674, 0)
+
+[node name="Door_1" parent="Office/Props" instance=ExtResource("17_emxj1")]
+transform = Transform3D(-6.09774e-08, 1.395, -6.09774e-08, 0, -6.09774e-08, -1.395, -1.395, -6.09774e-08, 2.66541e-15, -3.49856, -1.45735e-21, -1.85691)
+
+[node name="Door_Frame" parent="Office/Props/Door_1" instance=ExtResource("18_3upx8")]
+
+[node name="Door_Handle_1" parent="Office/Props/Door_1" instance=ExtResource("19_uviya")]
+transform = Transform3D(0.989661, 0.143424, 0, -0.143424, 0.989661, 0, 0, 0, 1, 0.897332, 0.0621971, -1.07212)
+
+[node name="Chair_2" parent="Office/Props" instance=ExtResource("23_nc2jk")]
+transform = Transform3D(-0.383301, 1.00434, -4.39013e-08, 4.29977e-16, -4.69897e-08, -1.075, -1.00434, -0.383301, 1.67546e-08, 1.19941, -0.0283778, 1.69135)
+
+[node name="Chair_3" parent="Office/Props" instance=ExtResource("23_nc2jk")]
+transform = Transform3D(1.02685, 0.318119, -1.39054e-08, 4.22683e-16, -4.69897e-08, -1.075, -0.318119, 1.02685, -4.48851e-08, 2.53197, -0.0283778, 0.00913143)
+
+[node name="Chair_Base" parent="Office/Props" instance=ExtResource("24_p4q4o")]
+transform = Transform3D(0.886066, 0, -0.463559, 0.23178, -0.866025, 0.443033, -0.401454, -0.5, -0.767356, 3.07159, 0.493816, 2.94883)
+
+[node name="Chair_Body" parent="Office/Props" instance=ExtResource("25_7rsfh")]
+transform = Transform3D(0.957823, -0.207058, -0.199256, 6.06191e-08, -0.693402, 0.720551, -0.28736, -0.69016, -0.664156, 2.72829, 0.641059, 2.47946)
+
+[node name="Counter_1" parent="Office/Props" instance=ExtResource("26_inia0")]
+transform = Transform3D(0.5, -0.866025, 0, -3.78552e-08, -2.18557e-08, -1, 0.866025, 0.5, -4.37114e-08, 2.87185, 0.00975001, -2.69146)
+
+[node name="Counter_2" parent="Office/Props" instance=ExtResource("26_inia0")]
+transform = Transform3D(0.614216, -0.789138, 0, -3.44943e-08, -2.68482e-08, -1, 0.789138, 0.614216, -4.37114e-08, 2.87185, 0.957776, -2.69146)
+
+[node name="Notepad2" parent="Office/Props" instance=ExtResource("27_7ewpb")]
+transform = Transform3D(-1.4864, -0.804194, 3.51524e-08, 0, -7.38723e-08, -1.69, 0.804194, -1.4864, 6.49724e-08, -1.32899, 0.987792, -0.96516)
+
+[node name="Stool2" parent="Office/Props" instance=ExtResource("28_cnans")]
+transform = Transform3D(1.3676, -0.159166, 0.595262, 0.20949, 1.48288, -0.0847955, -0.579469, 0.160445, 1.37422, 3.11541, 2.1086, -2.03101)
+
+[node name="Book_Pile_2" parent="Office/Props" instance=ExtResource("29_k2xid")]
+transform = Transform3D(-0.337888, -2.93059, 1.281e-07, 0, -1.28949e-07, -2.95, 2.93059, -0.337888, 1.47696e-08, -2.92838, 0, -1.34465)
+
+[node name="Book_Pile_4" parent="Office/Props" instance=ExtResource("29_k2xid")]
+transform = Transform3D(-2.49118, -1.58004, 6.90656e-08, 1.01021e-16, -1.28949e-07, -2.95, 1.58004, -2.49118, 1.08893e-07, -2.872, 0.618186, -1.2807)
+
+[node name="radio" parent="." instance=ExtResource("31_qb33y")]
+transform = Transform3D(0.12235, 0, 0.279384, 0, 0.305, 0, -0.279384, 0, 0.12235, -2.95959, 1.35221, -1.41543)
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="radio"]
+stream = ExtResource("32_wwwci")
+volume_db = -15.0
+unit_size = 2.0
+autoplay = true
+
+[connection signal="on_interaction_feedback" from="ViewportHolder/GameViewport" to="ClickRandomAudio" method="play_random"]
 [connection signal="on_interaction_feedback" from="ViewportHolder/GameViewport" to="ViewportHolder/CharacterViewport/Character" method="play_animation" binds= ["ButtonPress"]]

@@ -89,7 +89,7 @@ bones/49/rotation = Quaternion(-3.10686e-15, 0.707107, 4.00816e-15, 0.707107)
 bones/49/scale = Vector3(1, 1, 1)
 
 [node name="Sphere_Sphere_001" parent="Armature/Skeleton3D" index="0"]
-transform = Transform3D(18.4609, 30.8291, 93.3207, -72.7823, -59.5194, 34.0607, 66.0447, -74.2093, 11.4504, -21.5984, 48.6676, -119.21)
+transform = Transform3D(18.461, 30.8292, 93.3207, -72.7823, -59.5194, 34.0609, 66.0446, -74.2091, 11.4504, -21.5985, 48.6675, -119.21)
 
 [node name="AnimationPlayer" parent="." index="1"]
 autoplay = "Armature|Take 001|BaseLayer"

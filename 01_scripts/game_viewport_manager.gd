@@ -108,6 +108,7 @@ func _go_to_next_game(exclude_current : bool = false) -> void:
 	# Reset change timer
 	_change_game_timer.start(randf_range(change_game_time_range.x, change_game_time_range.y))
 
+
 # Pauses and removes previous game from tree, and sets game at given index
 # as current by unpausing it and adding it as child of this subviewport.
 # When switching between games, there's a delay before the new game is unpaused.
@@ -204,11 +205,13 @@ func get_look_at_pos() -> Vector2:
 func _pause() -> void:
 	_open_ui("PauseMenu")
 	_is_paused = true
+	on_end.emit()
 
 
 func _unpause() -> void:
 	_close_ui()
 	_is_paused = false
+	on_game_changed.emit(games.find(_current_game))
 
 
 # Frees given game with given name
