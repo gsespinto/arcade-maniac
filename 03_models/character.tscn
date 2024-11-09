@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://bhk1c3n25wyl"]
 
-[ext_resource type="PackedScene" uid="uid://dqwfjcpbbr4wj" path="res://03_models/character.blend" id="1_0nvwx"]
+[ext_resource type="PackedScene" uid="uid://dqwfjcpbbr4wj" path="res://03_models/remote_arm.blend" id="1_0nvwx"]
 
 [node name="character" instance=ExtResource("1_0nvwx")]
 
