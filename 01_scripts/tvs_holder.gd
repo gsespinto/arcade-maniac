@@ -43,6 +43,7 @@ func _enter_tree() -> void:
 	
 	game_viewport_manager.on_game_changed.connect(_set_current_tv)
 	game_viewport_manager.on_end.connect(_reset_tv)
+	game_viewport_manager.paused.connect(_reset_tv)
 	game_viewport_manager.on_game_sfx.connect(_play_game_sfx)
 
 

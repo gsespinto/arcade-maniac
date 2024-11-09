@@ -13,6 +13,10 @@ signal on_interaction_feedback
 ## Emitted whenever a game requests to play a sfx with the game index and audio stream
 signal on_game_sfx(game_index : int, sfx : AudioStream)
 
+signal started
+signal paused
+signal unpaused
+
 
 ## Array of games that need to be completed to beat the game
 @export var games : Array[GameViewport]
@@ -89,6 +93,7 @@ func _process(delta: float) -> void:
 func _start_game() -> void:
 	_close_ui()
 	_change_game_timer.start(randf_range(change_game_time_range.x, change_game_time_range.y))
+	started.emit()
 
 
 # Change to next available game, either it be sequentially or randomly.
@@ -205,13 +210,14 @@ func get_look_at_pos() -> Vector2:
 func _pause() -> void:
 	_open_ui("PauseMenu")
 	_is_paused = true
-	on_end.emit()
+	paused.emit()
 
 
 func _unpause() -> void:
 	_close_ui()
 	_is_paused = false
 	on_game_changed.emit(games.find(_current_game))
+	unpaused.emit()
 
 
 # Frees given game with given name

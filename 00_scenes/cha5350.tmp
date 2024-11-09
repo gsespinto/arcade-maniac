@@ -91,13 +91,11 @@ _data = {
 "default": SubResource("Animation_figkq")
 }
 
-[node name="Character" type="Node3D" node_paths=PackedStringArray("remote_arm_animator", "timer_arm_animator", "minutes_label", "seconds_label", "milisseconds_label")]
+[node name="Character" type="Node3D" node_paths=PackedStringArray("remote_arm_animator", "timer_arm_animator", "timer_label")]
 script = ExtResource("1_bkqhi")
 remote_arm_animator = NodePath("remote_arm/AnimationPlayer")
 timer_arm_animator = NodePath("timer_arm/AnimationPlayer")
-minutes_label = NodePath("SubViewport/TimerScreen/HBoxContainer/Minutes")
-seconds_label = NodePath("SubViewport/TimerScreen/HBoxContainer/Seconds")
-milisseconds_label = NodePath("SubViewport/TimerScreen/HBoxContainer/Milesseconds")
+timer_label = NodePath("SubViewport/TimerScreen/Label")
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0573031, -0.0962422)
