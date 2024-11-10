@@ -9,8 +9,14 @@ class_name CharacterViewport
 @export var seconds_label : Label
 @export var milisseconds_label : Label
 
-var _tick_timer : bool = false
-var _current_time : float = 0.0
+
+func _ready() -> void:
+	GameManager.started_timer.connect(play_animation.bind("TimerPress"))
+	GameManager.stopped_timer.connect(play_animation.bind("TimerPress"))
+
+
+func _process(delta: float) -> void:
+	_update_time_labels()
 
 
 func play_animation(animation : String) -> void:
@@ -23,24 +29,8 @@ func play_animation(animation : String) -> void:
 		timer_arm_animator.play(animation, blend_time)
 
 
-func _process(delta: float) -> void:
-	if _tick_timer:
-		_current_time += delta
-	_update_time_labels()
-
-
-func start_timer() -> void:
-	play_animation("TimerPress")
-	_tick_timer = true
-
-
-func stop_timer() -> void:
-	play_animation("TimerPress")
-	_tick_timer = false
-
-
 func _update_time_labels() -> void:
-	var time_info : PackedStringArray = _get_time_array(_current_time) 
+	var time_info : PackedStringArray = _get_time_array(GameManager.current_time) 
 	minutes_label.set_text(time_info[0])
 	seconds_label.set_text(time_info[1])
 	milisseconds_label.set_text(time_info[2])

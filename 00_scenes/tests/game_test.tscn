@@ -301,9 +301,5 @@ volume_db = -15.0
 unit_size = 2.0
 autoplay = true
 
-[connection signal="on_end" from="ViewportHolder/GameViewport" to="ViewportHolder/CharacterViewport/Character" method="stop_timer"]
 [connection signal="on_interaction_feedback" from="ViewportHolder/GameViewport" to="ClickRandomAudio" method="play_random"]
 [connection signal="on_interaction_feedback" from="ViewportHolder/GameViewport" to="ViewportHolder/CharacterViewport/Character" method="play_animation" binds= ["ButtonPress"]]
-[connection signal="paused" from="ViewportHolder/GameViewport" to="ViewportHolder/CharacterViewport/Character" method="stop_timer"]
-[connection signal="started" from="ViewportHolder/GameViewport" to="ViewportHolder/CharacterViewport/Character" method="start_timer"]
-[connection signal="unpaused" from="ViewportHolder/GameViewport" to="ViewportHolder/CharacterViewport/Character" method="start_timer"]

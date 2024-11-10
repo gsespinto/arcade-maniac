@@ -3,13 +3,12 @@ extends Control
 ## the tv interface (the game's HUD).
 class_name TvUi
 
+static var instance : TvUi
+
 
 ## Emitted when the focus target of the current tab changes
 ## useful to give audiovisual feedback 
 signal changed_focus
-
-signal started_game
-signal resumed_game
 
 
 ## File path to the game scene to load to restart the game
@@ -19,6 +18,10 @@ signal resumed_game
 var _current_tab : int = 0
 
 
+func _enter_tree() -> void:
+	instance = self
+
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	for tab in tabs:
@@ -26,7 +29,7 @@ func _ready() -> void:
 
 
 func start_game() -> void:
-	started_game.emit()
+	GameManager.start()
 
 
 func quit_game() -> void:
@@ -34,7 +37,7 @@ func quit_game() -> void:
 
 
 func resume_game() -> void:
-	resumed_game.emit()
+	GameManager.unpause()
 
 
 func restart_game() -> void:

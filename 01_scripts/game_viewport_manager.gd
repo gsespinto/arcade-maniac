@@ -4,18 +4,11 @@ class_name GameViewportManager
 ## Emitted whenever the current game changes with the new index
 signal on_game_changed(game_index : int)
 
-## Emitted whenever the game ends, either by winning or game over
-signal on_end
-
 ## Emitted whenever there should be audiovisual interaction feedback in the game
 signal on_interaction_feedback
 
 ## Emitted whenever a game requests to play a sfx with the game index and audio stream
 signal on_game_sfx(game_index : int, sfx : AudioStream)
-
-signal started
-signal paused
-signal unpaused
 
 
 ## Array of games that need to be completed to beat the game
@@ -45,9 +38,6 @@ var _ongoing_games : Array[GameViewport]
 var _change_game_timer : Timer = null
 # Reference to the current game being played
 var _current_game : GameViewport
-# Flags whether the pause menu is opened at the moment
-# so that the player can toggle this state with the pause input
-var _is_paused : bool = false
 
 
 # Called when the node enters the scene tree for the first time.
@@ -58,13 +48,15 @@ func _enter_tree() -> void:
 	_ongoing_games = games.duplicate()
 	for game in _ongoing_games:
 		game.set_process_mode(PROCESS_MODE_DISABLED)
-		game.on_game_over.connect(_game_over)
 		game.on_won.connect(_won_game.bind(game))
 		game.on_sfx.connect(_trigger_sfx.bind(game))
 		remove_child(game)
 	
-	ui.started_game.connect(_start_game)
-	ui.resumed_game.connect(_unpause)
+	GameManager.started.connect(_start_game)
+	GameManager.unpaused.connect(_unpause)
+	GameManager.paused.connect(_pause)
+	GameManager.lost.connect(_game_over)
+	
 	ui.changed_focus.connect(on_interaction_feedback.emit)
 
 
@@ -81,19 +73,11 @@ func _process(delta: float) -> void:
 	# Debug input to switch between games
 	if not OS.has_feature("standalone") and Input.is_action_just_pressed("next_game"):
 		_go_to_next_game()
-	
-	if Input.is_action_just_pressed("pause"):
-		if not ui.visible or ui.get_current_tab() == "PauseMenu":
-			if not _is_paused:
-				_pause()
-			else:
-				_unpause()
 
 
 func _start_game() -> void:
 	_close_ui()
 	_change_game_timer.start(randf_range(change_game_time_range.x, change_game_time_range.y))
-	started.emit()
 
 
 # Change to next available game, either it be sequentially or randomly.
@@ -209,15 +193,11 @@ func get_look_at_pos() -> Vector2:
 
 func _pause() -> void:
 	_open_ui("PauseMenu")
-	_is_paused = true
-	paused.emit()
 
 
 func _unpause() -> void:
 	_close_ui()
-	_is_paused = false
 	on_game_changed.emit(games.find(_current_game))
-	unpaused.emit()
 
 
 # Frees given game with given name
@@ -245,7 +225,7 @@ func _won_game(game : GameViewport) -> void:
 	else:
 		game.play_sfx(win_sfx)
 		_open_ui("Won")
-		on_end.emit()
+		GameManager.win()
 	
 	# Remove this game so it isn't playble anymore
 	_remove_game(game)
@@ -255,7 +235,6 @@ func _won_game(game : GameViewport) -> void:
 # triggers game over ending
 func _game_over() -> void:
 	_open_ui("GameOver")
-	on_end.emit()
 
 
 func _trigger_sfx(sfx : AudioStream, game : GameViewport) -> void:

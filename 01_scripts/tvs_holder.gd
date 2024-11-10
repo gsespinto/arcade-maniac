@@ -41,9 +41,11 @@ func _enter_tree() -> void:
 		_tvs[i].set_texture(idle_texture)
 		_tvs[i].play_idle()
 	
+	GameManager.lost.connect(_reset_tv)
+	GameManager.won.connect(_reset_tv)
+	GameManager.paused.connect(_reset_tv)
+
 	game_viewport_manager.on_game_changed.connect(_set_current_tv)
-	game_viewport_manager.on_end.connect(_reset_tv)
-	game_viewport_manager.paused.connect(_reset_tv)
 	game_viewport_manager.on_game_sfx.connect(_play_game_sfx)
 
 

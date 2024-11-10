@@ -18,6 +18,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 LoadingScreen="*res://00_scenes/ui/loading_screen.tscn"
+GameManager="*res://01_scripts/game_manager.gd"
 
 [input]
 

@@ -194,7 +194,7 @@ bones/49/rotation = Quaternion(-3.10686e-15, 0.707107, 4.00816e-15, 0.707107)
 bones/49/scale = Vector3(1, 1, 1)
 
 [node name="Sphere_Sphere_001" parent="remote_arm/Armature/Skeleton3D" index="0"]
-transform = Transform3D(18.4609, 30.8291, 93.3207, -72.7823, -59.5194, 34.0607, 66.0447, -74.2093, 11.4504, -20.8345, 48.6675, -119.21)
+transform = Transform3D(18.461, 30.8292, 93.3207, -72.7823, -59.5194, 34.0609, 66.0446, -74.2091, 11.4504, -20.8346, 48.6675, -119.21)
 
 [node name="timer_arm" parent="." instance=ExtResource("3_qpxxx")]
 transform = Transform3D(-2.00123, 0, -1.74953e-07, 0, 2.00123, 0, 1.74953e-07, 0, -2.00123, 0, -2.69007, -0.1)
@@ -284,13 +284,13 @@ bones/73/rotation = Quaternion(-3.10686e-15, 0.707107, 4.00816e-15, 0.707107)
 bones/73/scale = Vector3(1, 1, 1)
 
 [node name="Object_34" parent="timer_arm/Armature/Skeleton3D" index="0"]
-transform = Transform3D(86.1127, -7.4743, -14.0855, 11.0203, -28.0159, 82.2395, -11.5248, -82.6372, -26.6071, 23.1366, 39.4015, -122.585)
+transform = Transform3D(86.1128, -7.47428, -14.0855, 11.0202, -28.0157, 82.2395, -11.5247, -82.637, -26.6068, 23.1366, 39.4014, -122.585)
 
 [node name="Object_34" parent="timer_arm/Armature/Skeleton3D/Object_34" index="0"]
 layers = 2
 
 [node name="Object_34_003" parent="timer_arm/Armature/Skeleton3D" index="1"]
-transform = Transform3D(86.1127, -7.4743, -14.0855, 11.0203, -28.0159, 82.2395, -11.5248, -82.6372, -26.6071, 19.8956, 35.9567, -124.985)
+transform = Transform3D(86.1128, -7.47428, -14.0855, 11.0202, -28.0157, 82.2395, -11.5247, -82.637, -26.6068, 19.8957, 35.9567, -124.985)
 
 [node name="Object_34_003" parent="timer_arm/Armature/Skeleton3D/Object_34_003" index="0"]
 layers = 2
