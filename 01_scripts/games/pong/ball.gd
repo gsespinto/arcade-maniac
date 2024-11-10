@@ -25,11 +25,8 @@ func _physics_process(delta: float) -> void:
 	if Engine.is_editor_hint():
 		return
 	
-	velocity = mov_direction * _current_speed
-
-	move_and_slide()
-
-	var col : KinematicCollision2D = get_last_slide_collision()
+	var vel : Vector2 = mov_direction * _current_speed * delta
+	var col : KinematicCollision2D = move_and_collide(vel)
 	if col != null:
 		if col.get_collider().is_in_group("player"):
 			_current_speed = clampf(_current_speed + _current_speed * col_speed_increase_ratio,
