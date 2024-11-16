@@ -27,7 +27,7 @@ func get_focus_position() -> Vector2:
 	if buttons.is_empty():
 		return get_rect().size / 2
 	
-	return buttons[_current_bt].get_rect().position
+	return buttons[_current_bt].get_screen_position()
 
 
 func reset_focus():

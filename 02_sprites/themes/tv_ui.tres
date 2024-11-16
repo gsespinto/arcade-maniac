@@ -1,0 +1,33 @@
+[gd_resource type="Theme" load_steps=8 format=3 uid="uid://bthy66vyauw8r"]
+
+[ext_resource type="FontFile" uid="uid://yq86g78g3l2w" path="res://02_sprites/DS-DIGIB.TTF" id="1_m5ilc"]
+[ext_resource type="Texture2D" uid="uid://bfm4r47fb05cl" path="res://02_sprites/button_normal.png" id="2_d375x"]
+[ext_resource type="Texture2D" uid="uid://dxgt0ghl1fxlh" path="res://02_sprites/button_selected.png" id="3_gqg24"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ccfjv"]
+texture = ExtResource("2_d375x")
+modulate_color = Color(0.196078, 0.196078, 0.196078, 0.776471)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hi3m3"]
+texture = ExtResource("3_gqg24")
+modulate_color = Color(0.969651, 0.875611, 0.461756, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_xtimg"]
+texture = ExtResource("2_d375x")
+modulate_color = Color(0.333333, 0.333333, 0.333333, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_kmvpw"]
+texture = ExtResource("3_gqg24")
+modulate_color = Color(0.917647, 0.894118, 0.513726, 1)
+
+[resource]
+Button/colors/font_color = Color(0.333333, 0.333333, 0.333333, 1)
+Button/colors/font_focus_color = Color(0.917961, 0.893376, 0.511792, 1)
+Button/colors/font_pressed_color = Color(0.968627, 0.87451, 0.462745, 1)
+Button/font_sizes/font_size = 44
+Button/fonts/font = ExtResource("1_m5ilc")
+Button/styles/disabled = SubResource("StyleBoxTexture_ccfjv")
+Button/styles/focus = SubResource("StyleBoxTexture_hi3m3")
+Button/styles/normal = SubResource("StyleBoxTexture_xtimg")
+Button/styles/pressed = SubResource("StyleBoxTexture_kmvpw")
+Label/fonts/font = ExtResource("1_m5ilc")
