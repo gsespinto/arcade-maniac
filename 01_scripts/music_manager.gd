@@ -3,7 +3,7 @@ extends Control
 signal loaded_music
 
 # Reference to the FileDialog node
-@onready var file_dialog = $FileDialog
+@onready var file_dialog : FileDialog = $FileDialog
 
 @export var default_audio_streams : Array[AudioStream] = []
 var _user_audio_streams : Array[AudioStream] = []
@@ -11,9 +11,11 @@ var _current_music : int = -1
 
 
 func _ready():
-	file_dialog.files_selected.connect(on_files_selected)
-	file_dialog.confirmed.connect(on_closed_file_dialog)
-	file_dialog.canceled.connect(on_closed_file_dialog)
+	file_dialog.files_selected.connect(_on_files_selected)
+	file_dialog.file_selected.connect(_on_file_selected)
+	file_dialog.dir_selected.connect(_on_dir_selected)
+	
+	file_dialog.visibility_changed.connect(on_closed_file_dialog)
 	
 	loaded_music.emit()
 
@@ -24,20 +26,42 @@ func open_file_dialog():
 
 
 func on_closed_file_dialog():
+	if file_dialog.visible:
+		return
+	
 	GameManager.set_tree_paused(false)
 
 
 # When files are selected
-func on_files_selected(files: Array):
+func _on_files_selected(files: Array):
 	_user_audio_streams.clear()
 	for file_path in files:
-		load_music_file(file_path)
+		_load_music_file(file_path)
 	
 	_current_music = 0
 	loaded_music.emit()
 
 
-func load_music_file(file_path: String):
+# When files are selected
+func _on_file_selected(file_path: String):
+	_user_audio_streams.clear()
+	_load_music_file(file_path)
+	
+	_current_music = 0
+	loaded_music.emit()
+
+
+func _on_dir_selected(dir_path : String):
+	_user_audio_streams.clear()
+	var dir = DirAccess.open(dir_path)
+	for file in dir.get_files():
+		_load_music_file(dir_path + "/" + file)
+	
+	_current_music = 0
+	loaded_music.emit()
+
+
+func _load_music_file(file_path: String):
 	var file = FileAccess.open(file_path, FileAccess.READ)
 	if file:
 		var file_extension : String = Array(file_path.split(".")).back()

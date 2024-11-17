@@ -16,6 +16,7 @@ signal changed_focus
 
 @export var tabs : Array[TvTab] = []
 var _current_tab : int = 0
+var _sub_tab_stack : Array[String]  = []
 
 @export var final_time_label : Label
 
@@ -52,14 +53,30 @@ func open_music() -> void:
 	MusicManager.open_file_dialog()
 
 
+func open_sub_tab(tab_name : String) -> void:
+	_sub_tab_stack.append(tabs[_current_tab].name)
+	open_tab(tab_name)
+
+
+func close_sub_tab() -> void:
+	if _sub_tab_stack.is_empty():
+		return
+
+	open_tab(_sub_tab_stack.pop_back(), false)
+
+
 # Sets tab with target name visible and hides all the rest
 # Returns whether it successfully opened a tab
-func open_tab(tab_name : String) -> bool:
+func open_tab(tab_name : String, reset_focus : bool = true) -> bool:
 	var success : bool = false
 	for i in tabs.size():
 		if tabs[i].name == tab_name:
 			_current_tab = i
-			tabs[i].reset_focus()
+			if reset_focus:
+				tabs[i].reset_focus()
+			else:
+				tabs[i].focus_on_previous()
+			
 			success = true
 		
 		tabs[i].set_visible(tabs[i].name == tab_name)
@@ -80,3 +97,11 @@ func get_current_tab() -> String:
 
 func set_final_time():
 	final_time_label.set_text(GameManager.get_current_time_string())
+
+
+func _input(event: InputEvent) -> void:
+	return
+	
+	# TODO: This is giving problems in the pause menu
+	if event.is_action_pressed("ui_cancel", false):
+		close_sub_tab()

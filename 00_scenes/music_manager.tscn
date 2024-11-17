@@ -17,10 +17,10 @@ default_audio_streams = Array[AudioStream]([ExtResource("2_741tl"), ExtResource(
 
 [node name="FileDialog" type="FileDialog" parent="."]
 mode = 4
-title = "Open File(s)"
+title = "Open a File or Directory"
 initial_position = 2
 size = Vector2i(800, 600)
 ok_button_text = "Open"
-file_mode = 1
+file_mode = 3
 access = 2
 filters = PackedStringArray("*.mp3", "*.wav")

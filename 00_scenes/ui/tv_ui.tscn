@@ -14,7 +14,7 @@ offset_bottom = 599.0
 theme = ExtResource("1_hpfey")
 script = ExtResource("1_02oip")
 game_scene = "res://00_scenes/main.tscn"
-tabs = [NodePath("MainMenu"), NodePath("PauseMenu"), NodePath("GameOver"), NodePath("Won"), NodePath("WarmUp")]
+tabs = [NodePath("MainMenu"), NodePath("PauseMenu"), NodePath("GameOver"), NodePath("Won"), NodePath("WarmUp"), NodePath("Options"), NodePath("Music")]
 final_time_label = NodePath("Won/GridContainer/ButtonParent2/VBoxContainer/FinalTimeLabel")
 
 [node name="ReferenceRect" type="ReferenceRect" parent="."]
@@ -26,7 +26,7 @@ grow_horizontal = 2
 grow_vertical = 2
 border_width = 3.0
 
-[node name="MainMenu" type="Control" parent="." node_paths=PackedStringArray("buttons")]
+[node name="MainMenu" type="Control" parent="." node_paths=PackedStringArray("focusable_items")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -34,7 +34,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("2_yh2qu")
-buttons = [NodePath("GridContainer/ButtonParent/StartGame"), NodePath("GridContainer/ButtonParent2/Highscores"), NodePath("GridContainer/ButtonParent3/Options"), NodePath("GridContainer/ButtonParent4/Quit")]
+focusable_items = [NodePath("GridContainer/ButtonParent/StartGame"), NodePath("GridContainer/ButtonParent2/Highscores"), NodePath("GridContainer/ButtonParent3/Options"), NodePath("GridContainer/ButtonParent4/Quit")]
 
 [node name="Background" type="ColorRect" parent="MainMenu"]
 layout_mode = 1
@@ -158,7 +158,7 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "QUIT"
 
-[node name="PauseMenu" type="Control" parent="." node_paths=PackedStringArray("buttons")]
+[node name="PauseMenu" type="Control" parent="." node_paths=PackedStringArray("focusable_items")]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -167,7 +167,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("2_yh2qu")
-buttons = [NodePath("GridContainer/ButtonParent/Resume"), NodePath("GridContainer/ButtonParent2/Options"), NodePath("GridContainer/ButtonParent3/Restart"), NodePath("GridContainer/ButtonParent4/Quit")]
+focusable_items = [NodePath("GridContainer/ButtonParent/Resume"), NodePath("GridContainer/ButtonParent2/Options"), NodePath("GridContainer/ButtonParent3/Restart"), NodePath("GridContainer/ButtonParent4/Quit")]
 
 [node name="Background" type="ColorRect" parent="PauseMenu"]
 layout_mode = 1
@@ -291,7 +291,7 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "QUIT"
 
-[node name="GameOver" type="Control" parent="." node_paths=PackedStringArray("buttons")]
+[node name="GameOver" type="Control" parent="." node_paths=PackedStringArray("focusable_items")]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -300,7 +300,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("2_yh2qu")
-buttons = [NodePath("Restart"), NodePath("Quit")]
+focusable_items = [NodePath("Restart"), NodePath("Quit")]
 
 [node name="Background" type="ColorRect" parent="GameOver"]
 layout_mode = 1
@@ -359,7 +359,7 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "QUIT"
 
-[node name="Won" type="Control" parent="." node_paths=PackedStringArray("buttons")]
+[node name="Won" type="Control" parent="." node_paths=PackedStringArray("focusable_items")]
 visible = false
 layout_mode = 1
 anchors_preset = 15
@@ -368,7 +368,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("2_yh2qu")
-buttons = [NodePath("GridContainer/ButtonParent/Restart"), NodePath("GridContainer/ButtonParent3/Highscore"), NodePath("GridContainer/ButtonParent4/Quit")]
+focusable_items = [NodePath("GridContainer/ButtonParent/Restart"), NodePath("GridContainer/ButtonParent3/Highscore"), NodePath("GridContainer/ButtonParent4/Quit")]
 
 [node name="Background" type="ColorRect" parent="Won"]
 layout_mode = 1
@@ -540,8 +540,7 @@ theme_override_font_sizes/font_size = 531
 text = "II"
 horizontal_alignment = 1
 
-[node name="Settings" type="Control" parent="."]
-visible = false
+[node name="Options" type="Control" parent="." node_paths=PackedStringArray("focusable_items")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -549,39 +548,252 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("2_yh2qu")
+focusable_items = [NodePath("GridContainer/ButtonParent/Resume"), NodePath("GridContainer/ButtonParent2/Options"), NodePath("GridContainer/ButtonParent3/Music"), NodePath("GridContainer/ButtonParent4/Back")]
 
-[node name="Background" type="ColorRect" parent="Settings"]
+[node name="Background" type="ColorRect" parent="Options"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0.529412)
+color = Color(0.661631, 0.535886, 0.457809, 1)
 
-[node name="CloseSettings" type="Button" parent="Settings"]
+[node name="Label" type="Label" parent="Options"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 311.0
-offset_top = -273.0
-offset_right = 375.0
-offset_bottom = -223.0
+offset_left = -322.0
+offset_top = -254.0
+offset_right = 323.0
+offset_bottom = 136.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "X"
+theme_override_colors/font_color = Color(0.44264, 0.343049, 0.280359, 1)
+theme_override_font_sizes/font_size = 150
+text = "OPTIONS"
+horizontal_alignment = 1
+
+[node name="GridContainer" type="GridContainer" parent="Options"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -373.0
+offset_top = -105.0
+offset_right = 367.0
+offset_bottom = 245.0
+grow_horizontal = 2
+grow_vertical = 2
+columns = 2
+
+[node name="ButtonParent" type="Control" parent="Options/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Resume" type="Button" parent="Options/GridContainer/ButtonParent"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -165.0
+offset_top = -60.0
+offset_right = 165.0
+offset_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "RESUME"
+
+[node name="ButtonParent2" type="Control" parent="Options/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Options" type="Button" parent="Options/GridContainer/ButtonParent2"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -165.0
+offset_top = -60.0
+offset_right = 165.0
+offset_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "OPTIONS"
+
+[node name="ButtonParent3" type="Control" parent="Options/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Music" type="Button" parent="Options/GridContainer/ButtonParent3"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -165.0
+offset_top = -60.0
+offset_right = 165.0
+offset_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "MUSIC"
+
+[node name="ButtonParent4" type="Control" parent="Options/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Back" type="Button" parent="Options/GridContainer/ButtonParent4"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -165.0
+offset_top = -60.0
+offset_right = 165.0
+offset_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "back"
+
+[node name="Music" type="Control" parent="." node_paths=PackedStringArray("focusable_items")]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_yh2qu")
+focusable_items = [NodePath("GridContainer/ButtonParent3/SelectMusic"), NodePath("GridContainer/ButtonParent2/HSlider"), NodePath("GridContainer/ButtonParent4/Back")]
+
+[node name="Background" type="ColorRect" parent="Music"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.661631, 0.535886, 0.457809, 1)
+
+[node name="Label" type="Label" parent="Music"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -322.0
+offset_top = -254.0
+offset_right = 323.0
+offset_bottom = 136.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.44264, 0.343049, 0.280359, 1)
+theme_override_font_sizes/font_size = 150
+text = "OPTIONS"
+horizontal_alignment = 1
+
+[node name="GridContainer" type="VBoxContainer" parent="Music"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -373.0
+offset_top = -105.0
+offset_right = 367.0
+offset_bottom = 245.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ButtonParent3" type="Control" parent="Music/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="SelectMusic" type="Button" parent="Music/GridContainer/ButtonParent3"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -165.0
+offset_top = -60.0
+offset_right = 165.0
+offset_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "select MUSIC"
+
+[node name="ButtonParent2" type="Control" parent="Music/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="HSlider" type="HSlider" parent="Music/GridContainer/ButtonParent2"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -165.0
+offset_top = -12.5
+offset_right = 165.0
+offset_bottom = 12.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ButtonParent4" type="Control" parent="Music/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Back" type="Button" parent="Music/GridContainer/ButtonParent4"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -165.0
+offset_top = -60.0
+offset_right = 165.0
+offset_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "back"
 
 [connection signal="pressed" from="MainMenu/GridContainer/ButtonParent/StartGame" to="." method="start_game"]
-[connection signal="pressed" from="MainMenu/GridContainer/ButtonParent3/Options" to="." method="open_music"]
+[connection signal="pressed" from="MainMenu/GridContainer/ButtonParent3/Options" to="." method="open_sub_tab" binds= ["Options"]]
 [connection signal="pressed" from="MainMenu/GridContainer/ButtonParent4/Quit" to="." method="quit_game"]
 [connection signal="pressed" from="PauseMenu/GridContainer/ButtonParent/Resume" to="." method="resume_game"]
+[connection signal="pressed" from="PauseMenu/GridContainer/ButtonParent2/Options" to="." method="open_sub_tab" binds= ["Options"]]
 [connection signal="pressed" from="PauseMenu/GridContainer/ButtonParent3/Restart" to="." method="restart_game"]
 [connection signal="pressed" from="PauseMenu/GridContainer/ButtonParent4/Quit" to="." method="quit_game"]
 [connection signal="pressed" from="GameOver/Restart" to="." method="restart_game"]
 [connection signal="pressed" from="GameOver/Quit" to="." method="quit_game"]
 [connection signal="pressed" from="Won/GridContainer/ButtonParent/Restart" to="." method="restart_game"]
 [connection signal="pressed" from="Won/GridContainer/ButtonParent4/Quit" to="." method="quit_game"]
-[connection signal="pressed" from="Settings/CloseSettings" to="." method="quit_game"]
+[connection signal="pressed" from="Options/GridContainer/ButtonParent3/Music" to="." method="open_sub_tab" binds= ["Music"]]
+[connection signal="pressed" from="Options/GridContainer/ButtonParent4/Back" to="." method="close_sub_tab"]
+[connection signal="pressed" from="Music/GridContainer/ButtonParent3/SelectMusic" to="." method="open_music"]
+[connection signal="pressed" from="Music/GridContainer/ButtonParent4/Back" to="." method="close_sub_tab"]
