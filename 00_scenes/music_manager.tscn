@@ -1,0 +1,26 @@
+[gd_scene load_steps=4 format=3 uid="uid://dhel4lhmcyr76"]
+
+[ext_resource type="Script" path="res://01_scripts/music_manager.gd" id="1_pnpf3"]
+[ext_resource type="AudioStream" uid="uid://bxcnq21eb74t4" path="res://04_sounds/pong/win.wav" id="2_741tl"]
+[ext_resource type="AudioStream" uid="uid://c2654ua65mmnj" path="res://04_sounds/game_over.wav" id="3_5kd72"]
+
+[node name="MusicManager" type="Control"]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_pnpf3")
+default_audio_streams = Array[AudioStream]([ExtResource("2_741tl"), ExtResource("3_5kd72")])
+
+[node name="FileDialog" type="FileDialog" parent="."]
+mode = 4
+title = "Open File(s)"
+initial_position = 2
+size = Vector2i(800, 600)
+ok_button_text = "Open"
+file_mode = 1
+access = 2
+filters = PackedStringArray("*.mp3", "*.wav")

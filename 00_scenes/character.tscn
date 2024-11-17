@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://01_scripts/character_viewport.gd" id="1_bkqhi"]
 [ext_resource type="PackedScene" uid="uid://dqwfjcpbbr4wj" path="res://03_models/remote_arm.blend" id="2_e1jm7"]
-[ext_resource type="PackedScene" uid="uid://ccs84f1vhfvgm" path="res://00_scenes/tests/spot_light_3d.tscn" id="3_4tn2y"]
+[ext_resource type="PackedScene" uid="uid://ccs84f1vhfvgm" path="res://00_scenes/spot_light_3d.tscn" id="3_4tn2y"]
 [ext_resource type="PackedScene" uid="uid://dxapncgp3dcbt" path="res://03_models/timer_arm.blend" id="3_qpxxx"]
 [ext_resource type="PackedScene" uid="uid://m3tt06ek4cc1" path="res://00_scenes/ui/timer_screen.tscn" id="5_2ps1d"]
 

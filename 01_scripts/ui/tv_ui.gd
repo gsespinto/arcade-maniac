@@ -48,6 +48,10 @@ func restart_game() -> void:
 	LoadingScreen.load_scene(game_scene)
 
 
+func open_music() -> void:
+	MusicManager.open_file_dialog()
+
+
 # Sets tab with target name visible and hides all the rest
 # Returns whether it successfully opened a tab
 func open_tab(tab_name : String) -> bool:

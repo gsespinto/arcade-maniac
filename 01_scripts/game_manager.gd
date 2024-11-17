@@ -33,6 +33,7 @@ func _ready() -> void:
 	# Whenever we load a new scene, reset the manager
 	# so that the game state and play info is back to original state
 	LoadingScreen.loaded.connect(reset)
+	set_tree_paused(false)
 
 
 func _process(delta: float) -> void:
@@ -88,6 +89,11 @@ func unpause():
 	_tick_play_time = true
 	_is_paused = false
 	unpaused.emit()
+
+
+func set_tree_paused(paused : bool):
+	get_tree().set_pause(paused)
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE if paused else Input.MOUSE_MODE_HIDDEN)
 
 
 func _get_time_string(total_seconds: float) -> String:

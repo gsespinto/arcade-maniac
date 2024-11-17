@@ -13,7 +13,7 @@ offset_right = 800.0
 offset_bottom = 599.0
 theme = ExtResource("1_hpfey")
 script = ExtResource("1_02oip")
-game_scene = "res://00_scenes/tests/game_test.tscn"
+game_scene = "res://00_scenes/main.tscn"
 tabs = [NodePath("MainMenu"), NodePath("PauseMenu"), NodePath("GameOver"), NodePath("Won"), NodePath("WarmUp")]
 final_time_label = NodePath("Won/GridContainer/ButtonParent2/VBoxContainer/FinalTimeLabel")
 
@@ -360,6 +360,7 @@ grow_vertical = 2
 text = "QUIT"
 
 [node name="Won" type="Control" parent="." node_paths=PackedStringArray("buttons")]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -574,6 +575,7 @@ grow_vertical = 2
 text = "X"
 
 [connection signal="pressed" from="MainMenu/GridContainer/ButtonParent/StartGame" to="." method="start_game"]
+[connection signal="pressed" from="MainMenu/GridContainer/ButtonParent3/Options" to="." method="open_music"]
 [connection signal="pressed" from="MainMenu/GridContainer/ButtonParent4/Quit" to="." method="quit_game"]
 [connection signal="pressed" from="PauseMenu/GridContainer/ButtonParent/Resume" to="." method="resume_game"]
 [connection signal="pressed" from="PauseMenu/GridContainer/ButtonParent3/Restart" to="." method="restart_game"]
