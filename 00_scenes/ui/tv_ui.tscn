@@ -4,7 +4,7 @@
 [ext_resource type="Theme" uid="uid://bthy66vyauw8r" path="res://02_sprites/themes/tv_ui.tres" id="1_hpfey"]
 [ext_resource type="Script" path="res://01_scripts/ui/tv_tab.gd" id="2_yh2qu"]
 
-[node name="TvUi" type="Control" node_paths=PackedStringArray("tabs")]
+[node name="TvUi" type="Control" node_paths=PackedStringArray("tabs", "final_time_label")]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 0
@@ -15,6 +15,7 @@ theme = ExtResource("1_hpfey")
 script = ExtResource("1_02oip")
 game_scene = "res://00_scenes/tests/game_test.tscn"
 tabs = [NodePath("MainMenu"), NodePath("PauseMenu"), NodePath("GameOver"), NodePath("Won"), NodePath("WarmUp")]
+final_time_label = NodePath("Won/GridContainer/ButtonParent2/VBoxContainer/FinalTimeLabel")
 
 [node name="ReferenceRect" type="ReferenceRect" parent="."]
 layout_mode = 1
@@ -33,7 +34,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("2_yh2qu")
-buttons = [NodePath("StartGame"), NodePath("Options"), NodePath("Quit")]
+buttons = [NodePath("GridContainer/ButtonParent/StartGame"), NodePath("GridContainer/ButtonParent2/Highscores"), NodePath("GridContainer/ButtonParent3/Options"), NodePath("GridContainer/ButtonParent4/Quit")]
 
 [node name="Background" type="ColorRect" parent="MainMenu"]
 layout_mode = 1
@@ -44,7 +45,45 @@ grow_horizontal = 2
 grow_vertical = 2
 color = Color(0.583897, 0.534128, 0.698719, 1)
 
-[node name="StartGame" type="Button" parent="MainMenu"]
+[node name="Label" type="Label" parent="MainMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -322.0
+offset_top = -256.0
+offset_right = 323.0
+offset_bottom = 134.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.361506, 0.316027, 0.457416, 1)
+theme_override_font_sizes/font_size = 150
+text = "welcome"
+horizontal_alignment = 1
+
+[node name="GridContainer" type="GridContainer" parent="MainMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -373.0
+offset_top = -105.0
+offset_right = 367.0
+offset_bottom = 245.0
+grow_horizontal = 2
+grow_vertical = 2
+columns = 2
+
+[node name="ButtonParent" type="Control" parent="MainMenu/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="StartGame" type="Button" parent="MainMenu/GridContainer/ButtonParent"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -52,14 +91,39 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -165.0
-offset_top = -218.0
+offset_top = -60.0
 offset_right = 165.0
-offset_bottom = -98.0
+offset_bottom = 60.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "START GAME"
 
-[node name="Options" type="Button" parent="MainMenu"]
+[node name="ButtonParent2" type="Control" parent="MainMenu/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Highscores" type="Button" parent="MainMenu/GridContainer/ButtonParent2"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -165.0
+offset_top = -60.0
+offset_right = 165.0
+offset_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "HIGHSCORES"
+
+[node name="ButtonParent3" type="Control" parent="MainMenu/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Options" type="Button" parent="MainMenu/GridContainer/ButtonParent3"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -74,7 +138,12 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "OPTIONS"
 
-[node name="Quit" type="Button" parent="MainMenu"]
+[node name="ButtonParent4" type="Control" parent="MainMenu/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Quit" type="Button" parent="MainMenu/GridContainer/ButtonParent4"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -82,9 +151,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -165.0
-offset_top = 99.0
+offset_top = -60.0
 offset_right = 165.0
-offset_bottom = 219.0
+offset_bottom = 60.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "QUIT"
@@ -98,7 +167,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("2_yh2qu")
-buttons = [NodePath("Resume"), NodePath("Options")]
+buttons = [NodePath("GridContainer/ButtonParent/Resume"), NodePath("GridContainer/ButtonParent2/Options"), NodePath("GridContainer/ButtonParent3/Restart"), NodePath("GridContainer/ButtonParent4/Quit")]
 
 [node name="Background" type="ColorRect" parent="PauseMenu"]
 layout_mode = 1
@@ -127,7 +196,27 @@ theme_override_font_sizes/font_size = 150
 text = "PAUSED"
 horizontal_alignment = 1
 
-[node name="Resume" type="Button" parent="PauseMenu"]
+[node name="GridContainer" type="GridContainer" parent="PauseMenu"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -373.0
+offset_top = -105.0
+offset_right = 367.0
+offset_bottom = 245.0
+grow_horizontal = 2
+grow_vertical = 2
+columns = 2
+
+[node name="ButtonParent" type="Control" parent="PauseMenu/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Resume" type="Button" parent="PauseMenu/GridContainer/ButtonParent"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -135,14 +224,19 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -165.0
-offset_top = -61.0
+offset_top = -60.0
 offset_right = 165.0
-offset_bottom = 59.0
+offset_bottom = 60.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "RESUME"
 
-[node name="Options" type="Button" parent="PauseMenu"]
+[node name="ButtonParent2" type="Control" parent="PauseMenu/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Options" type="Button" parent="PauseMenu/GridContainer/ButtonParent2"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -150,12 +244,52 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -165.0
-offset_top = 119.0
+offset_top = -60.0
 offset_right = 165.0
-offset_bottom = 239.0
+offset_bottom = 60.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "OPTIONS"
+
+[node name="ButtonParent3" type="Control" parent="PauseMenu/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Restart" type="Button" parent="PauseMenu/GridContainer/ButtonParent3"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -165.0
+offset_top = -60.0
+offset_right = 165.0
+offset_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "RESTART"
+
+[node name="ButtonParent4" type="Control" parent="PauseMenu/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Quit" type="Button" parent="PauseMenu/GridContainer/ButtonParent4"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -165.0
+offset_top = -60.0
+offset_right = 165.0
+offset_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "QUIT"
 
 [node name="GameOver" type="Control" parent="." node_paths=PackedStringArray("buttons")]
 visible = false
@@ -226,7 +360,6 @@ grow_vertical = 2
 text = "QUIT"
 
 [node name="Won" type="Control" parent="." node_paths=PackedStringArray("buttons")]
-visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -234,7 +367,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("2_yh2qu")
-buttons = [NodePath("Restart"), NodePath("Quit")]
+buttons = [NodePath("GridContainer/ButtonParent/Restart"), NodePath("GridContainer/ButtonParent3/Highscore"), NodePath("GridContainer/ButtonParent4/Quit")]
 
 [node name="Background" type="ColorRect" parent="Won"]
 layout_mode = 1
@@ -263,7 +396,27 @@ theme_override_font_sizes/font_size = 150
 text = "YOU WON!"
 horizontal_alignment = 1
 
-[node name="Restart" type="Button" parent="Won"]
+[node name="GridContainer" type="GridContainer" parent="Won"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -373.0
+offset_top = -105.0
+offset_right = 367.0
+offset_bottom = 245.0
+grow_horizontal = 2
+grow_vertical = 2
+columns = 2
+
+[node name="ButtonParent" type="Control" parent="Won/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Restart" type="Button" parent="Won/GridContainer/ButtonParent"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -271,14 +424,51 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -165.0
-offset_top = -61.0
+offset_top = -60.0
 offset_right = 165.0
-offset_bottom = 59.0
+offset_bottom = 60.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "RESTART"
 
-[node name="Quit" type="Button" parent="Won"]
+[node name="ButtonParent2" type="Control" parent="Won/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Won/GridContainer/ButtonParent2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Won/GridContainer/ButtonParent2/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.246591, 0.350128, 0.330989, 1)
+theme_override_font_sizes/font_size = 45
+text = "Your time:"
+horizontal_alignment = 1
+vertical_alignment = 2
+clip_text = true
+
+[node name="FinalTimeLabel" type="Label" parent="Won/GridContainer/ButtonParent2/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.246591, 0.350128, 0.330989, 1)
+theme_override_font_sizes/font_size = 45
+text = "00:00:00"
+horizontal_alignment = 1
+clip_text = true
+
+[node name="ButtonParent3" type="Control" parent="Won/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Highscore" type="Button" parent="Won/GridContainer/ButtonParent3"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -286,9 +476,29 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -165.0
-offset_top = 119.0
+offset_top = -60.0
 offset_right = 165.0
-offset_bottom = 239.0
+offset_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "HIGHSCORES"
+
+[node name="ButtonParent4" type="Control" parent="Won/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Quit" type="Button" parent="Won/GridContainer/ButtonParent4"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -165.0
+offset_top = -60.0
+offset_right = 165.0
+offset_bottom = 60.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "QUIT"
@@ -363,11 +573,13 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "X"
 
-[connection signal="pressed" from="MainMenu/StartGame" to="." method="start_game"]
-[connection signal="pressed" from="MainMenu/Quit" to="." method="quit_game"]
-[connection signal="pressed" from="PauseMenu/Resume" to="." method="resume_game"]
+[connection signal="pressed" from="MainMenu/GridContainer/ButtonParent/StartGame" to="." method="start_game"]
+[connection signal="pressed" from="MainMenu/GridContainer/ButtonParent4/Quit" to="." method="quit_game"]
+[connection signal="pressed" from="PauseMenu/GridContainer/ButtonParent/Resume" to="." method="resume_game"]
+[connection signal="pressed" from="PauseMenu/GridContainer/ButtonParent3/Restart" to="." method="restart_game"]
+[connection signal="pressed" from="PauseMenu/GridContainer/ButtonParent4/Quit" to="." method="quit_game"]
 [connection signal="pressed" from="GameOver/Restart" to="." method="restart_game"]
 [connection signal="pressed" from="GameOver/Quit" to="." method="quit_game"]
-[connection signal="pressed" from="Won/Restart" to="." method="restart_game"]
-[connection signal="pressed" from="Won/Quit" to="." method="quit_game"]
+[connection signal="pressed" from="Won/GridContainer/ButtonParent/Restart" to="." method="restart_game"]
+[connection signal="pressed" from="Won/GridContainer/ButtonParent4/Quit" to="." method="quit_game"]
 [connection signal="pressed" from="Settings/CloseSettings" to="." method="quit_game"]

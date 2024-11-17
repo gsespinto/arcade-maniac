@@ -88,3 +88,15 @@ func unpause():
 	_tick_play_time = true
 	_is_paused = false
 	unpaused.emit()
+
+
+func _get_time_string(total_seconds: float) -> String:
+	var seconds:float = fmod(total_seconds , 60.0)
+	var minutes:int   =  int(total_seconds / 60.0) % 60
+	var hhmmss_string:String = "%02d:%05.2f" % [minutes, seconds]
+	hhmmss_string = hhmmss_string.replace(".", ":")
+	return hhmmss_string
+
+
+func get_current_time_string() -> String:
+	return _get_time_string(current_time)

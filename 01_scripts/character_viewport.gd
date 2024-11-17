@@ -30,15 +30,7 @@ func play_animation(animation : String) -> void:
 
 
 func _update_time_labels() -> void:
-	var time_info : PackedStringArray = _get_time_array(GameManager.current_time) 
+	var time_info : PackedStringArray = GameManager.get_current_time_string().split(":")
 	minutes_label.set_text(time_info[0])
 	seconds_label.set_text(time_info[1])
 	milisseconds_label.set_text(time_info[2])
-
-
-func _get_time_array(total_seconds: float) -> PackedStringArray:
-	var seconds:float = fmod(total_seconds , 60.0)
-	var minutes:int   =  int(total_seconds / 60.0) % 60
-	var hhmmss_string:String = "%02d:%05.2f" % [minutes, seconds]
-	hhmmss_string = hhmmss_string.replace(".", ":")
-	return hhmmss_string.split(":")

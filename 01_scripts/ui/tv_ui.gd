@@ -17,6 +17,8 @@ signal changed_focus
 @export var tabs : Array[TvTab] = []
 var _current_tab : int = 0
 
+@export var final_time_label : Label
+
 
 func _enter_tree() -> void:
 	instance = self
@@ -26,6 +28,8 @@ func _enter_tree() -> void:
 func _ready() -> void:
 	for tab in tabs:
 		tab.changed_focus.connect(changed_focus.emit)
+	
+	GameManager.won.connect(set_final_time)
 
 
 func start_game() -> void:
@@ -68,3 +72,7 @@ func get_focus_position() -> Vector2:
 
 func get_current_tab() -> String:
 	return tabs[_current_tab].name
+
+
+func set_final_time():
+	final_time_label.set_text(GameManager.get_current_time_string())
