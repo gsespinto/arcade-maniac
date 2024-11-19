@@ -76,6 +76,11 @@ pause={
 ]
 }
 
+[internationalization]
+
+locale/translation_remaps={}
+locale/translations=PackedStringArray("res://06_locales/translations.en.translation", "res://06_locales/translations.pt.translation", "res://06_locales/translations.de.translation", "res://06_locales/translations.es.translation")
+
 [layer_names]
 
 3d_render/layer_1="Default"

@@ -55,14 +55,14 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -322.0
-offset_top = -256.0
+offset_top = -254.0
 offset_right = 323.0
-offset_bottom = 134.0
+offset_bottom = 136.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0.361506, 0.316027, 0.457416, 1)
 theme_override_font_sizes/font_size = 150
-text = "welcome"
+text = "STR_WELCOME"
 horizontal_alignment = 1
 
 [node name="GridContainer" type="GridContainer" parent="MainMenu"]
@@ -98,7 +98,7 @@ offset_right = 165.0
 offset_bottom = 60.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "START GAME"
+text = "STR_START"
 
 [node name="ButtonParent2" type="Control" parent="MainMenu/GridContainer"]
 layout_mode = 2
@@ -118,7 +118,7 @@ offset_right = 165.0
 offset_bottom = 60.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "HIGHSCORES"
+text = "STR_HIGHSCORES"
 
 [node name="ButtonParent3" type="Control" parent="MainMenu/GridContainer"]
 layout_mode = 2
@@ -138,7 +138,7 @@ offset_right = 165.0
 offset_bottom = 60.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "OPTIONS"
+text = "STR_OPTIONS"
 
 [node name="ButtonParent4" type="Control" parent="MainMenu/GridContainer"]
 layout_mode = 2
@@ -158,7 +158,7 @@ offset_right = 165.0
 offset_bottom = 60.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "QUIT"
+text = "STR_QUIT"
 
 [node name="PauseMenu" type="Control" parent="." node_paths=PackedStringArray("focusable_items")]
 visible = false
@@ -195,7 +195,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0.243062, 0.312865, 0.428871, 1)
 theme_override_font_sizes/font_size = 150
-text = "PAUSED"
+text = "STR_PAUSED"
 horizontal_alignment = 1
 
 [node name="GridContainer" type="GridContainer" parent="PauseMenu"]
@@ -231,7 +231,7 @@ offset_right = 165.0
 offset_bottom = 60.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "RESUME"
+text = "STR_RESUME"
 
 [node name="ButtonParent2" type="Control" parent="PauseMenu/GridContainer"]
 layout_mode = 2
@@ -251,7 +251,7 @@ offset_right = 165.0
 offset_bottom = 60.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "OPTIONS"
+text = "STR_OPTIONS"
 
 [node name="ButtonParent3" type="Control" parent="PauseMenu/GridContainer"]
 layout_mode = 2
@@ -271,7 +271,7 @@ offset_right = 165.0
 offset_bottom = 60.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "RESTART"
+text = "STR_RESTART"
 
 [node name="ButtonParent4" type="Control" parent="PauseMenu/GridContainer"]
 layout_mode = 2
@@ -291,7 +291,7 @@ offset_right = 165.0
 offset_bottom = 60.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "QUIT"
+text = "STR_QUIT"
 
 [node name="GameOver" type="Control" parent="." node_paths=PackedStringArray("focusable_items")]
 visible = false
@@ -328,7 +328,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0.400387, 0.229307, 0.280609, 1)
 theme_override_font_sizes/font_size = 150
-text = "YOU LOST!"
+text = "STR_GAME_OVER"
 horizontal_alignment = 1
 
 [node name="Restart" type="Button" parent="GameOver"]
@@ -344,7 +344,7 @@ offset_right = 165.0
 offset_bottom = 59.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "RESTART"
+text = "STR_RESTART"
 
 [node name="Quit" type="Button" parent="GameOver"]
 layout_mode = 1
@@ -359,7 +359,7 @@ offset_right = 165.0
 offset_bottom = 239.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "QUIT"
+text = "STR_QUIT"
 
 [node name="Won" type="Control" parent="." node_paths=PackedStringArray("focusable_items")]
 visible = false
@@ -396,7 +396,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0.246591, 0.350128, 0.330989, 1)
 theme_override_font_sizes/font_size = 150
-text = "YOU WON!"
+text = "STR_WON"
 horizontal_alignment = 1
 
 [node name="GridContainer" type="GridContainer" parent="Won"]
@@ -432,7 +432,7 @@ offset_right = 165.0
 offset_bottom = 60.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "RESTART"
+text = "STR_RESTART"
 
 [node name="ButtonParent2" type="Control" parent="Won/GridContainer"]
 layout_mode = 2
@@ -452,7 +452,7 @@ layout_mode = 2
 size_flags_vertical = 3
 theme_override_colors/font_color = Color(0.246591, 0.350128, 0.330989, 1)
 theme_override_font_sizes/font_size = 45
-text = "Your time:"
+text = "STR_FINAL_TIME"
 horizontal_alignment = 1
 vertical_alignment = 2
 clip_text = true
@@ -484,7 +484,7 @@ offset_right = 165.0
 offset_bottom = 60.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "HIGHSCORES"
+text = "STR_HIGHSCORES"
 
 [node name="ButtonParent4" type="Control" parent="Won/GridContainer"]
 layout_mode = 2
@@ -504,7 +504,7 @@ offset_right = 165.0
 offset_bottom = 60.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "QUIT"
+text = "STR_QUIT"
 
 [node name="WarmUp" type="Control" parent="."]
 visible = false
@@ -542,7 +542,7 @@ theme_override_font_sizes/font_size = 531
 text = "II"
 horizontal_alignment = 1
 
-[node name="Options" type="Control" parent="." node_paths=PackedStringArray("fullscreen_bt", "volume_slider", "music_slider", "focusable_items")]
+[node name="Options" type="Control" parent="." node_paths=PackedStringArray("fullscreen_bt", "volume_slider", "music_slider", "locale_bt", "focusable_items")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -553,7 +553,8 @@ script = ExtResource("4_aqmmq")
 fullscreen_bt = NodePath("GridContainer/ButtonParent/Options")
 volume_slider = NodePath("../Audio/GridContainer2/ButtonParent3/VBoxContainer/GameVolSlider")
 music_slider = NodePath("../Audio/GridContainer2/ButtonParent/VBoxContainer/MusicSlider")
-focusable_items = [NodePath("GridContainer/ButtonParent/Options"), NodePath("GridContainer/ButtonParent2/Resume"), NodePath("GridContainer/ButtonParent3/Audio"), NodePath("GridContainer/ButtonParent4/Back")]
+locale_bt = NodePath("GridContainer/ButtonParent2/Locale")
+focusable_items = [NodePath("GridContainer/ButtonParent/Options"), NodePath("GridContainer/ButtonParent2/Locale"), NodePath("GridContainer/ButtonParent3/Audio"), NodePath("GridContainer/ButtonParent4/Back")]
 
 [node name="Background" type="ColorRect" parent="Options"]
 layout_mode = 1
@@ -579,7 +580,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0.44264, 0.343049, 0.280359, 1)
 theme_override_font_sizes/font_size = 150
-text = "OPTIONS"
+text = "STR_OPTIONS"
 horizontal_alignment = 1
 
 [node name="GridContainer" type="GridContainer" parent="Options"]
@@ -616,14 +617,15 @@ offset_bottom = 60.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 37
-text = "FULLSCREEN: "
+text = "STR_FULLSCREEN_ON"
+autowrap_mode = 2
 
 [node name="ButtonParent2" type="Control" parent="Options/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Resume" type="Button" parent="Options/GridContainer/ButtonParent2"]
+[node name="Locale" type="Button" parent="Options/GridContainer/ButtonParent2"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -636,7 +638,7 @@ offset_right = 165.0
 offset_bottom = 60.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "RESUME"
+text = "LOCALE"
 
 [node name="ButtonParent3" type="Control" parent="Options/GridContainer"]
 layout_mode = 2
@@ -656,7 +658,7 @@ offset_right = 165.0
 offset_bottom = 60.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "AUDIO"
+text = "STR_AUDIO"
 
 [node name="ButtonParent4" type="Control" parent="Options/GridContainer"]
 layout_mode = 2
@@ -676,9 +678,10 @@ offset_right = 165.0
 offset_bottom = 60.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "back"
+text = "STR_BACK"
 
 [node name="Audio" type="Control" parent="." node_paths=PackedStringArray("focusable_items")]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -765,7 +768,7 @@ alignment = 1
 layout_mode = 2
 theme_override_colors/font_color = Color(0.333333, 0.333333, 0.333333, 1)
 theme_override_font_sizes/font_size = 50
-text = "MUSIC VOLUME"
+text = "STR_MUSIC_VOLUME"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -816,7 +819,7 @@ alignment = 1
 layout_mode = 2
 theme_override_colors/font_color = Color(0.333333, 0.333333, 0.333333, 1)
 theme_override_font_sizes/font_size = 50
-text = "game VOLUME"
+text = "STR_GAME_VOLUME"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -850,7 +853,7 @@ offset_right = 165.0
 offset_bottom = 60.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "select MUSIC"
+text = "STR_SELECT_MUSIC"
 
 [node name="ButtonParent4" type="Control" parent="Audio/GridContainer2"]
 layout_mode = 2
@@ -870,7 +873,7 @@ offset_right = 165.0
 offset_bottom = 60.0
 grow_horizontal = 2
 grow_vertical = 2
-text = "back"
+text = "STR_BACK"
 
 [connection signal="pressed" from="MainMenu/GridContainer/ButtonParent/StartGame" to="." method="start_game"]
 [connection signal="pressed" from="MainMenu/GridContainer/ButtonParent3/Options" to="." method="open_sub_tab" binds= ["Options"]]
@@ -884,6 +887,7 @@ text = "back"
 [connection signal="pressed" from="Won/GridContainer/ButtonParent/Restart" to="." method="restart_game"]
 [connection signal="pressed" from="Won/GridContainer/ButtonParent4/Quit" to="." method="quit_game"]
 [connection signal="pressed" from="Options/GridContainer/ButtonParent/Options" to="Options" method="toggle_fullscreen"]
+[connection signal="pressed" from="Options/GridContainer/ButtonParent2/Locale" to="Options" method="cycle_locales"]
 [connection signal="pressed" from="Options/GridContainer/ButtonParent3/Audio" to="." method="open_sub_tab" binds= ["Audio"]]
 [connection signal="pressed" from="Options/GridContainer/ButtonParent4/Back" to="." method="close_sub_tab"]
 [connection signal="focus_entered" from="Audio/GridContainer2/ButtonParent/VBoxContainer/MusicSlider" to="Audio/GridContainer2/ButtonParent/Selected" method="set_visible" binds= [true]]

@@ -1,9 +1,8 @@
 extends TvTab
 
-## Fullscreen button, will append to its text 'ON' or 'OFF' 
-## according to the current fullscreen state.
+## Button to change language, will change text to
+## show current locale string
 @export var fullscreen_bt : Button
-var _original_fullscreen_bt_text : String = ""
 
 ## Game volume slider, sets up min and max values according to
 ## OptionsManager settings, and toggles the editable state
@@ -15,13 +14,17 @@ var _original_fullscreen_bt_text : String = ""
 ## when there's ´ui_accept´ input and the slider has focus.
 @export var music_slider : Slider
 
+## Button to change language, will change text to
+## show current locale string
+@export var locale_bt : Button
+
 
 func _ready() -> void:
 	# Set initial fullscreen text state
-	if is_instance_valid(fullscreen_bt):
-		_original_fullscreen_bt_text = fullscreen_bt.text
-		fullscreen_bt.set_text(_original_fullscreen_bt_text +
-			("ON" if OptionsManager.is_fullscreen else "OFF"))
+	_update_fullscreen_button_text()
+	
+	# Set initial locales text state
+	_update_locales_button_text()
 	
 	# Set up game volume slider
 	if is_instance_valid(volume_slider):
@@ -45,10 +48,29 @@ func _ready() -> void:
 func toggle_fullscreen():
 	OptionsManager.toggle_fullscreen()
 	
-	# Update fullscreen button text
 	if is_instance_valid(fullscreen_bt):
-		fullscreen_bt.set_text(_original_fullscreen_bt_text +
-			("ON" if OptionsManager.is_fullscreen else "OFF"))
+		var suffix : String = "_ON" if OptionsManager.is_fullscreen else "_OFF"
+		_update_fullscreen_button_text()
+
+
+func _update_fullscreen_button_text():
+	if not is_instance_valid(fullscreen_bt):
+		return
+	
+	var suffix : String = "_ON" if OptionsManager.is_fullscreen else "_OFF"
+	fullscreen_bt.set_text("STR_FULLSCREEN" + suffix)
+
+
+func cycle_locales():
+	OptionsManager.cycle_locales()
+	_update_locales_button_text()
+
+
+func _update_locales_button_text():
+	if not is_instance_valid(locale_bt):
+		return
+	
+	locale_bt.set_text(OptionsManager.get_current_locale_name().to_upper())
 
 
 func set_game_volume(volume_db : float):

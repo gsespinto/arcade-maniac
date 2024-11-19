@@ -3,12 +3,12 @@
 importer="font_data_dynamic"
 type="FontFile"
 uid="uid://yq86g78g3l2w"
-path="res://.godot/imported/DS-DIGIB.TTF-22ca7f82da54796db5cbbdeb4ecaea00.fontdata"
+path="res://.godot/imported/DS-DIGIB.TTF-170c5e756fd77971552c353ea417a147.fontdata"
 
 [deps]
 
-source_file="res://02_sprites/DS-DIGIB.TTF"
-dest_files=["res://.godot/imported/DS-DIGIB.TTF-22ca7f82da54796db5cbbdeb4ecaea00.fontdata"]
+source_file="res://05_fonts/DS-DIGIB.TTF"
+dest_files=["res://.godot/imported/DS-DIGIB.TTF-170c5e756fd77971552c353ea417a147.fontdata"]
 
 [params]
 
