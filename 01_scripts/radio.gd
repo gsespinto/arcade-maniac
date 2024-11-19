@@ -4,6 +4,7 @@ extends Node3D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	music_player.set_volume_db(OptionsManager.music_volume)
 	music_player.finished.connect(_play_next_music)
 	MusicManager.loaded_music.connect(_play_current_music)
 	_play_current_music()

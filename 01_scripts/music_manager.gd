@@ -12,12 +12,13 @@ var _current_music : int = -1
 
 func _ready():
 	file_dialog.files_selected.connect(_on_files_selected)
-	file_dialog.file_selected.connect(_on_file_selected)
-	file_dialog.dir_selected.connect(_on_dir_selected)
-	
 	file_dialog.visibility_changed.connect(on_closed_file_dialog)
-	
 	loaded_music.emit()
+	
+	await get_tree().process_frame
+	
+	for file in OptionsManager.music_files:
+		_load_music_file(file)
 
 
 func open_file_dialog():
@@ -33,29 +34,11 @@ func on_closed_file_dialog():
 
 
 # When files are selected
-func _on_files_selected(files: Array):
+func _on_files_selected(files: PackedStringArray):
+	OptionsManager.set_music_files(files)
 	_user_audio_streams.clear()
 	for file_path in files:
 		_load_music_file(file_path)
-	
-	_current_music = 0
-	loaded_music.emit()
-
-
-# When files are selected
-func _on_file_selected(file_path: String):
-	_user_audio_streams.clear()
-	_load_music_file(file_path)
-	
-	_current_music = 0
-	loaded_music.emit()
-
-
-func _on_dir_selected(dir_path : String):
-	_user_audio_streams.clear()
-	var dir = DirAccess.open(dir_path)
-	for file in dir.get_files():
-		_load_music_file(dir_path + "/" + file)
 	
 	_current_music = 0
 	loaded_music.emit()

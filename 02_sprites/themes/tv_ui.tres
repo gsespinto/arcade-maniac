@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=8 format=3 uid="uid://bthy66vyauw8r"]
+[gd_resource type="Theme" load_steps=15 format=3 uid="uid://bthy66vyauw8r"]
 
 [ext_resource type="FontFile" uid="uid://yq86g78g3l2w" path="res://02_sprites/DS-DIGIB.TTF" id="1_m5ilc"]
 [ext_resource type="Texture2D" uid="uid://bfm4r47fb05cl" path="res://02_sprites/button_normal.png" id="2_d375x"]
@@ -20,6 +20,35 @@ modulate_color = Color(0.333333, 0.333333, 0.333333, 1)
 texture = ExtResource("3_gqg24")
 modulate_color = Color(0.917647, 0.894118, 0.513726, 1)
 
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_yammg"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_hu5ri"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_nel86"]
+
+[sub_resource type="PlaceholderTexture2D" id="PlaceholderTexture2D_c6edt"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_06cvy"]
+bg_color = Color(0.333333, 0.333333, 0.333333, 1)
+expand_margin_top = 15.0
+expand_margin_bottom = 15.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mn6ro"]
+bg_color = Color(1, 1, 1, 1)
+expand_margin_top = 15.0
+expand_margin_bottom = 15.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0qgxc"]
+border_width_left = 5
+border_width_top = 5
+border_width_right = 5
+border_width_bottom = 5
+border_color = Color(0.333333, 0.333333, 0.333333, 1)
+expand_margin_left = 5.0
+expand_margin_top = 20.0
+expand_margin_right = 5.0
+expand_margin_bottom = 20.0
+
 [resource]
 Button/colors/font_color = Color(0.333333, 0.333333, 0.333333, 1)
 Button/colors/font_focus_color = Color(0.917961, 0.893376, 0.511792, 1)
@@ -30,4 +59,11 @@ Button/styles/disabled = SubResource("StyleBoxTexture_ccfjv")
 Button/styles/focus = SubResource("StyleBoxTexture_hi3m3")
 Button/styles/normal = SubResource("StyleBoxTexture_xtimg")
 Button/styles/pressed = SubResource("StyleBoxTexture_kmvpw")
+HSlider/icons/grabber = SubResource("PlaceholderTexture2D_yammg")
+HSlider/icons/grabber_disabled = SubResource("PlaceholderTexture2D_hu5ri")
+HSlider/icons/grabber_highlight = SubResource("PlaceholderTexture2D_nel86")
+HSlider/icons/tick = SubResource("PlaceholderTexture2D_c6edt")
+HSlider/styles/grabber_area = SubResource("StyleBoxFlat_06cvy")
+HSlider/styles/grabber_area_highlight = SubResource("StyleBoxFlat_mn6ro")
+HSlider/styles/slider = SubResource("StyleBoxFlat_0qgxc")
 Label/fonts/font = ExtResource("1_m5ilc")

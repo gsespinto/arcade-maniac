@@ -20,6 +20,11 @@ config/icon="res://icon.svg"
 LoadingScreen="*res://00_scenes/ui/loading_screen.tscn"
 GameManager="*res://01_scripts/game_manager.gd"
 MusicManager="*res://00_scenes/music_manager.tscn"
+OptionsManager="*res://01_scripts/options_manager.gd"
+
+[global_group]
+
+music=""
 
 [input]
 
