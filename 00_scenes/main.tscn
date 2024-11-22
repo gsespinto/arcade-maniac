@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://bma26lnrtxwbd"]
+[gd_scene load_steps=43 format=3 uid="uid://bma26lnrtxwbd"]
 
 [ext_resource type="Script" path="res://01_scripts/camera_look_at.gd" id="1_jcqcm"]
 [ext_resource type="PackedScene" uid="uid://ccs84f1vhfvgm" path="res://00_scenes/spot_light_3d.tscn" id="2_ynn0a"]
@@ -10,7 +10,6 @@
 [ext_resource type="AudioStream" uid="uid://c3a2j4qemv6q2" path="res://04_sounds/victory.wav" id="8_swg17"]
 [ext_resource type="PackedScene" uid="uid://b4n2ggcse2yq7" path="res://00_scenes/games/pong.tscn" id="9_gakgs"]
 [ext_resource type="PackedScene" uid="uid://bqbsdq1ahl2dc" path="res://00_scenes/ui/tv_ui.tscn" id="10_xex7w"]
-[ext_resource type="Script" path="res://01_scripts/resizable_viewport.gd" id="11_pwjv8"]
 [ext_resource type="PackedScene" uid="uid://dqbdsd36558yw" path="res://00_scenes/character.tscn" id="12_rnly3"]
 [ext_resource type="Script" path="res://01_scripts/random_audio_player_2D.gd" id="13_g1eo8"]
 [ext_resource type="AudioStream" uid="uid://bx87tfdkrye4v" path="res://04_sounds/click/click_sfx_0.wav" id="14_hld6o"]
@@ -182,19 +181,17 @@ offset_right = 800.0
 offset_bottom = 600.0
 texture = SubResource("ViewportTexture_0ykes")
 
-[node name="CharacterViewport" type="SubViewport" parent="ViewportHolder" node_paths=PackedStringArray("reference_rect")]
+[node name="CharacterViewport" type="SubViewport" parent="ViewportHolder"]
 own_world_3d = true
 transparent_bg = true
 size = Vector2i(1920, 1080)
 render_target_update_mode = 4
-script = ExtResource("11_pwjv8")
-reference_rect = NodePath("../../Control")
 
 [node name="Character" parent="ViewportHolder/CharacterViewport" instance=ExtResource("12_rnly3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1)
 blend_time = 0.0
 
-[node name="Control" type="Control" parent="."]
+[node name="CharacterOverlay" type="Control" parent="."]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -202,14 +199,21 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="TextureRect" type="TextureRect" parent="Control"]
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="CharacterOverlay"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+ratio = 1.7778
+alignment_vertical = 2
+
+[node name="CharacterTexture" type="TextureRect" parent="CharacterOverlay/AspectRatioContainer"]
+layout_mode = 2
 texture = SubResource("ViewportTexture_ajbyk")
+expand_mode = 1
+stretch_mode = 4
 
 [node name="ClickRandomAudio" type="AudioStreamPlayer2D" parent="."]
 volume_db = 5.0
