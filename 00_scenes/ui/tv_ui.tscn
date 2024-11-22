@@ -61,7 +61,7 @@ offset_bottom = 136.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0.361506, 0.316027, 0.457416, 1)
-theme_override_font_sizes/font_size = 150
+theme_override_font_sizes/font_size = 135
 text = "STR_WELCOME"
 horizontal_alignment = 1
 
@@ -118,6 +118,7 @@ offset_right = 165.0
 offset_bottom = 60.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_font_sizes/font_size = 40
 text = "STR_HIGHSCORES"
 
 [node name="ButtonParent3" type="Control" parent="MainMenu/GridContainer"]
@@ -194,7 +195,7 @@ offset_bottom = 136.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0.243062, 0.312865, 0.428871, 1)
-theme_override_font_sizes/font_size = 150
+theme_override_font_sizes/font_size = 135
 text = "STR_PAUSED"
 horizontal_alignment = 1
 
@@ -327,7 +328,7 @@ offset_bottom = 136.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0.400387, 0.229307, 0.280609, 1)
-theme_override_font_sizes/font_size = 150
+theme_override_font_sizes/font_size = 130
 text = "STR_GAME_OVER"
 horizontal_alignment = 1
 
@@ -395,7 +396,7 @@ offset_bottom = 136.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0.246591, 0.350128, 0.330989, 1)
-theme_override_font_sizes/font_size = 150
+theme_override_font_sizes/font_size = 135
 text = "STR_WON"
 horizontal_alignment = 1
 
@@ -484,6 +485,7 @@ offset_right = 165.0
 offset_bottom = 60.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_font_sizes/font_size = 40
 text = "STR_HIGHSCORES"
 
 [node name="ButtonParent4" type="Control" parent="Won/GridContainer"]
@@ -579,7 +581,7 @@ offset_bottom = 136.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0.44264, 0.343049, 0.280359, 1)
-theme_override_font_sizes/font_size = 150
+theme_override_font_sizes/font_size = 135
 text = "STR_OPTIONS"
 horizontal_alignment = 1
 
@@ -714,7 +716,7 @@ offset_bottom = 136.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0.236659, 0.35501, 0.502449, 1)
-theme_override_font_sizes/font_size = 150
+theme_override_font_sizes/font_size = 135
 text = "AUDIO"
 horizontal_alignment = 1
 
