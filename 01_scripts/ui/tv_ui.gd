@@ -8,7 +8,7 @@ static var instance : TvUi
 
 ## Emitted when the focus target of the current tab changes
 ## useful to give audiovisual feedback 
-signal changed_focus
+signal updated_focus
 
 
 ## File path to the game scene to load to restart the game
@@ -28,7 +28,7 @@ func _enter_tree() -> void:
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	for tab in tabs:
-		tab.changed_focus.connect(changed_focus.emit)
+		tab.updated_focus.connect(updated_focus.emit)
 	
 	GameManager.won.connect(set_final_time)
 

@@ -21,13 +21,16 @@ func _process(delta: float) -> void:
 
 
 func play_animation(animation : String) -> void:
-	if is_instance_valid(remote_arm_animator) \
-			and remote_arm_animator.has_animation(animation):
-		remote_arm_animator.play(animation, blend_time)
-	
-	if is_instance_valid(timer_arm_animator) \
-			and timer_arm_animator.has_animation(animation):
-		timer_arm_animator.play(animation, blend_time)
+	_play_arm_animation(remote_arm_animator, animation)
+	_play_arm_animation(timer_arm_animator, animation)
+
+
+func _play_arm_animation(arm_animator : AnimationPlayer, animation : String):
+	if is_instance_valid(arm_animator) \
+			and arm_animator.has_animation(animation):
+		arm_animator.play(animation, blend_time)
+		arm_animator.seek(0.0, true)
+
 
 
 func _update_time_labels() -> void:

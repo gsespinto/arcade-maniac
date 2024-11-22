@@ -57,7 +57,7 @@ func _enter_tree() -> void:
 	GameManager.paused.connect(_pause)
 	GameManager.lost.connect(_game_over)
 	
-	ui.changed_focus.connect(on_interaction_feedback.emit)
+	ui.updated_focus.connect(on_interaction_feedback.emit)
 
 
 func _ready() -> void:

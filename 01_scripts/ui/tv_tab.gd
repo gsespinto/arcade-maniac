@@ -1,7 +1,7 @@
 extends Control
 class_name TvTab
 
-signal changed_focus
+signal updated_focus
 
 @export var focusable_items : Array[Control] = []
 var _current_focus : int
@@ -23,7 +23,7 @@ func _on_item_focus(item : Control):
 		return
 	
 	_current_focus = focusable_items.find(item)
-	changed_focus.emit()
+	updated_focus.emit()
 
 
 func get_focus_position() -> Vector2:
@@ -43,3 +43,16 @@ func reset_focus():
 
 func focus_on_previous():
 	focusable_items[_current_focus].grab_focus()
+
+
+# Whenever we pressed an item from this tab
+# emit signal for visual/audio feedback
+# and set input has handled so it doesn't 
+# propagate to the remaining ui tabs
+func _unhandled_input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_accept", false):
+		for item in focusable_items:
+			if item.has_focus():
+				updated_focus.emit()
+				get_viewport().set_input_as_handled() 
+				break
