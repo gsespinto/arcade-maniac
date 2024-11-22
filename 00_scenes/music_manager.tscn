@@ -1,8 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://dhel4lhmcyr76"]
+[gd_scene load_steps=3 format=3 uid="uid://dhel4lhmcyr76"]
 
 [ext_resource type="Script" path="res://01_scripts/music_manager.gd" id="1_pnpf3"]
-[ext_resource type="AudioStream" uid="uid://bxcnq21eb74t4" path="res://04_sounds/pong/win.wav" id="2_741tl"]
-[ext_resource type="AudioStream" uid="uid://c2654ua65mmnj" path="res://04_sounds/game_over.wav" id="3_5kd72"]
+[ext_resource type="AudioStream" uid="uid://bu7bajic6s6y8" path="res://04_sounds/game_music.wav" id="2_pk6h1"]
 
 [node name="MusicManager" type="Control"]
 process_mode = 3
@@ -13,7 +12,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_pnpf3")
-default_audio_streams = Array[AudioStream]([ExtResource("2_741tl"), ExtResource("3_5kd72")])
+default_audio_streams = Array[AudioStream]([ExtResource("2_pk6h1")])
 
 [node name="FileDialog" type="FileDialog" parent="."]
 mode = 4
