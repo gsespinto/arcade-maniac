@@ -13,6 +13,7 @@ class_name CharacterViewport
 func _ready() -> void:
 	GameManager.started_timer.connect(play_animation.bind("TimerPress"))
 	GameManager.stopped_timer.connect(play_animation.bind("TimerPress"))
+	MusicManager.music_changed.connect(play_animation.bind("ButtonPress"))
 
 
 func _process(delta: float) -> void:

@@ -6,7 +6,7 @@ extends Node3D
 func _ready() -> void:
 	music_player.set_volume_db(OptionsManager.music_volume)
 	music_player.finished.connect(_play_next_music)
-	MusicManager.loaded_music.connect(_play_current_music)
+	MusicManager.music_changed.connect(_play_current_music)
 	_play_current_music()
 
 
