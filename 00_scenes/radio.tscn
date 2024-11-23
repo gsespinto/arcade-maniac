@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://01_scripts/radio.gd" id="1_t312u"]
 [ext_resource type="Texture2D" uid="uid://hnmlo2lyfdhr" path="res://03_models/radio/radio_blinn1_Base_color.png" id="1_u4vso"]
-[ext_resource type="AudioStream" uid="uid://b5uubtppue3qa" path="res://04_sounds/11 - Hold My Breath.mp3" id="2_6ubcl"]
+[ext_resource type="AudioStream" uid="uid://bu7bajic6s6y8" path="res://04_sounds/game_music.wav" id="2_6ubcl"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pc56h"]
 resource_name = "blinn1"
