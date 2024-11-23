@@ -1,6 +1,6 @@
 [gd_scene load_steps=3 format=3 uid="uid://dhel4lhmcyr76"]
 
-[ext_resource type="Script" path="res://01_scripts/music_manager.gd" id="1_pnpf3"]
+[ext_resource type="Script" path="res://01_scripts/global_managers/music_manager.gd" id="1_pnpf3"]
 [ext_resource type="AudioStream" uid="uid://bu7bajic6s6y8" path="res://04_sounds/game_music.wav" id="2_pk6h1"]
 
 [node name="MusicManager" type="Control"]
