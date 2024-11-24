@@ -1,6 +1,6 @@
 extends Node
 
-const HIGHSCORE_COUNT : int = 5
+const HIGHSCORE_COUNT : int = 3
 
 signal updated_highscores(highscores : Array)
 signal added_new_highscore
@@ -9,19 +9,26 @@ signal added_new_highscore
 # { time : float, date : DateTime }
 var highscores : Array = []
 
+var has_new_highscore : bool = false
+
 
 func _enter_tree() -> void:
 	if not DataManager.has_loaded_data:
 		await DataManager.loaded_data
 	
 	# Get saved highscores
-	highscores = DataManager.get_data("Highscores", "highscores", [])
-	updated_highscores.emit(highscores)
+	set_highscores(DataManager.get_data("Highscores", "highscores", []))
 
 	# Whenever the player wins the game
 	# check if the time of that play was
 	# a highscore
 	GameManager.won.connect(check_current_highscore)
+
+
+func set_highscores(data : Array) -> void:
+	highscores = data
+	updated_highscores.emit(highscores)
+	DataManager.set_data("Highscores", "highscores", highscores)
 
 
 func check_current_highscore():
@@ -55,6 +62,7 @@ func check_current_highscore():
 	if highscores.size() >= HIGHSCORE_COUNT:
 		highscores.resize(HIGHSCORE_COUNT)
 	
+	has_new_highscore = true
 	updated_highscores.emit(highscores)
 	added_new_highscore.emit()
 	

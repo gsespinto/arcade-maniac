@@ -41,8 +41,6 @@ func _ready() -> void:
 		music_slider.set_value_no_signal(OptionsManager.music_volume)
 		# When the slider loses focus, ensure it stops being editable
 		music_slider.focus_exited.connect(music_slider.set_editable.bind(false))
-	
-	super._ready()
 
 
 func toggle_fullscreen():

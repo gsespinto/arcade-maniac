@@ -32,7 +32,6 @@ func _play_arm_animation(arm_animator : AnimationPlayer, animation : String):
 		arm_animator.seek(0.0, true)
 
 
-
 func _update_time_labels() -> void:
 	var time_info : PackedStringArray = GameManager.get_current_time_string().split(":")
 	minutes_label.set_text(time_info[0])

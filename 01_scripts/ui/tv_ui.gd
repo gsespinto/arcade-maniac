@@ -23,6 +23,12 @@ var _sub_tab_stack : Array[String]  = []
 
 func _enter_tree() -> void:
 	instance = self
+	
+	# Ensure all tabs are started hidden
+	# so that they can be properly setup
+	# once they are set visible
+	for tab in tabs:
+		tab.set_visible(false)
 
 
 # Called when the node enters the scene tree for the first time.

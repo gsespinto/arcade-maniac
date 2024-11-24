@@ -1,10 +1,13 @@
-[gd_scene load_steps=6 format=3 uid="uid://bqbsdq1ahl2dc"]
+[gd_scene load_steps=9 format=3 uid="uid://bqbsdq1ahl2dc"]
 
 [ext_resource type="Script" path="res://01_scripts/ui/tv_ui.gd" id="1_02oip"]
 [ext_resource type="Theme" uid="uid://bthy66vyauw8r" path="res://02_sprites/themes/tv_ui.tres" id="1_hpfey"]
 [ext_resource type="Script" path="res://01_scripts/ui/tv_tab.gd" id="2_yh2qu"]
 [ext_resource type="Script" path="res://01_scripts/ui/options_tab.gd" id="4_aqmmq"]
 [ext_resource type="Texture2D" uid="uid://dxgt0ghl1fxlh" path="res://02_sprites/button_selected.png" id="5_6g2eb"]
+[ext_resource type="Script" path="res://01_scripts/ui/highscore_tab.gd" id="6_d6s3i"]
+[ext_resource type="PackedScene" uid="uid://byxf1k6usj0bf" path="res://00_scenes/ui/highscore_item.tscn" id="6_moef4"]
+[ext_resource type="FontFile" uid="uid://c1h3hrghuk5dc" path="res://05_fonts/Tiny5-Regular.ttf" id="8_0qex2"]
 
 [node name="TvUi" type="Control" node_paths=PackedStringArray("tabs", "final_time_label")]
 process_mode = 3
@@ -16,7 +19,7 @@ offset_bottom = 599.0
 theme = ExtResource("1_hpfey")
 script = ExtResource("1_02oip")
 game_scene = "res://00_scenes/main.tscn"
-tabs = [NodePath("MainMenu"), NodePath("PauseMenu"), NodePath("GameOver"), NodePath("Won"), NodePath("WarmUp"), NodePath("Options"), NodePath("Audio")]
+tabs = [NodePath("MainMenu"), NodePath("PauseMenu"), NodePath("GameOver"), NodePath("Won"), NodePath("WarmUp"), NodePath("Options"), NodePath("Audio"), NodePath("Highscores"), NodePath("HighscoresReset")]
 final_time_label = NodePath("Won/GridContainer/ButtonParent2/VBoxContainer/FinalTimeLabel")
 
 [node name="ReferenceRect" type="ReferenceRect" parent="."]
@@ -120,6 +123,24 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 40
 text = "STR_HIGHSCORES"
+
+[node name="Label" type="Label" parent="MainMenu/GridContainer/ButtonParent2/Highscores"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -88.0
+offset_top = -6.5
+offset_right = 61.0
+offset_bottom = 33.5
+grow_horizontal = 0
+rotation = 0.523599
+pivot_offset = Vector2(75, 20)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 35
+text = "STR_NEW"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="ButtonParent3" type="Control" parent="MainMenu/GridContainer"]
 layout_mode = 2
@@ -488,6 +509,25 @@ grow_vertical = 2
 theme_override_font_sizes/font_size = 40
 text = "STR_HIGHSCORES"
 
+[node name="Label" type="Label" parent="Won/GridContainer/ButtonParent3/Highscore"]
+z_index = 5
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -89.0
+offset_top = -6.5
+offset_right = 60.0
+offset_bottom = 33.5
+grow_horizontal = 0
+rotation = 0.523599
+pivot_offset = Vector2(75, 20)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 35
+text = "STR_NEW"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="ButtonParent4" type="Control" parent="Won/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
@@ -545,6 +585,7 @@ text = "II"
 horizontal_alignment = 1
 
 [node name="Options" type="Control" parent="." node_paths=PackedStringArray("fullscreen_bt", "volume_slider", "music_slider", "locale_bt", "focusable_items")]
+visible = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -717,7 +758,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0.236659, 0.35501, 0.502449, 1)
 theme_override_font_sizes/font_size = 135
-text = "AUDIO"
+text = "STR_AUDIO"
 horizontal_alignment = 1
 
 [node name="GridContainer2" type="GridContainer" parent="Audio"]
@@ -877,7 +918,258 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "STR_BACK"
 
+[node name="Highscores" type="Control" parent="." node_paths=PackedStringArray("highscore_items", "new_highscore_indicators", "reset_button", "focusable_items")]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("6_d6s3i")
+highscore_items = [NodePath("HighscoreTable/HighscoreItem"), NodePath("HighscoreTable/HighscoreItem2"), NodePath("HighscoreTable/HighscoreItem3")]
+new_highscore_indicators = [NodePath("../MainMenu/GridContainer/ButtonParent2/Highscores/Label"), NodePath("../Won/GridContainer/ButtonParent3/Highscore/Label")]
+reset_button = NodePath("GridContainer/ButtonParent3/Reset")
+focusable_items = [NodePath("GridContainer/ButtonParent4/Back"), NodePath("GridContainer/ButtonParent3/Reset")]
+
+[node name="Background" type="ColorRect" parent="Highscores"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.627984, 0.55763, 0.404221, 1)
+
+[node name="Label" type="Label" parent="Highscores"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -426.0
+offset_top = -254.0
+offset_right = 427.0
+offset_bottom = 136.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.377256, 0.327321, 0.218493, 1)
+theme_override_font_sizes/font_size = 105
+text = "STR_HIGHSCORES"
+horizontal_alignment = 1
+
+[node name="HighscoreTable" type="VBoxContainer" parent="Highscores"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -321.0
+offset_top = -111.0
+offset_right = 321.0
+offset_bottom = 109.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 25
+
+[node name="HighscoreItem" parent="Highscores/HighscoreTable" instance=ExtResource("6_moef4")]
+layout_mode = 2
+
+[node name="HighscoreItem2" parent="Highscores/HighscoreTable" instance=ExtResource("6_moef4")]
+layout_mode = 2
+
+[node name="HighscoreItem3" parent="Highscores/HighscoreTable" instance=ExtResource("6_moef4")]
+layout_mode = 2
+
+[node name="GridContainer" type="HBoxContainer" parent="Highscores"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -370.0
+offset_top = -173.0
+offset_right = 370.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="ButtonParent3" type="Control" parent="Highscores/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Reset" type="Button" parent="Highscores/GridContainer/ButtonParent3"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -165.0
+offset_top = -60.0
+offset_right = 165.0
+offset_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 38
+text = "STR_RESET"
+
+[node name="ButtonParent4" type="Control" parent="Highscores/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Back" type="Button" parent="Highscores/GridContainer/ButtonParent4"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -165.0
+offset_top = -60.0
+offset_right = 165.0
+offset_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "STR_BACK"
+
+[node name="Control" type="Control" parent="Highscores"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HighscoresReset" type="Control" parent="." node_paths=PackedStringArray("focusable_items")]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("2_yh2qu")
+focusable_items = [NodePath("GridContainer/ButtonParent4/Back"), NodePath("GridContainer/ButtonParent3/Confirm")]
+
+[node name="Background" type="ColorRect" parent="HighscoresReset"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.627984, 0.55763, 0.404221, 1)
+
+[node name="Label" type="Label" parent="HighscoresReset"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -426.0
+offset_top = -254.0
+offset_right = 427.0
+offset_bottom = 136.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.377256, 0.327321, 0.218493, 1)
+theme_override_font_sizes/font_size = 105
+text = "STR_HIGHSCORES"
+horizontal_alignment = 1
+
+[node name="Warning" type="VBoxContainer" parent="HighscoresReset"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -321.0
+offset_top = -111.0
+offset_right = 321.0
+offset_bottom = 109.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="Label" type="RichTextLabel" parent="HighscoresReset/Warning"]
+layout_mode = 2
+theme_override_fonts/normal_font = ExtResource("8_0qex2")
+theme_override_font_sizes/normal_font_size = 35
+bbcode_enabled = true
+text = "STR_RESET_WARNING"
+fit_content = true
+
+[node name="GridContainer" type="HBoxContainer" parent="HighscoresReset"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -370.0
+offset_top = -173.0
+offset_right = 370.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="ButtonParent3" type="Control" parent="HighscoresReset/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Confirm" type="Button" parent="HighscoresReset/GridContainer/ButtonParent3"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -165.0
+offset_top = -60.0
+offset_right = 165.0
+offset_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 0
+text = "STR_CONFIRM"
+
+[node name="ButtonParent4" type="Control" parent="HighscoresReset/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Back" type="Button" parent="HighscoresReset/GridContainer/ButtonParent4"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -165.0
+offset_top = -60.0
+offset_right = 165.0
+offset_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "STR_BACK"
+
+[node name="Control" type="Control" parent="HighscoresReset"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
 [connection signal="pressed" from="MainMenu/GridContainer/ButtonParent/StartGame" to="." method="start_game"]
+[connection signal="pressed" from="MainMenu/GridContainer/ButtonParent2/Highscores" to="." method="open_sub_tab" binds= ["Highscores"]]
 [connection signal="pressed" from="MainMenu/GridContainer/ButtonParent3/Options" to="." method="open_sub_tab" binds= ["Options"]]
 [connection signal="pressed" from="MainMenu/GridContainer/ButtonParent4/Quit" to="." method="quit_game"]
 [connection signal="pressed" from="PauseMenu/GridContainer/ButtonParent/Resume" to="." method="resume_game"]
@@ -887,6 +1179,7 @@ text = "STR_BACK"
 [connection signal="pressed" from="GameOver/Restart" to="." method="restart_game"]
 [connection signal="pressed" from="GameOver/Quit" to="." method="quit_game"]
 [connection signal="pressed" from="Won/GridContainer/ButtonParent/Restart" to="." method="restart_game"]
+[connection signal="pressed" from="Won/GridContainer/ButtonParent3/Highscore" to="." method="open_sub_tab" binds= ["Highscores"]]
 [connection signal="pressed" from="Won/GridContainer/ButtonParent4/Quit" to="." method="quit_game"]
 [connection signal="pressed" from="Options/GridContainer/ButtonParent/Options" to="Options" method="toggle_fullscreen"]
 [connection signal="pressed" from="Options/GridContainer/ButtonParent2/Locale" to="Options" method="cycle_locales"]
@@ -900,3 +1193,9 @@ text = "STR_BACK"
 [connection signal="value_changed" from="Audio/GridContainer2/ButtonParent3/VBoxContainer/GameVolSlider" to="Options" method="set_game_volume"]
 [connection signal="pressed" from="Audio/GridContainer2/ButtonParent2/SelectMusic" to="." method="open_music"]
 [connection signal="pressed" from="Audio/GridContainer2/ButtonParent4/Back" to="." method="close_sub_tab"]
+[connection signal="pressed" from="Highscores/GridContainer/ButtonParent3/Reset" to="." method="open_sub_tab" binds= ["HighscoresReset"]]
+[connection signal="pressed" from="Highscores/GridContainer/ButtonParent4/Back" to="." method="close_sub_tab"]
+[connection signal="pressed" from="HighscoresReset/GridContainer/ButtonParent3/Confirm" to="." method="close_sub_tab"]
+[connection signal="pressed" from="HighscoresReset/GridContainer/ButtonParent3/Confirm" to="Highscores" method="reset_highscores"]
+[connection signal="pressed" from="HighscoresReset/GridContainer/ButtonParent3/Confirm" to="Highscores" method="reset_focus"]
+[connection signal="pressed" from="HighscoresReset/GridContainer/ButtonParent4/Back" to="." method="close_sub_tab"]
