@@ -19,7 +19,7 @@ offset_bottom = 599.0
 theme = ExtResource("1_hpfey")
 script = ExtResource("1_02oip")
 game_scene = "res://00_scenes/main.tscn"
-tabs = [NodePath("MainMenu"), NodePath("PauseMenu"), NodePath("GameOver"), NodePath("Won"), NodePath("WarmUp"), NodePath("Options"), NodePath("Audio"), NodePath("Highscores"), NodePath("HighscoresReset")]
+tabs = [NodePath("MainMenu"), NodePath("PauseMenu"), NodePath("Won"), NodePath("WarmUp"), NodePath("Options"), NodePath("Audio"), NodePath("Highscores"), NodePath("HighscoresReset")]
 final_time_label = NodePath("Won/GridContainer/ButtonParent2/VBoxContainer/FinalTimeLabel")
 
 [node name="ReferenceRect" type="ReferenceRect" parent="."]
@@ -315,74 +315,6 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "STR_QUIT"
 
-[node name="GameOver" type="Control" parent="." node_paths=PackedStringArray("focusable_items")]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-script = ExtResource("2_yh2qu")
-focusable_items = [NodePath("Restart"), NodePath("Quit")]
-
-[node name="Background" type="ColorRect" parent="GameOver"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-color = Color(0.72887, 0.483897, 0.55306, 1)
-
-[node name="Label" type="Label" parent="GameOver"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -322.0
-offset_top = -254.0
-offset_right = 323.0
-offset_bottom = 136.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/font_color = Color(0.400387, 0.229307, 0.280609, 1)
-theme_override_font_sizes/font_size = 130
-text = "STR_GAME_OVER"
-horizontal_alignment = 1
-
-[node name="Restart" type="Button" parent="GameOver"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -165.0
-offset_top = -61.0
-offset_right = 165.0
-offset_bottom = 59.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "STR_RESTART"
-
-[node name="Quit" type="Button" parent="GameOver"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -165.0
-offset_top = 119.0
-offset_right = 165.0
-offset_bottom = 239.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "STR_QUIT"
-
 [node name="Won" type="Control" parent="." node_paths=PackedStringArray("focusable_items")]
 visible = false
 layout_mode = 1
@@ -622,7 +554,7 @@ offset_bottom = 136.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_colors/font_color = Color(0.44264, 0.343049, 0.280359, 1)
-theme_override_font_sizes/font_size = 135
+theme_override_font_sizes/font_size = 105
 text = "STR_OPTIONS"
 horizontal_alignment = 1
 
@@ -1176,8 +1108,6 @@ grow_vertical = 2
 [connection signal="pressed" from="PauseMenu/GridContainer/ButtonParent2/Options" to="." method="open_sub_tab" binds= ["Options"]]
 [connection signal="pressed" from="PauseMenu/GridContainer/ButtonParent3/Restart" to="." method="restart_game"]
 [connection signal="pressed" from="PauseMenu/GridContainer/ButtonParent4/Quit" to="." method="quit_game"]
-[connection signal="pressed" from="GameOver/Restart" to="." method="restart_game"]
-[connection signal="pressed" from="GameOver/Quit" to="." method="quit_game"]
 [connection signal="pressed" from="Won/GridContainer/ButtonParent/Restart" to="." method="restart_game"]
 [connection signal="pressed" from="Won/GridContainer/ButtonParent3/Highscore" to="." method="open_sub_tab" binds= ["Highscores"]]
 [connection signal="pressed" from="Won/GridContainer/ButtonParent4/Quit" to="." method="quit_game"]

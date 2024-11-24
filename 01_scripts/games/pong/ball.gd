@@ -26,7 +26,7 @@ func _physics_process(delta: float) -> void:
 		return
 	
 	var vel : Vector2 = mov_direction * _current_speed * delta
-	var col : KinematicCollision2D = move_and_collide(vel)
+	var col : KinematicCollision2D = move_and_collide(vel, false, safe_margin, true)
 	if col != null:
 		if col.get_collider().is_in_group("player"):
 			_current_speed = clampf(_current_speed + _current_speed * col_speed_increase_ratio,

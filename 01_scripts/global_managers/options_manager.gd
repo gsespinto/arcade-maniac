@@ -6,8 +6,8 @@ const MIN_MUSIC_VOLUME : float = -50.0
 const MAX_GAME_VOLUME : float = 10.0
 const MIN_GAME_VOLUME : float = -25.0
 
-const LOCALES : PackedStringArray = ["en", "pt", "es", "de"]
-const LOCALE_NAMES : PackedStringArray = ["English", "Português", "Español", "Deutsch"]
+const LOCALES : PackedStringArray = ["en", "pt", "es", "de", "da", "sv", "no"]
+const LOCALE_NAMES : PackedStringArray = ["English", "Português", "Español", "Deutsch", "Dansk", "Svenska", "Norsk"]
 
 var is_fullscreen : bool = true
 

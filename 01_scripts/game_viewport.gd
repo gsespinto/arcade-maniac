@@ -4,6 +4,7 @@ class_name GameViewport
 @export var look_at_target : Node2D
 
 signal on_won
+signal on_lost
 signal on_sfx(sfx : AudioStream)
 
 var has_won : bool = false
@@ -26,7 +27,7 @@ func win() -> void:
 
 func lose() -> void:
 	on_sfx.emit(lose_sfx)
-	GameManager.game_over()
+	on_lost.emit()
 	set_process_mode(Node.PROCESS_MODE_DISABLED)
 
 

@@ -11,9 +11,12 @@ signal on_interaction_feedback
 signal on_game_sfx(game_index : int, sfx : AudioStream)
 
 
-@export var game_packed_scenes : Array[PackedScene] = []
 ## Array of games that need to be completed to beat the game
-var _games : Array[GameViewport] = []
+@export var game_packed_scenes : Array[PackedScene] = []
+
+## Flags whether the games order 
+## should be randomized in each play
+@export var shuffle_games : bool = true
 
 ## Parent of TV tabs, when this node is visible
 ## the current game viewport is paused
@@ -29,10 +32,14 @@ var _games : Array[GameViewport] = []
 @export var change_game_time_range : Vector2 = Vector2(5, 10)
 @export var warm_up_delay : float = 1.0
 @export var win_delay : float = 1.0
+@export var lost_delay : float = 1.0
 
 @export_category("Sfx")
 @export var win_sfx : AudioStream
 
+# Array of this play's game instances, whether in play or completed,
+# useful to associate a given game to a target tv to display it
+var _games : Array[GameViewport] = []
 # Array of games that are ongoing
 var _ongoing_games : Array[GameViewport]
 # On timeout, selects next game
@@ -52,10 +59,8 @@ func _enter_tree() -> void:
 	GameManager.restarted.connect(_setup_games)
 	GameManager.unpaused.connect(_unpause)
 	GameManager.paused.connect(_pause)
-	GameManager.lost.connect(_game_over)
 	
 	ui.updated_focus.connect(on_interaction_feedback.emit)
-
 
 
 func _ready() -> void:
@@ -73,7 +78,10 @@ func _setup_games() -> void:
 			remove_child(game)
 			game.queue_free()
 	_games.clear()
-
+	
+	if shuffle_games:
+		game_packed_scenes.shuffle()
+	
 	for scene in game_packed_scenes:
 		var game_instance = scene.instantiate()
 		assert(game_instance is GameViewport, "Game instance must be a GameViewport!")
@@ -81,15 +89,20 @@ func _setup_games() -> void:
 	
 	_ongoing_games = _games.duplicate()
 	for game in _ongoing_games:
-		game.set_process_mode(PROCESS_MODE_DISABLED)
-		game.on_won.connect(_won_game.bind(game))
-		game.on_sfx.connect(_trigger_sfx.bind(game))
+		_setup_game(game)
 
 
 func _process(delta: float) -> void:
 	# Debug input to switch between games
 	if not OS.has_feature("standalone") and Input.is_action_just_pressed("next_game"):
 		_go_to_next_game()
+
+
+func _setup_game(game : GameViewport) -> void:
+	game.set_process_mode(PROCESS_MODE_DISABLED)
+	game.on_won.connect(_won_game.bind(game))
+	game.on_lost.connect(_game_over.bind(game))
+	game.on_sfx.connect(_trigger_sfx.bind(game))
 
 
 func _start_game() -> void:
@@ -119,7 +132,7 @@ func _go_to_next_game(exclude_current : bool = false) -> void:
 # Pauses and removes previous game from tree, and sets game at given index
 # as current by unpausing it and adding it as child of this subviewport.
 # When switching between games, there's a delay before the new game is unpaused.
-func _set_current_game(game : GameViewport) -> void:
+func _set_current_game(game : GameViewport, immediate : bool = false) -> void:
 	# If the given game index is already the current
 	# we don't have to do anything
 	if game == _current_game:
@@ -143,7 +156,7 @@ func _set_current_game(game : GameViewport) -> void:
 	
 	# If we're switching between two games, they set
 	# a delay to give the player some warm up
-	if not is_first_game:
+	if not is_first_game and not immediate:
 		_open_ui("WarmUp")
 		
 		await get_tree().create_timer(warm_up_delay).timeout
@@ -250,9 +263,26 @@ func _won_game(game : GameViewport) -> void:
 
 
 # Called whenever any game is lost,
-# triggers game over ending
-func _game_over() -> void:
-	_open_ui("GameOver")
+# Resets game that was lost and goes to next
+func _game_over(game : GameViewport) -> void:
+	# Pause game to show the game was lost
+	GameManager.can_pause = false
+	game.set_process_mode(PROCESS_MODE_DISABLED)
+	_change_game_timer.stop()
+	await get_tree().create_timer(lost_delay).timeout
+	
+	# Replace lost game with a new instance of it
+	var game_index : int = _games.find(game)
+	_games[game_index] = game_packed_scenes[game_index].instantiate()
+	_ongoing_games.erase(game)
+	_ongoing_games.append(_games[game_index])
+	_setup_game(_games[game_index])
+	
+	_set_current_game(_games[game_index], _ongoing_games.size() > 1)
+	game.queue_free()
+	
+	_go_to_next_game(true)
+	GameManager.can_pause = true
 
 
 func _trigger_sfx(sfx : AudioStream, game : GameViewport) -> void:
