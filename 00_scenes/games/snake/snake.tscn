@@ -1,0 +1,26 @@
+[gd_scene load_steps=3 format=3 uid="uid://bkpjahaqklmu3"]
+
+[ext_resource type="Script" path="res://01_scripts/games/snake/game_viewport.gd" id="1_xxdk6"]
+[ext_resource type="PackedScene" uid="uid://ouyisqyto2o0" path="res://00_scenes/games/snake/snake_line.tscn" id="2_3cvth"]
+
+[node name="Snake" type="Node2D" node_paths=PackedStringArray("look_at_target")]
+script = ExtResource("1_xxdk6")
+rows = 6
+columns = 10
+move_time = Array[float]([0.25, 0.225, 0.2])
+snake_line_packed_scene = ExtResource("2_3cvth")
+preview_color = Color(0.94902, 0.811765, 0.482353, 0.337255)
+preview_width = 2.87
+look_at_target = NodePath("LookAtTarget")
+
+[node name="ReferenceRect" type="ReferenceRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 800.0
+offset_bottom = 600.0
+grow_horizontal = 2
+grow_vertical = 2
+border_width = 2.5
+
+[node name="LookAtTarget" type="Node2D" parent="."]

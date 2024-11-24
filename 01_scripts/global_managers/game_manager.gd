@@ -46,6 +46,9 @@ func _process(delta: float) -> void:
 	# or in pause menu toggle pause state
 	if Input.is_action_just_pressed("pause"):
 		var tv_ui : TvUi = TvUi.instance
+		if not is_instance_valid(tv_ui):
+			return
+		
 		if not tv_ui.visible or tv_ui.get_current_tab() == "PauseMenu":
 			if _is_paused:
 				unpause()

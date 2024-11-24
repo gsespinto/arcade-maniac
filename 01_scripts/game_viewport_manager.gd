@@ -29,6 +29,7 @@ var _games : Array[GameViewport] = []
 @export var change_game_time_range : Vector2 = Vector2(5, 10)
 @export var warm_up_delay : float = 1.0
 @export var win_delay : float = 1.0
+@export var lost_delay : float = 1.0
 
 @export_category("Sfx")
 @export var win_sfx : AudioStream
@@ -52,10 +53,8 @@ func _enter_tree() -> void:
 	GameManager.restarted.connect(_setup_games)
 	GameManager.unpaused.connect(_unpause)
 	GameManager.paused.connect(_pause)
-	GameManager.lost.connect(_game_over)
 	
 	ui.updated_focus.connect(on_interaction_feedback.emit)
-
 
 
 func _ready() -> void:
@@ -83,6 +82,7 @@ func _setup_games() -> void:
 	for game in _ongoing_games:
 		game.set_process_mode(PROCESS_MODE_DISABLED)
 		game.on_won.connect(_won_game.bind(game))
+		game.on_lost.connect(_game_over.bind(game))
 		game.on_sfx.connect(_trigger_sfx.bind(game))
 
 
@@ -251,7 +251,12 @@ func _won_game(game : GameViewport) -> void:
 
 # Called whenever any game is lost,
 # triggers game over ending
-func _game_over() -> void:
+func _game_over(game : GameViewport) -> void:
+	game.set_process_mode(PROCESS_MODE_DISABLED)
+	_change_game_timer.stop()
+	await get_tree().create_timer(win_delay).timeout
+
+	GameManager.game_over()
 	_open_ui("GameOver")
 
 
