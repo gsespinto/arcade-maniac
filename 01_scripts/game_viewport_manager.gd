@@ -11,8 +11,9 @@ signal on_interaction_feedback
 signal on_game_sfx(game_index : int, sfx : AudioStream)
 
 
+@export var game_packed_scenes : Array[PackedScene] = []
 ## Array of games that need to be completed to beat the game
-@export var games : Array[GameViewport]
+var _games : Array[GameViewport] = []
 
 ## Parent of TV tabs, when this node is visible
 ## the current game viewport is paused
@@ -42,22 +43,19 @@ var _current_game : GameViewport
 
 # Called when the node enters the scene tree for the first time.
 func _enter_tree() -> void:
-	assert(not games.is_empty(), "Game Viewport Manager must at least have one GameViewport child!")
+	assert(not game_packed_scenes.is_empty(), "Game Viewport Manager must at least have one GameViewport scene!")
 	assert(is_instance_valid(ui), "Game Viewport Manager must have a valid TvUi reference!")
 	
-	_ongoing_games = games.duplicate()
-	for game in _ongoing_games:
-		game.set_process_mode(PROCESS_MODE_DISABLED)
-		game.on_won.connect(_won_game.bind(game))
-		game.on_sfx.connect(_trigger_sfx.bind(game))
-		remove_child(game)
+	_setup_games()
 	
 	GameManager.started.connect(_start_game)
+	GameManager.restarted.connect(_setup_games)
 	GameManager.unpaused.connect(_unpause)
 	GameManager.paused.connect(_pause)
 	GameManager.lost.connect(_game_over)
 	
 	ui.updated_focus.connect(on_interaction_feedback.emit)
+
 
 
 func _ready() -> void:
@@ -69,6 +67,25 @@ func _ready() -> void:
 	_open_ui("MainMenu")
 
 
+func _setup_games() -> void:
+	for game in _games:
+		if is_instance_valid(game):
+			remove_child(game)
+			game.queue_free()
+	_games.clear()
+
+	for scene in game_packed_scenes:
+		var game_instance = scene.instantiate()
+		assert(game_instance is GameViewport, "Game instance must be a GameViewport!")
+		_games.append(game_instance)
+	
+	_ongoing_games = _games.duplicate()
+	for game in _ongoing_games:
+		game.set_process_mode(PROCESS_MODE_DISABLED)
+		game.on_won.connect(_won_game.bind(game))
+		game.on_sfx.connect(_trigger_sfx.bind(game))
+
+
 func _process(delta: float) -> void:
 	# Debug input to switch between games
 	if not OS.has_feature("standalone") and Input.is_action_just_pressed("next_game"):
@@ -76,6 +93,7 @@ func _process(delta: float) -> void:
 
 
 func _start_game() -> void:
+	_set_current_game(_ongoing_games.front())
 	_close_ui()
 	_change_game_timer.start(randf_range(change_game_time_range.x, change_game_time_range.y))
 
@@ -118,7 +136,7 @@ func _set_current_game(game : GameViewport) -> void:
 	# Set current game
 	add_child(game)
 	_current_game = game
-	on_game_changed.emit(games.find(game))
+	on_game_changed.emit(_games.find(game))
 	
 	# Set character animation
 	on_interaction_feedback.emit()
@@ -197,7 +215,7 @@ func _pause() -> void:
 
 func _unpause() -> void:
 	_close_ui()
-	on_game_changed.emit(games.find(_current_game))
+	on_game_changed.emit(_games.find(_current_game))
 
 
 # Frees given game with given name
@@ -223,7 +241,7 @@ func _won_game(game : GameViewport) -> void:
 	# If all games have been won
 	# trigger win ending
 	else:
-		game.play_sfx(win_sfx)
+		_trigger_sfx(win_sfx, game)
 		_open_ui("Won")
 		GameManager.win()
 	
@@ -238,4 +256,4 @@ func _game_over() -> void:
 
 
 func _trigger_sfx(sfx : AudioStream, game : GameViewport) -> void:
-	on_game_sfx.emit(games.find(game), sfx)
+	on_game_sfx.emit(_games.find(game), sfx)

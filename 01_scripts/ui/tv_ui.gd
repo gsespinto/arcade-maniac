@@ -52,7 +52,7 @@ func resume_game() -> void:
 
 
 func restart_game() -> void:
-	LoadingScreen.load_scene(game_scene)
+	GameManager.restart()
 
 
 func open_music() -> void:

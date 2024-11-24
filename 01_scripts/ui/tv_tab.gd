@@ -23,9 +23,11 @@ func _connect_items_focus():
 			continue
 		
 		if visible:
-			item.focus_entered.connect(_on_item_focus.bind(item))
+			if not item.focus_entered.is_connected(_on_item_focus):
+				item.focus_entered.connect(_on_item_focus.bind(item))
 		else:
-			item.focus_entered.disconnect(_on_item_focus)
+			if item.focus_entered.is_connected(_on_item_focus):
+				item.focus_entered.disconnect(_on_item_focus)
 
 
 func _on_item_focus(item : Control):

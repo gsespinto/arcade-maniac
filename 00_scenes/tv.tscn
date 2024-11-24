@@ -1,8 +1,15 @@
-[gd_scene load_steps=4 format=3 uid="uid://c5co72s5pe4qt"]
+[gd_scene load_steps=6 format=3 uid="uid://c5co72s5pe4qt"]
 
 [ext_resource type="PackedScene" uid="uid://ca38d07ra0vej" path="res://03_models/tv.blend" id="1_0ftp6"]
 [ext_resource type="Script" path="res://01_scripts/tv.gd" id="1_1uroe"]
 [ext_resource type="AudioStream" uid="uid://bokdaonhor61h" path="res://04_sounds/tv_static_loop.wav" id="3_ht6xn"]
+
+[sub_resource type="Gradient" id="Gradient_jvbwc"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_mt1oe"]
+gradient = SubResource("Gradient_jvbwc")
+width = 800
+height = 600
 
 [node name="TV" type="MeshInstance3D" node_paths=PackedStringArray("sprite", "sfx_audio_player", "idle_audio_player")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.122, 0, 0)
@@ -14,7 +21,9 @@ idle_audio_player = NodePath("IdlePlayer")
 [node name="tv" parent="." instance=ExtResource("1_0ftp6")]
 
 [node name="Sprite3D" type="Sprite3D" parent="tv"]
-transform = Transform3D(0.325, 0, -2.06612e-08, 0, 0.325, 0, 2.06612e-08, 0, 0.325, -0.601413, 1.87358, 0.87429)
+transform = Transform3D(0.325, 0, -2.16148e-08, 0, 0.34, 0, 2.06612e-08, 0, 0.34, -0.601413, 1.87358, 0.87429)
+gi_mode = 2
+texture = SubResource("GradientTexture2D_mt1oe")
 
 [node name="SfxPlayer" type="AudioStreamPlayer3D" parent="."]
 unit_size = 5.0

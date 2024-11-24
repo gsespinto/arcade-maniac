@@ -1,6 +1,7 @@
 extends Node
 
 signal started
+signal restarted
 signal won
 signal lost
 
@@ -55,6 +56,12 @@ func _process(delta: float) -> void:
 func start():
 	_tick_play_time = true
 	started.emit()
+
+
+func restart():
+	reset()
+	TvUi.instance.open_tab("MainMenu")
+	restarted.emit()
 
 
 func win():
