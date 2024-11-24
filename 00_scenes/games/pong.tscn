@@ -1,0 +1,134 @@
+[gd_scene load_steps=18 format=3 uid="uid://b4n2ggcse2yq7"]
+
+[ext_resource type="Script" path="res://01_scripts/games/pong/game_viewport.gd" id="1_apqod"]
+[ext_resource type="AudioStream" uid="uid://3ibeoymjerwm" path="res://04_sounds/pong/wall_collision.wav" id="2_0ejsf"]
+[ext_resource type="Script" path="res://01_scripts/games/pong/player.gd" id="3_3swnk"]
+[ext_resource type="AudioStream" uid="uid://0sou30rhmk0a" path="res://04_sounds/pong/player_collision.wav" id="3_id454"]
+[ext_resource type="Script" path="res://01_scripts/games/pong/ball.gd" id="3_lpjw3"]
+[ext_resource type="Script" path="res://01_scripts/games/pong/enemy.gd" id="3_py5mh"]
+[ext_resource type="AudioStream" uid="uid://bxcnq21eb74t4" path="res://04_sounds/pong/win.wav" id="4_6ygl4"]
+[ext_resource type="Texture2D" uid="uid://bak52kmoomev6" path="res://02_sprites/circle.png" id="4_tbea0"]
+[ext_resource type="AudioStream" uid="uid://c2654ua65mmnj" path="res://04_sounds/game_over.wav" id="5_mubof"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_h00bs"]
+size = Vector2(800, 80)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wam2b"]
+size = Vector2(800, 80)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_pb5ve"]
+size = Vector2(80, 600)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ac28e"]
+size = Vector2(20, 200)
+
+[sub_resource type="Gradient" id="Gradient_npq8s"]
+colors = PackedColorArray(1, 1, 1, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_ulmkn"]
+gradient = SubResource("Gradient_npq8s")
+width = 20
+height = 200
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_uml8h"]
+size = Vector2(400, 600)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_p0cf8"]
+radius = 25.0
+
+[node name="GameTest0" type="Node2D" node_paths=PackedStringArray("win_area", "lose_area", "ball", "look_at_target")]
+script = ExtResource("1_apqod")
+win_area = NodePath("WinArea")
+lose_area = NodePath("LoseArea")
+ball = NodePath("Ball")
+wall_sfx = ExtResource("2_0ejsf")
+player_sfx = ExtResource("3_id454")
+look_at_target = NodePath("Ball")
+win_sfx = ExtResource("4_6ygl4")
+lose_sfx = ExtResource("5_mubof")
+
+[node name="ReferenceRect" type="ReferenceRect" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 800.0
+offset_bottom = 600.0
+grow_horizontal = 2
+grow_vertical = 2
+border_width = 2.5
+
+[node name="Walls" type="StaticBody2D" parent="."]
+
+[node name="DownCollider" type="CollisionShape2D" parent="Walls"]
+position = Vector2(400, 640)
+shape = SubResource("RectangleShape2D_h00bs")
+
+[node name="TopCollider" type="CollisionShape2D" parent="Walls"]
+position = Vector2(400, -40)
+shape = SubResource("RectangleShape2D_wam2b")
+
+[node name="LoseArea" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="LeftCollider" type="CollisionShape2D" parent="LoseArea"]
+position = Vector2(-40, 300)
+shape = SubResource("RectangleShape2D_pb5ve")
+debug_color = Color(2.40654e-07, 0.63859, 0.376598, 0.42)
+
+[node name="WinArea" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
+
+[node name="RightCollider" type="CollisionShape2D" parent="WinArea"]
+position = Vector2(840, 300)
+shape = SubResource("RectangleShape2D_pb5ve")
+debug_color = Color(2.40654e-07, 0.63859, 0.376598, 0.42)
+
+[node name="PlayerCharacter" type="CharacterBody2D" parent="." groups=["player"]]
+position = Vector2(25, 300)
+motion_mode = 1
+script = ExtResource("3_3swnk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="PlayerCharacter"]
+shape = SubResource("RectangleShape2D_ac28e")
+
+[node name="Sprite2D" type="Sprite2D" parent="PlayerCharacter"]
+texture = SubResource("GradientTexture2D_ulmkn")
+
+[node name="EnemyCharacter" type="CharacterBody2D" parent="." node_paths=PackedStringArray("ball", "prediction_area") groups=["player"]]
+position = Vector2(775, 300)
+motion_mode = 1
+script = ExtResource("3_py5mh")
+ball = NodePath("../Ball")
+move_threshold = 5.0
+prediction_area = NodePath("../EnemyPredictionArea")
+ball_radius = 25.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyCharacter"]
+shape = SubResource("RectangleShape2D_ac28e")
+
+[node name="Sprite2D" type="Sprite2D" parent="EnemyCharacter"]
+texture = SubResource("GradientTexture2D_ulmkn")
+
+[node name="EnemyPredictionArea" type="Area2D" parent="."]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyPredictionArea"]
+position = Vector2(600, 300)
+shape = SubResource("RectangleShape2D_uml8h")
+debug_color = Color(0.984314, 0, 0, 0.0823529)
+
+[node name="Ball" type="CharacterBody2D" parent="."]
+position = Vector2(400, 300)
+collision_layer = 3
+script = ExtResource("3_lpjw3")
+max_speed = 750.0
+mov_direction = Vector2(0.909977, -0.414659)
+
+[node name="Sprite2D" type="Sprite2D" parent="Ball"]
+scale = Vector2(0.75, 0.75)
+texture = ExtResource("4_tbea0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ball"]
+shape = SubResource("CircleShape2D_p0cf8")

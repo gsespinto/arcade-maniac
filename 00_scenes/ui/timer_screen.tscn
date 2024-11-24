@@ -1,0 +1,81 @@
+[gd_scene load_steps=2 format=3 uid="uid://m3tt06ek4cc1"]
+
+[ext_resource type="FontFile" uid="uid://yq86g78g3l2w" path="res://05_fonts/DS-DIGIB.TTF" id="1_gdocm"]
+
+[node name="TimerScreen" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 250.0
+offset_bottom = 100.0
+
+[node name="ReferenceRect" type="ReferenceRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.84, 0.84)
+pivot_offset = Vector2(125, 50)
+alignment = 1
+
+[node name="Minutes" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.415686)
+theme_override_fonts/font = ExtResource("1_gdocm")
+theme_override_font_sizes/font_size = 61
+text = "00"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sep1" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.415686)
+theme_override_fonts/font = ExtResource("1_gdocm")
+theme_override_font_sizes/font_size = 61
+text = ":"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Seconds" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.415686)
+theme_override_fonts/font = ExtResource("1_gdocm")
+theme_override_font_sizes/font_size = 61
+text = "00"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Sep2" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.415686)
+theme_override_fonts/font = ExtResource("1_gdocm")
+theme_override_font_sizes/font_size = 61
+text = ":"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Milesseconds" type="Label" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.415686)
+theme_override_fonts/font = ExtResource("1_gdocm")
+theme_override_font_sizes/font_size = 61
+text = "00"
+horizontal_alignment = 1
+vertical_alignment = 1

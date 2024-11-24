@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://t6kste4a4hvi"]
+
+[ext_resource type="Shader" path="res://01_scripts/tv_static.gdshader" id="1_tvc5l"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ewpu8"]
+shader = ExtResource("1_tvc5l")
+shader_parameter/amount = 100.0
+
+[sub_resource type="Gradient" id="Gradient_c4hv7"]
+colors = PackedColorArray(0.643137, 0.643137, 0.643137, 1, 0.641934, 0.641934, 0.641934, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_qg2x0"]
+gradient = SubResource("Gradient_c4hv7")
+
+[node name="TVStatic" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 800.0
+offset_bottom = 600.0
+
+[node name="TextureRect" type="TextureRect" parent="."]
+material = SubResource("ShaderMaterial_ewpu8")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture1D_qg2x0")

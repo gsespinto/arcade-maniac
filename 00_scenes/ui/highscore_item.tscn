@@ -1,0 +1,49 @@
+[gd_scene load_steps=3 format=3 uid="uid://byxf1k6usj0bf"]
+
+[ext_resource type="Script" path="res://01_scripts/ui/highscore_item.gd" id="1_enapt"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f3hnu"]
+bg_color = Color(0.377256, 0.327321, 0.218493, 1)
+border_width_left = 10
+border_color = Color(0.377256, 0.327321, 0.218493, 1)
+
+[node name="HighscoreItem" type="HBoxContainer" node_paths=PackedStringArray("time_label", "date_label")]
+script = ExtResource("1_enapt")
+time_label = NodePath("Time")
+date_label = NodePath("Date")
+
+[node name="ID" type="Label" parent="."]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 46
+text = "id"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VSeparator" type="VSeparator" parent="."]
+visible = false
+layout_mode = 2
+theme_override_constants/separation = 30
+theme_override_styles/separator = SubResource("StyleBoxFlat_f3hnu")
+
+[node name="Time" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 46
+text = "00:00:00"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VSeparator2" type="VSeparator" parent="."]
+layout_mode = 2
+theme_override_constants/separation = 30
+theme_override_styles/separator = SubResource("StyleBoxFlat_f3hnu")
+
+[node name="Date" type="Label" parent="."]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 46
+text = "01/01/2024"
+horizontal_alignment = 1
+vertical_alignment = 1
