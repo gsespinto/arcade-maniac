@@ -21,7 +21,8 @@ var current_locale : int = 0
 
 # Called when the node enters the scene tree for the first time.
 func _enter_tree() -> void:
-	await DataManager.loaded_data
+	if not DataManager.has_loaded_data:
+		await DataManager.loaded_data
 	
 	set_fullscreen(DataManager.get_data("Options", "is_fullscreen", true))
 	set_game_volume(DataManager.get_data("Options", "game_volume", 0.0))

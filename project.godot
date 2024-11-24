@@ -22,6 +22,7 @@ GameManager="*res://01_scripts/global_managers/game_manager.gd"
 MusicManager="*res://00_scenes/music_manager.tscn"
 OptionsManager="*res://01_scripts/global_managers/options_manager.gd"
 DataManager="*res://01_scripts/global_managers/data_manager.gd"
+HighscoreManager="*res://01_scripts/global_managers/highscore_manager.gd"
 
 [global_group]
 

@@ -4,6 +4,7 @@ const FILE_PATH : String = "user://data.oops"
 
 signal loaded_data
 
+var has_loaded_data : bool = false
 var _data : ConfigFile = null
 
 
@@ -19,6 +20,7 @@ func _load_data():
 	_data = ConfigFile.new()
 	_data.load(FILE_PATH)
 	loaded_data.emit()
+	has_loaded_data = true
 
 
 func _save_data():
