@@ -80,16 +80,20 @@ func _setup_games() -> void:
 	
 	_ongoing_games = _games.duplicate()
 	for game in _ongoing_games:
-		game.set_process_mode(PROCESS_MODE_DISABLED)
-		game.on_won.connect(_won_game.bind(game))
-		game.on_lost.connect(_game_over.bind(game))
-		game.on_sfx.connect(_trigger_sfx.bind(game))
+		_setup_game(game)
 
 
 func _process(delta: float) -> void:
 	# Debug input to switch between games
 	if not OS.has_feature("standalone") and Input.is_action_just_pressed("next_game"):
 		_go_to_next_game()
+
+
+func _setup_game(game : GameViewport) -> void:
+	game.set_process_mode(PROCESS_MODE_DISABLED)
+	game.on_won.connect(_won_game.bind(game))
+	game.on_lost.connect(_game_over.bind(game))
+	game.on_sfx.connect(_trigger_sfx.bind(game))
 
 
 func _start_game() -> void:
@@ -119,7 +123,7 @@ func _go_to_next_game(exclude_current : bool = false) -> void:
 # Pauses and removes previous game from tree, and sets game at given index
 # as current by unpausing it and adding it as child of this subviewport.
 # When switching between games, there's a delay before the new game is unpaused.
-func _set_current_game(game : GameViewport) -> void:
+func _set_current_game(game : GameViewport, immediate : bool = false) -> void:
 	# If the given game index is already the current
 	# we don't have to do anything
 	if game == _current_game:
@@ -143,7 +147,7 @@ func _set_current_game(game : GameViewport) -> void:
 	
 	# If we're switching between two games, they set
 	# a delay to give the player some warm up
-	if not is_first_game:
+	if not is_first_game and not immediate:
 		_open_ui("WarmUp")
 		
 		await get_tree().create_timer(warm_up_delay).timeout
@@ -250,14 +254,26 @@ func _won_game(game : GameViewport) -> void:
 
 
 # Called whenever any game is lost,
-# triggers game over ending
+# Resets game that was lost and goes to next
 func _game_over(game : GameViewport) -> void:
+	# Pause game to show the game was lost
+	GameManager.can_pause = false
 	game.set_process_mode(PROCESS_MODE_DISABLED)
 	_change_game_timer.stop()
-	await get_tree().create_timer(win_delay).timeout
-
-	GameManager.game_over()
-	_open_ui("GameOver")
+	await get_tree().create_timer(lost_delay).timeout
+	
+	# Replace lost game with a new instance of it
+	var game_index : int = _games.find(game)
+	_games[game_index] = game_packed_scenes[game_index].instantiate()
+	_ongoing_games.erase(game)
+	_ongoing_games.append(_games[game_index])
+	_setup_game(_games[game_index])
+	
+	_set_current_game(_games[game_index], _ongoing_games.size() > 1)
+	game.queue_free()
+	
+	_go_to_next_game(true)
+	GameManager.can_pause = true
 
 
 func _trigger_sfx(sfx : AudioStream, game : GameViewport) -> void:

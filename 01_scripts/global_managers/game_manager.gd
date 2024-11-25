@@ -3,7 +3,6 @@ extends Node
 signal started
 signal restarted
 signal won
-signal lost
 
 signal paused
 signal unpaused
@@ -13,6 +12,9 @@ signal stopped_timer
 
 # Current play time in seconds
 var current_time : float = 0.0
+
+# Flags whether the player can give pause input
+var can_pause : bool = true
 
 # Flags whether the pause menu is opened at the moment
 # so that the player can toggle this state with the pause input
@@ -44,7 +46,7 @@ func _process(delta: float) -> void:
 	
 	# On pause input and ui is either hidden 
 	# or in pause menu toggle pause state
-	if Input.is_action_just_pressed("pause"):
+	if Input.is_action_just_pressed("pause") and can_pause:
 		var tv_ui : TvUi = TvUi.instance
 		if not is_instance_valid(tv_ui):
 			return
@@ -70,11 +72,6 @@ func restart():
 func win():
 	_tick_play_time = false
 	won.emit()
-
-
-func game_over():
-	_tick_play_time = false
-	lost.emit()
 
 
 func reset():
