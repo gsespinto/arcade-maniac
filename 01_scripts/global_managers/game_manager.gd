@@ -100,7 +100,6 @@ func unpause():
 
 func set_tree_paused(paused : bool):
 	get_tree().set_pause(paused)
-	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE if paused else Input.MOUSE_MODE_HIDDEN)
 
 
 func get_current_time_string() -> String:

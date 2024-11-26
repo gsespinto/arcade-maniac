@@ -27,6 +27,7 @@ func _load_user_music():
 
 func open_file_dialog():
 	GameManager.set_tree_paused(true)
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	file_dialog.popup_centered()
 
 
@@ -34,6 +35,10 @@ func on_closed_file_dialog():
 	if file_dialog.visible:
 		return
 	
+	Input.set_mouse_mode(
+		Input.MOUSE_MODE_HIDDEN if OptionsManager.is_fullscreen 
+			else Input.MOUSE_MODE_VISIBLE
+	)
 	GameManager.set_tree_paused(false)
 
 
