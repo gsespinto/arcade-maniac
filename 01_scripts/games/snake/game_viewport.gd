@@ -129,6 +129,11 @@ func _draw() -> void:
 		_preview_grid()
 
 
+func lose() -> void:
+	look_at_target.set_position(_get_cell_position(_snake_points.front()))
+	super.lose()
+
+
 func _get_movement_input() -> void:
 	var direction : Vector2 = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
 	if direction != Vector2.ZERO:
@@ -186,11 +191,13 @@ func _get_cell_state(cell_id : Vector2i) -> CellState:
 func _check_collision() -> bool:
 	# If the snake moves out of bounds or hits itself then its game over
 	if (_snake_points.front().x < 0 or _snake_points.front().x >= columns) or \
-			(_snake_points.front().y < 0 or _snake_points.front().y >= rows) or \
-			_get_cell_state(_snake_points.front()) == CellState.SNAKE:
-		look_at_target.set_position(_get_cell_position(_snake_points.front()))
+			(_snake_points.front().y < 0 or _snake_points.front().y >= rows):
 		lose()
 		return false
+	
+	if _get_cell_state(_snake_points.front()) == CellState.SNAKE:
+		lose()
+		return true
 	
 	# Update grid state
 	_set_cell_state(_snake_points.back(), CellState.EMPTY)
