@@ -122,9 +122,10 @@ debug_color = Color(0.984314, 0, 0, 0.0823529)
 [node name="Ball" type="CharacterBody2D" parent="."]
 position = Vector2(400, 300)
 collision_layer = 3
+safe_margin = 2.0
 script = ExtResource("3_lpjw3")
 max_speed = 750.0
-mov_direction = Vector2(-0.925537, 0.378656)
+mov_direction = Vector2(-0.765097, 0.643915)
 
 [node name="Sprite2D" type="Sprite2D" parent="Ball"]
 scale = Vector2(0.75, 0.75)
