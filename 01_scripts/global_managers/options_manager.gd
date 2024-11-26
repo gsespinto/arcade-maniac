@@ -41,8 +41,10 @@ func set_fullscreen(fullscreen : bool):
 	
 	if is_fullscreen:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+		Input.set_mouse_mode(Input.MOUSE_MODE_HIDDEN)
 	else:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_MAXIMIZED)
+		Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 
 
 func set_game_volume(volume_db : float):
