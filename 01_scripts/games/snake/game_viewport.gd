@@ -85,15 +85,15 @@ func _ready() -> void:
 		_available_cells.append(range(rows))
 		_grid_state[c].fill(CellState.EMPTY)
 	
-	for point in _snake_points:
-		_set_cell_state(point, CellState.SNAKE)
-	
-	call_deferred("_set_apple_cell")
-	
 	_snake_points.append_array([
 		Vector2i(columns / 2, rows / 2),
 		Vector2i(columns / 2 - 1, rows / 2)
 	])
+	
+	for point in _snake_points:
+		_set_cell_state(point, CellState.SNAKE)
+	
+	_set_apple_cell()
 	
 	# Buffer point, to add to tail when picking up point
 	_snake_points.append(Vector2i.ZERO)
@@ -189,6 +189,10 @@ func _get_cell_state(cell_id : Vector2i) -> CellState:
 
 
 func _check_collision() -> bool:
+	# Clear back cell so that it isn't counted
+	# as a snake cell in the collision check
+	_set_cell_state(_snake_points.back(), CellState.EMPTY)
+	
 	# If the snake moves out of bounds or hits itself then its game over
 	if (_snake_points.front().x < 0 or _snake_points.front().x >= columns) or \
 			(_snake_points.front().y < 0 or _snake_points.front().y >= rows):
@@ -199,14 +203,12 @@ func _check_collision() -> bool:
 		lose()
 		return true
 	
-	# Update grid state
-	_set_cell_state(_snake_points.back(), CellState.EMPTY)
 	_set_cell_state(_snake_points.front(), CellState.SNAKE)
 	
 	# If the snake head is at the current apple position
 	# then add snake point at tail and generate new apple
 	if _snake_points.front() == _current_apple:
-		call_deferred("_eat_apple")
+		_eat_apple()
 	
 	return true
 
