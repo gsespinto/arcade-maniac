@@ -91,7 +91,7 @@ previous_music={
 [internationalization]
 
 locale/translation_remaps={}
-locale/translations=PackedStringArray("res://06_locales/translations.en.translation", "res://06_locales/translations.pt.translation", "res://06_locales/translations.de.translation", "res://06_locales/translations.es.translation")
+locale/translations=PackedStringArray("res://06_locales/translations.en.translation", "res://06_locales/translations.pt.translation", "res://06_locales/translations.de.translation", "res://06_locales/translations.es.translation", "res://06_locales/translations.da.translation", "res://06_locales/translations.nb.translation", "res://06_locales/translations.sv.translation")
 
 [layer_names]
 
