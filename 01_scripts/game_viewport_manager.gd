@@ -11,9 +11,12 @@ signal on_interaction_feedback
 signal on_game_sfx(game_index : int, sfx : AudioStream)
 
 
-@export var game_packed_scenes : Array[PackedScene] = []
 ## Array of games that need to be completed to beat the game
-var _games : Array[GameViewport] = []
+@export var game_packed_scenes : Array[PackedScene] = []
+
+## Flags whether the games order 
+## should be randomized in each play
+@export var shuffle_games : bool = true
 
 ## Parent of TV tabs, when this node is visible
 ## the current game viewport is paused
@@ -34,6 +37,9 @@ var _games : Array[GameViewport] = []
 @export_category("Sfx")
 @export var win_sfx : AudioStream
 
+# Array of this play's game instances, whether in play or completed,
+# useful to associate a given game to a target tv to display it
+var _games : Array[GameViewport] = []
 # Array of games that are ongoing
 var _ongoing_games : Array[GameViewport]
 # On timeout, selects next game
@@ -72,7 +78,10 @@ func _setup_games() -> void:
 			remove_child(game)
 			game.queue_free()
 	_games.clear()
-
+	
+	if shuffle_games:
+		game_packed_scenes.shuffle()
+	
 	for scene in game_packed_scenes:
 		var game_instance = scene.instantiate()
 		assert(game_instance is GameViewport, "Game instance must be a GameViewport!")
