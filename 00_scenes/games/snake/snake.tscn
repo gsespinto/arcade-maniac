@@ -1,17 +1,22 @@
-[gd_scene load_steps=3 format=3 uid="uid://bkpjahaqklmu3"]
+[gd_scene load_steps=5 format=3 uid="uid://bkpjahaqklmu3"]
 
 [ext_resource type="Script" path="res://01_scripts/games/snake/game_viewport.gd" id="1_xxdk6"]
 [ext_resource type="PackedScene" uid="uid://ouyisqyto2o0" path="res://00_scenes/games/snake/snake_line.tscn" id="2_3cvth"]
+[ext_resource type="AudioStream" uid="uid://d1bbkn7jjwmpj" path="res://04_sounds/snake/point.mp3" id="3_j3g0l"]
+[ext_resource type="AudioStream" uid="uid://paj1cryycxd7" path="res://04_sounds/snake/hit.wav" id="4_6r52d"]
 
 [node name="Snake" type="Node2D" node_paths=PackedStringArray("look_at_target")]
 script = ExtResource("1_xxdk6")
 rows = 6
 columns = 8
-move_time = Array[float]([0.25, 0.225, 0.2])
+move_time = Array[float]([0.2])
 snake_line_packed_scene = ExtResource("2_3cvth")
 preview_color = Color(0.94902, 0.811765, 0.482353, 0.337255)
 preview_width = 2.87
+apple_sfx = ExtResource("3_j3g0l")
 look_at_target = NodePath("LookAtTarget")
+win_sfx = ExtResource("3_j3g0l")
+lose_sfx = ExtResource("4_6r52d")
 
 [node name="ReferenceRect" type="ReferenceRect" parent="."]
 anchors_preset = 15

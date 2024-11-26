@@ -54,6 +54,8 @@ enum CellState{
 @export_range(1.0, 10.0, 0.01) var preview_width : float = 1.0
 @export var debug_in_game : bool = false
 
+@export_category("SFX")
+@export var apple_sfx : AudioStream
 
 var _current_snake : Line2D = null
 var _move_timer : Timer = null
@@ -219,7 +221,8 @@ func _eat_apple() -> void:
 	_set_cell_state(_snake_points.back(), CellState.SNAKE)
 	_snake_points.append(_snake_points.back())
 	
-	if _snake_points.size() >= columns * rows:
+	if _snake_points.size() - 1 >= columns * rows:
+		# Place the apple offscreen
 		_current_apple = -Vector2i.ONE
 		win()
 	else:
@@ -227,6 +230,7 @@ func _eat_apple() -> void:
 		if move_time.size() > 0:
 			_move_timer.wait_time = move_time.pop_front()
 	
+	play_sfx(apple_sfx)
 	_update_snake()
 
 
