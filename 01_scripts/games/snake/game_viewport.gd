@@ -56,6 +56,7 @@ enum CellState{
 
 @export_category("SFX")
 @export var apple_sfx : AudioStream
+@export var turn_sfx : AudioStream
 
 var _current_snake : Line2D = null
 var _move_timer : Timer = null
@@ -139,18 +140,20 @@ func _move() -> void:
 		return
 	
 	if _movement_input != Vector2i.ZERO:
-		var x : int = sign(_movement_input.x)
-		if x * _movement_direction.x < 0:
-			x = _movement_direction.x
+		_movement_input.x = sign(_movement_input.x)
+		if _movement_input.x * _movement_direction.x < 0:
+			_movement_input.x = _movement_direction.x
 		
-		if x != 0:
+		if _movement_input.x != 0:
 			_movement_input.y = 0
 		
-		var y : int = sign(_movement_input.y)
-		if y * _movement_direction.y < 0:
-			y = _movement_direction.y
+		_movement_input.y = sign(_movement_input.y)
+		if _movement_input.y * _movement_direction.y < 0:
+			_movement_input.y = _movement_direction.y
 		
-		_movement_direction = Vector2i(x, y)
+		if _movement_input != _movement_direction:
+			_movement_direction = _movement_input
+			play_sfx(turn_sfx)
 	
 	
 	var range : Array = range(_snake_points.size())
