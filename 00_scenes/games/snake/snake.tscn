@@ -7,10 +7,10 @@
 
 [node name="Snake" type="Node2D" node_paths=PackedStringArray("look_at_target")]
 script = ExtResource("1_xxdk6")
-rows = 6
-columns = 8
-move_time = Array[float]([0.2])
+rows = 4
+columns = 6
 snake_line_packed_scene = ExtResource("2_3cvth")
+ball_radius = 35.0
 preview_color = Color(0.94902, 0.811765, 0.482353, 0.337255)
 preview_width = 2.87
 apple_sfx = ExtResource("3_j3g0l")
