@@ -1,6 +1,7 @@
 extends CharacterBody2D
 class_name BarrelPlayer
 
+signal jumped
 signal died
 
 @export var speed = 300.0
@@ -35,6 +36,7 @@ func _physics_process(delta: float) -> void:
 			velocity.y = 0
 			if Input.is_action_just_pressed("ui_up"):
 				velocity.y -= jump_force
+				jumped.emit()
 		else:
 			velocity.y += ProjectSettings.get_setting("physics/2d/default_gravity") * delta
 	
