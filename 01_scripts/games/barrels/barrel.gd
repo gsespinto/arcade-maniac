@@ -1,11 +1,17 @@
 extends CharacterBody2D
-class_name BarrelObstacle
+class_name Barrel
+
+enum Direction{
+	LEFT = -1,
+	RIGHT = 1
+}
+
+const SPEED : float = 125.0
 
 @export var player_detection_area : Area2D
 
-var _speed : float
-var _current_direction : float
-var _in_stairs : bool = false
+@export var direction : Direction = Direction.RIGHT 
+@export var _in_stairs : bool = false
 
 
 func _ready() -> void:
@@ -19,14 +25,9 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 	
-	velocity.x = 0 if _in_stairs else _current_direction * _speed
+	velocity.x = 0 if _in_stairs else direction * SPEED
 	
 	move_and_slide()
-
-
-func launch(direction : float, speed : float) -> void:
-	_current_direction = direction
-	_speed = speed
 
 
 func _on_body_entered(body : Node2D) -> void:
@@ -50,4 +51,4 @@ func set_in_stairs(in_stairs : bool) -> void:
 
 
 func invert_direction() -> void:
-	_current_direction = -_current_direction
+	direction = -direction

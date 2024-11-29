@@ -1,6 +1,7 @@
-[gd_scene load_steps=27 format=3 uid="uid://dwehlo3xi6uvy"]
+[gd_scene load_steps=28 format=3 uid="uid://dwehlo3xi6uvy"]
 
 [ext_resource type="Script" path="res://01_scripts/games/barrels/game_viewport.gd" id="1_5jwfo"]
+[ext_resource type="Texture2D" uid="uid://cb4kfl84f5hu2" path="res://02_sprites/door.png" id="2_4sjge"]
 [ext_resource type="Script" path="res://01_scripts/games/barrels/reflector.gd" id="2_ylkh6"]
 [ext_resource type="Script" path="res://01_scripts/games/barrels/stairs.gd" id="3_1qcxm"]
 [ext_resource type="Script" path="res://01_scripts/games/barrels/deletor.gd" id="4_3n81i"]
@@ -11,7 +12,7 @@
 [ext_resource type="PackedScene" uid="uid://dr7saeafo7t2o" path="res://00_scenes/games/barrels/player.tscn" id="7_008wv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6ralh"]
-size = Vector2(58, 63)
+size = Vector2(35, 71.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_h00bs"]
 size = Vector2(797, 20)
@@ -87,7 +88,13 @@ border_width = 2.5
 position = Vector2(57, 113)
 collision_mask = 2
 
+[node name="Door" type="Sprite2D" parent="WinTrigger"]
+position = Vector2(-1, -12.5)
+scale = Vector2(1, 1.17188)
+texture = ExtResource("2_4sjge")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WinTrigger"]
+position = Vector2(-7.5, -4.25)
 shape = SubResource("RectangleShape2D_6ralh")
 debug_color = Color(0.584042, 0.544324, 0.232653, 0.42)
 
@@ -106,22 +113,22 @@ one_way_collision = true
 [node name="Sprite2D2" type="Sprite2D" parent="Level/FirstFloor"]
 texture = SubResource("GradientTexture2D_j3yw1")
 
-[node name="FirstFloor2" type="CollisionShape2D" parent="Level"]
+[node name="SecondFloor" type="CollisionShape2D" parent="Level"]
 position = Vector2(443, 305)
 rotation = -0.0349066
 shape = SubResource("RectangleShape2D_ar0ft")
 one_way_collision = true
 
-[node name="Sprite2D2" type="Sprite2D" parent="Level/FirstFloor2"]
+[node name="Sprite2D2" type="Sprite2D" parent="Level/SecondFloor"]
 texture = SubResource("GradientTexture2D_j3yw1")
 
-[node name="FirstFloor3" type="CollisionShape2D" parent="Level"]
+[node name="ThirdFloor" type="CollisionShape2D" parent="Level"]
 position = Vector2(365, 157)
 rotation = 0.0349066
 shape = SubResource("RectangleShape2D_ar0ft")
 one_way_collision = true
 
-[node name="Sprite2D2" type="Sprite2D" parent="Level/FirstFloor3"]
+[node name="Sprite2D2" type="Sprite2D" parent="Level/ThirdFloor"]
 texture = SubResource("GradientTexture2D_j3yw1")
 
 [node name="Reflectors" type="Area2D" parent="."]
@@ -287,21 +294,63 @@ size_flags_vertical = 4
 texture = ExtResource("6_8swf0")
 stretch_mode = 1
 
-[node name="Player" parent="." instance=ExtResource("7_008wv")]
-position = Vector2(35, 555)
+[node name="2" type="CollisionShape2D" parent="BarrelStairs"]
+position = Vector2(407, 472)
+shape = SubResource("RectangleShape2D_6ipoh")
+debug_color = Color(0.789393, 0.363493, 0.599704, 0.42)
+
+[node name="StairsTextureRect" type="TextureRect" parent="BarrelStairs/2"]
+self_modulate = Color(0.637672, 0.469873, 0.24546, 1)
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -43.5
+offset_top = -52.0
+offset_right = 20.5
+offset_bottom = 95.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.47, 0.47)
+pivot_offset = Vector2(32, 32)
+size_flags_horizontal = 0
+size_flags_vertical = 4
+texture = ExtResource("6_8swf0")
+stretch_mode = 1
 
 [node name="BarrelSpawner" type="Node2D" parent="." node_paths=PackedStringArray("barrels_holder")]
 position = Vector2(184, -29)
 script = ExtResource("5_fohu0")
 barrel_scene = ExtResource("5_adpux")
-barrels_holder = NodePath("BallsHolder")
+barrels_holder = NodePath("BarrelsHolder")
 initial_direction = -1
 
 [node name="Timer" type="Timer" parent="BarrelSpawner"]
 wait_time = 1.5
 autostart = true
 
-[node name="BallsHolder" type="Node2D" parent="BarrelSpawner"]
+[node name="BarrelsHolder" type="Node2D" parent="BarrelSpawner"]
+
+[node name="BarrelObstacle" parent="BarrelSpawner/BarrelsHolder" instance=ExtResource("5_adpux")]
+position = Vector2(294, 153)
+
+[node name="BarrelObstacle4" parent="BarrelSpawner/BarrelsHolder" instance=ExtResource("5_adpux")]
+position = Vector2(79, 145)
+
+[node name="BarrelObstacle2" parent="BarrelSpawner/BarrelsHolder" instance=ExtResource("5_adpux")]
+position = Vector2(112, 303)
+direction = -1
+
+[node name="BarrelObstacle5" parent="BarrelSpawner/BarrelsHolder" instance=ExtResource("5_adpux")]
+position = Vector2(465, 290)
+direction = -1
+
+[node name="BarrelObstacle3" parent="BarrelSpawner/BarrelsHolder" instance=ExtResource("5_adpux")]
+position = Vector2(290, 453)
+
+[node name="BarrelObstacle6" parent="BarrelSpawner/BarrelsHolder" instance=ExtResource("5_adpux")]
+position = Vector2(100, 448)
 
 [node name="SpawnTube" type="Area2D" parent="BarrelSpawner"]
 position = Vector2(0, 34)
@@ -322,11 +371,15 @@ position = Vector2(0, 59.99)
 texture = SubResource("GradientTexture2D_fp3j6")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="BarrelSpawner/Tube"]
-collision_mask = 3
+collision_layer = 8
+collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BarrelSpawner/Tube/StaticBody2D"]
 position = Vector2(-0.444443, 1.2361)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_0xhlh")
+
+[node name="Player" parent="." instance=ExtResource("7_008wv")]
+position = Vector2(35, 555)
+collision_mask = 15
 
 [connection signal="timeout" from="BarrelSpawner/Timer" to="BarrelSpawner" method="spawn"]
