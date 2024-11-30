@@ -1,19 +1,20 @@
-[gd_scene load_steps=32 format=3 uid="uid://dwehlo3xi6uvy"]
+[gd_scene load_steps=33 format=3 uid="uid://dwehlo3xi6uvy"]
 
 [ext_resource type="Script" path="res://01_scripts/games/barrels/game_viewport.gd" id="1_5jwfo"]
 [ext_resource type="Texture2D" uid="uid://cb4kfl84f5hu2" path="res://02_sprites/door.png" id="2_4sjge"]
 [ext_resource type="AudioStream" uid="uid://c6fjwrq0cu07n" path="res://04_sounds/barrel/jump.wav" id="2_hcgsj"]
 [ext_resource type="Script" path="res://01_scripts/games/barrels/reflector.gd" id="2_ylkh6"]
-[ext_resource type="Script" path="res://01_scripts/games/barrels/stairs.gd" id="3_1qcxm"]
+[ext_resource type="Script" path="res://01_scripts/games/barrels/ladder.gd" id="3_1qcxm"]
 [ext_resource type="AudioStream" uid="uid://c6unqkifr1bp4" path="res://04_sounds/barrel/death.wav" id="3_bam4n"]
 [ext_resource type="AudioStream" uid="uid://b5503bj3ag6lj" path="res://04_sounds/barrel/win.wav" id="3_qdteq"]
 [ext_resource type="Script" path="res://01_scripts/games/barrels/deletor.gd" id="4_3n81i"]
 [ext_resource type="PackedScene" uid="uid://bwsx8jokb8adq" path="res://00_scenes/games/barrels/barrel_obstacle.tscn" id="5_adpux"]
 [ext_resource type="Script" path="res://01_scripts/games/barrels/spawner.gd" id="5_fohu0"]
-[ext_resource type="Texture2D" uid="uid://byqsnu4lgk18c" path="res://02_sprites/stairs.png" id="5_lu3bk"]
+[ext_resource type="Texture2D" uid="uid://byqsnu4lgk18c" path="res://02_sprites/ladder.png" id="5_lu3bk"]
 [ext_resource type="Texture2D" uid="uid://cmllak7xxc55q" path="res://02_sprites/door_exit.png" id="5_y4j13"]
-[ext_resource type="Texture2D" uid="uid://b7p3v2chk8jhd" path="res://02_sprites/broken_stairs.png" id="6_8swf0"]
+[ext_resource type="Texture2D" uid="uid://b7p3v2chk8jhd" path="res://02_sprites/broken_ladder.png" id="6_8swf0"]
 [ext_resource type="PackedScene" uid="uid://dr7saeafo7t2o" path="res://00_scenes/games/barrels/player.tscn" id="7_008wv"]
+[ext_resource type="Script" path="res://01_scripts/games/barrels/barrel_tube.gd" id="14_ljbe7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6ralh"]
 size = Vector2(35, 71.5)
@@ -239,9 +240,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -32.0
-offset_top = -88.0
+offset_top = -81.0
 offset_right = 32.0
-offset_bottom = 201.0
+offset_bottom = 198.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.47, 0.47)
@@ -268,10 +269,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -43.5
-offset_top = -52.0
-offset_right = 20.5
-offset_bottom = 95.0
+offset_left = -42.96
+offset_top = -40.96
+offset_right = 21.04
+offset_bottom = 106.04
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.47, 0.47)
@@ -293,10 +294,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -43.5
-offset_top = -52.0
-offset_right = 20.5
-offset_bottom = 95.0
+offset_left = -42.96
+offset_top = -40.96
+offset_right = 21.04
+offset_bottom = 106.04
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.47, 0.47)
@@ -318,10 +319,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -43.5
-offset_top = -52.0
-offset_right = 20.5
-offset_bottom = 95.0
+offset_left = -42.96
+offset_top = -40.96
+offset_right = 21.04
+offset_bottom = 106.04
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(0.47, 0.47)
@@ -336,7 +337,6 @@ position = Vector2(184, -29)
 script = ExtResource("5_fohu0")
 barrel_scene = ExtResource("5_adpux")
 barrels_holder = NodePath("BarrelsHolder")
-initial_direction = -1
 
 [node name="Timer" type="Timer" parent="BarrelSpawner"]
 wait_time = 1.5
@@ -367,7 +367,7 @@ position = Vector2(100, 448)
 [node name="SpawnTube" type="Area2D" parent="BarrelSpawner"]
 position = Vector2(0, 34)
 collision_mask = 4
-script = ExtResource("3_1qcxm")
+script = ExtResource("14_ljbe7")
 
 [node name="0" type="CollisionShape2D" parent="BarrelSpawner/SpawnTube"]
 shape = SubResource("RectangleShape2D_7uuc4")

@@ -1,7 +1,7 @@
-[gd_scene load_steps=45 format=3 uid="uid://bma26lnrtxwbd"]
+[gd_scene load_steps=49 format=3 uid="uid://bma26lnrtxwbd"]
 
 [ext_resource type="Script" path="res://01_scripts/camera_look_at.gd" id="1_jcqcm"]
-[ext_resource type="PackedScene" uid="uid://ccs84f1vhfvgm" path="res://00_scenes/spot_light_3d.tscn" id="2_ynn0a"]
+[ext_resource type="PackedScene" uid="uid://ccs84f1vhfvgm" path="res://00_scenes/environment/spot_light_3d.tscn" id="2_ynn0a"]
 [ext_resource type="Script" path="res://01_scripts/tvs_holder.gd" id="3_qqb4s"]
 [ext_resource type="PackedScene" uid="uid://c5co72s5pe4qt" path="res://00_scenes/tv.tscn" id="4_qgu10"]
 [ext_resource type="PackedScene" uid="uid://t6kste4a4hvi" path="res://00_scenes/tv_static.tscn" id="5_5gmnh"]
@@ -31,7 +31,11 @@
 [ext_resource type="PackedScene" uid="uid://cdophu8pjtndd" path="res://03_models/office/Notepad.glb" id="28_4idsi"]
 [ext_resource type="PackedScene" uid="uid://bm4ehqw5sgdei" path="res://03_models/office/Stool.glb" id="29_oyiww"]
 [ext_resource type="PackedScene" uid="uid://hjh6lpmfvfnu" path="res://03_models/office/Book_Pile_2.glb" id="30_eeuj6"]
-[ext_resource type="PackedScene" uid="uid://c208limsev73x" path="res://00_scenes/radio.tscn" id="31_deqwp"]
+[ext_resource type="PackedScene" uid="uid://c208limsev73x" path="res://00_scenes/environment/radio.tscn" id="31_deqwp"]
+[ext_resource type="Texture2D" uid="uid://e851xotwwnd0" path="res://03_models/decal_0.png" id="32_1biga"]
+[ext_resource type="Texture2D" uid="uid://b8p6q42ebo1vx" path="res://03_models/decal_1.png" id="33_5bmd1"]
+[ext_resource type="Texture2D" uid="uid://cgskucqg7ci0s" path="res://03_models/decal_3.png" id="34_xd4p5"]
+[ext_resource type="Texture2D" uid="uid://2e7c4ji8uslt" path="res://03_models/decal_2.png" id="35_fkt36"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_bdqev"]
 
@@ -239,6 +243,11 @@ mesh = SubResource("PlaneMesh_xatlf")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -3.44062)
 mesh = SubResource("PlaneMesh_xatlf")
 
+[node name="Wall5" type="MeshInstance3D" parent="Office"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 3.49458, 2, -0.0918162)
+mesh = SubResource("PlaneMesh_xatlf")
+metadata/_edit_group_ = true
+
 [node name="Props" type="Node3D" parent="Office"]
 
 [node name="Table2" parent="Office/Props" instance=ExtResource("18_1d1th")]
@@ -290,6 +299,67 @@ transform = Transform3D(-0.337888, -2.93059, 1.281e-07, 0, -1.28949e-07, -2.95, 
 
 [node name="Book_Pile_4" parent="Office/Props" instance=ExtResource("30_eeuj6")]
 transform = Transform3D(-2.49118, -1.58004, 6.90656e-08, 1.01021e-16, -1.28949e-07, -2.95, 1.58004, -2.49118, 1.08893e-07, -2.872, 0.618186, -1.2807)
+
+[node name="Decal" type="Decal" parent="Office"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.68483, 3.97121, -2.62033)
+size = Vector3(1.9834, 0.598328, 1.95697)
+texture_albedo = ExtResource("32_1biga")
+modulate = Color(0.200774, 0.439554, 0.28794, 1)
+lower_fade = 2.8541
+
+[node name="Decal5" type="Decal" parent="Office"]
+transform = Transform3D(0.838723, 0.405185, 0.363825, 0.326954, 0.159599, -0.931466, -0.435483, 0.900196, 0.00138257, 2.90085, 1.44308, 3.59792)
+size = Vector3(2.61231, 0.598328, 1.95697)
+texture_albedo = ExtResource("32_1biga")
+modulate = Color(0.200774, 0.439554, 0.28794, 1)
+upper_fade = 0.289781
+lower_fade = 1.37844
+
+[node name="Decal2" type="Decal" parent="Office"]
+transform = Transform3D(0.462553, 0.886451, -0.0157671, 0, 0.017784, 0.999842, 0.886591, -0.46248, 0.00822604, 2.52344, 1.28771, -2.72157)
+size = Vector3(1.32489, 0.70219, 1.3143)
+texture_albedo = ExtResource("33_5bmd1")
+modulate = Color(0.200774, 0.439554, 0.28794, 1)
+lower_fade = 4.79999
+
+[node name="Decal7" type="Decal" parent="Office"]
+transform = Transform3D(1, -8.74228e-08, 8.74228e-08, -8.74228e-08, -1, 0, 8.74228e-08, -7.64274e-15, -1, 0.0874233, 0.988341, -1.30793)
+size = Vector3(1.32489, 0.0842338, 1.3143)
+texture_albedo = ExtResource("33_5bmd1")
+modulate = Color(0.0666667, 0.184314, 0.109804, 0.345098)
+upper_fade = 0.941501
+lower_fade = 2.57225
+
+[node name="Decal8" type="Decal" parent="Office"]
+transform = Transform3D(0.905887, -0.42352, 1.85126e-08, -3.82137e-15, 4.37114e-08, 1, -0.42352, -0.905887, 3.95976e-08, -0.00646386, 1.42861, -1.17989)
+size = Vector3(1.05026, 0.232671, 0.953686)
+texture_albedo = ExtResource("33_5bmd1")
+modulate = Color(0, 0.431373, 0.180392, 0.0784314)
+upper_fade = 0.941501
+lower_fade = 2.57225
+
+[node name="Decal3" type="Decal" parent="Office"]
+transform = Transform3D(0.462553, 0.886451, -0.0157671, 0, 0.017784, 0.999842, 0.886591, -0.46248, 0.00822604, 2.4986, 3.09639, -2.71023)
+size = Vector3(1.32489, 0.70219, 1.3143)
+texture_albedo = ExtResource("34_xd4p5")
+modulate = Color(0.2, 0.439216, 0.286275, 0.572549)
+lower_fade = 4.79999
+
+[node name="Decal4" type="Decal" parent="Office"]
+transform = Transform3D(0.993048, -0.117692, 0.00209336, -0.117637, -0.992898, -0.0177505, 0.00416757, 0.0173808, -0.99984, 2.49885, -0.022707, 3.49188)
+size = Vector3(1.32489, 0.70219, 1.54778)
+texture_albedo = ExtResource("35_fkt36")
+modulate = Color(0.2, 0.439216, 0.286275, 0.572549)
+upper_fade = 0.310579
+lower_fade = 0.454714
+
+[node name="Decal6" type="Decal" parent="Office"]
+transform = Transform3D(0.999866, 0.0162497, 0.0022242, 0.0119836, -0.816398, 0.577365, 0.0111978, -0.577261, -0.816483, 0.572942, 1.27774, -0.85906)
+size = Vector3(0.702484, 0.712039, 0.619122)
+texture_albedo = ExtResource("35_fkt36")
+modulate = Color(0, 0.211765, 0, 0.490196)
+upper_fade = 0.310579
+lower_fade = 0.454714
 
 [node name="radio" parent="." instance=ExtResource("31_deqwp")]
 

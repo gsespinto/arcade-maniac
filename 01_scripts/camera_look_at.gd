@@ -21,7 +21,7 @@ func _ready() -> void:
 	look_at(_get_look_at_pos(), Vector3.UP)
 
 
-func _physics_process(delta) -> void:
+func _physics_process(_delta) -> void:
 	# Lerp towards the current target look at position
 	# so the movement is smoother.
 	# TODO: Fix looking at the ceiling or floor when lerping this

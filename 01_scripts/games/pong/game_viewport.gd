@@ -20,9 +20,9 @@ func _ready() -> void:
 	ball.on_player_collision.connect(play_sfx.bind(player_sfx))
 
 
-func _entered_win_area(body : Node2D) -> void:
+func _entered_win_area(_body : Node2D) -> void:
 	super.win()
 
 
-func _entered_lose_area(body : Node2D) -> void:
+func _entered_lose_area(_body : Node2D) -> void:
 	super.lose()

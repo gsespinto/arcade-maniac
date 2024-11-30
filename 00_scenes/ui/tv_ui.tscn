@@ -1126,6 +1126,6 @@ grow_vertical = 2
 [connection signal="pressed" from="Highscores/GridContainer/ButtonParent3/Reset" to="." method="open_sub_tab" binds= ["HighscoresReset"]]
 [connection signal="pressed" from="Highscores/GridContainer/ButtonParent4/Back" to="." method="close_sub_tab"]
 [connection signal="pressed" from="HighscoresReset/GridContainer/ButtonParent3/Confirm" to="." method="close_sub_tab"]
-[connection signal="pressed" from="HighscoresReset/GridContainer/ButtonParent3/Confirm" to="Highscores" method="reset_highscores"]
 [connection signal="pressed" from="HighscoresReset/GridContainer/ButtonParent3/Confirm" to="Highscores" method="reset_focus"]
+[connection signal="pressed" from="HighscoresReset/GridContainer/ButtonParent3/Confirm" to="Highscores" method="reset_highscores"]
 [connection signal="pressed" from="HighscoresReset/GridContainer/ButtonParent4/Back" to="." method="close_sub_tab"]

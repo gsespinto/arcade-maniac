@@ -66,10 +66,17 @@ func _load_music_file(file_path: String):
 				mp3_stream.data = file.get_buffer(file.get_length())
 				_user_audio_streams.append(mp3_stream)
 			
-			"wav":
-				var wav_stream : AudioStreamWAV = AudioStreamWAV.new()
-				wav_stream.data = file.get_buffer(file.get_length())
-				_user_audio_streams.append(wav_stream)
+			# Turns out the music manager wasn't properly loading .wav files 
+			# from the system. Read through the documentation and tried 
+			# converting from a possibly unsigned PCM8 to signed PCM8 and 
+			# changing the wav data format, but the output was still lack luster. 
+			# Thus I decided to only support .mp3 files as those are straight 
+			# forward and this isn't a major game feature. 
+			# Should investigate this further in the future.
+			#"wav":
+				#var wav_stream : AudioStreamWAV = AudioStreamWAV.new()
+				#wav_stream.data = file.get_buffer(file.get_length())
+				#_user_audio_streams.append(wav_stream)
 			
 			_:
 				prints("Failed to open file:", file_path, "Unrecognized file extension!")

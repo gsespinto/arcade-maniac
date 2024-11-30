@@ -34,7 +34,7 @@ func _physics_process(delta: float) -> void:
 	else:
 		if is_on_floor():
 			velocity.y = 0
-			if Input.is_action_just_pressed("ui_up"):
+			if Input.is_action_just_pressed("jump"):
 				velocity.y -= jump_force
 				jumped.emit()
 		else:

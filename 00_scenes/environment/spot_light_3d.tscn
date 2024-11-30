@@ -1,0 +1,101 @@
+[gd_scene load_steps=10 format=3 uid="uid://ccs84f1vhfvgm"]
+
+[ext_resource type="Script" path="res://01_scripts/random_audio_player_3D.gd" id="1_epnwm"]
+[ext_resource type="AudioStream" uid="uid://dpj782gu15l8d" path="res://04_sounds/light_flicker/light_flicker_0.wav" id="2_peaj8"]
+[ext_resource type="AudioStream" uid="uid://rawqobjink8n" path="res://04_sounds/light_flicker/light_flicker_1.wav" id="3_fc141"]
+[ext_resource type="AudioStream" uid="uid://b87xcx1l0hlu" path="res://04_sounds/light_flicker/light_flicker_2.wav" id="4_f0ijb"]
+[ext_resource type="AudioStream" uid="uid://cdo8ii84e83on" path="res://04_sounds/light_flicker/light_flicker_3.wav" id="5_jyclh"]
+[ext_resource type="AudioStream" uid="uid://b1uy8ms1nnm4s" path="res://04_sounds/light_flicker/light_on.wav" id="6_jfqe1"]
+
+[sub_resource type="Animation" id="Animation_6imtw"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_a8by7"]
+resource_name = "default"
+length = 120.0
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.8, 0.9, 1, 1.1, 38.0333, 38.1333, 38.2333, 38.3333, 83.9667, 84.5667, 84.6667, 84.7667),
+"transitions": PackedFloat32Array(1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1),
+"update": 1,
+"values": [true, false, true, false, true, false, true, false, true, false, true, false, true]
+}
+tracks/1/type = "method"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("RandomFlickerAudio")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.8, 38.0334, 83.9667, 84.5667),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"values": [{
+"args": [],
+"method": &"play_random"
+}, {
+"args": [],
+"method": &"play_random"
+}, {
+"args": [],
+"method": &"play_random"
+}, {
+"args": [],
+"method": &"play_random"
+}]
+}
+tracks/2/type = "method"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("LightOnAudio")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(84.7667),
+"transitions": PackedFloat32Array(1),
+"values": [{
+"args": [0.0],
+"method": &"play"
+}]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_rseqc"]
+_data = {
+"RESET": SubResource("Animation_6imtw"),
+"default": SubResource("Animation_a8by7")
+}
+
+[node name="SpotLight3D" type="SpotLight3D"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, 1, 0, -1, -4.37114e-08, 0, 3.66934, 0)
+light_energy = 1.183
+shadow_enabled = true
+
+[node name="LightFlickerAnimation" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_rseqc")
+}
+autoplay = "default"
+
+[node name="RandomFlickerAudio" type="AudioStreamPlayer3D" parent="."]
+script = ExtResource("1_epnwm")
+audio_clips = Array[AudioStream]([ExtResource("2_peaj8"), ExtResource("3_fc141"), ExtResource("4_f0ijb"), ExtResource("5_jyclh")])
+
+[node name="LightOnAudio" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("6_jfqe1")

@@ -47,7 +47,6 @@ func toggle_fullscreen():
 	OptionsManager.toggle_fullscreen()
 	
 	if is_instance_valid(fullscreen_bt):
-		var suffix : String = "_ON" if OptionsManager.is_fullscreen else "_OFF"
 		_update_fullscreen_button_text()
 
 
