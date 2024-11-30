@@ -31,6 +31,9 @@ enum CellState{
 		columns = value
 		_cell_size = Vector2(float(grid_size.x) / columns, float(grid_size.y) / rows)
 
+@export var even_color : Color = Color.GRAY
+@export var odd_color : Color = Color.DIM_GRAY
+
 @export_category("Snake")
 @export var move_time : Array[float] = [0.25]:
 	set(value):
@@ -52,7 +55,6 @@ enum CellState{
 @export_category("Preview")
 @export var preview_color : Color = Color.GREEN
 @export_range(1.0, 10.0, 0.01) var preview_width : float = 1.0
-@export var debug_in_game : bool = false
 
 @export_category("SFX")
 @export var apple_sfx : AudioStream
@@ -123,10 +125,8 @@ func _process(delta: float) -> void:
 
 
 func _draw() -> void:
+	_draw_grid()
 	draw_circle(_get_cell_position(_current_apple), ball_radius, ball_color)
-
-	if Engine.is_editor_hint() or debug_in_game:
-		_preview_grid()
 
 
 func lose() -> void:
@@ -262,15 +262,17 @@ func _set_apple_cell() -> void:
 	look_at_target.set_position(_get_cell_position(_current_apple))
 
 
-func _preview_grid() -> void:
-	for c in columns:
-		var x_pos : float = _cell_size.x * c
-		var y_end : float = _cell_size.y * rows
-		
-		draw_line(Vector2(x_pos, 0), Vector2(x_pos, y_end), preview_color, preview_width)
+func _draw_grid() -> void:
+	draw_rect(Rect2(Vector2.ZERO, grid_size), even_color)
 	
-	for r in rows:
-		var x_end : float = _cell_size.x * columns
-		var y_pos : float = _cell_size.y * r
-		
-		draw_line(Vector2(0, y_pos), Vector2(x_end, y_pos), preview_color, preview_width)
+	var cell_size : Vector2 = Vector2(grid_size.x / columns, grid_size.y / rows)
+	for c in columns:
+		for r in rows:
+			# Switch coloring between odd 
+			# and even columns and rows
+			# so that it is alternating
+			if (c % 2 == r % 2):
+					continue
+			
+			var cell_pos : Vector2 = Vector2(cell_size.x * c, cell_size.y * r)
+			draw_rect(Rect2(cell_pos, cell_size), odd_color)

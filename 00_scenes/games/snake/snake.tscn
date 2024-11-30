@@ -11,6 +11,7 @@
 script = ExtResource("1_xxdk6")
 rows = 4
 columns = 6
+even_color = Color(0.233925, 0.233926, 0.233925, 1)
 snake_line_packed_scene = ExtResource("2_3cvth")
 ball_radius = 35.0
 preview_color = Color(0.94902, 0.811765, 0.482353, 0.337255)
