@@ -158,7 +158,6 @@ func _set_current_game(game : GameViewport, immediate : bool = false) -> void:
 	# a delay to give the player some warm up
 	if not is_first_game and not immediate:
 		_open_ui("WarmUp")
-		
 		await get_tree().create_timer(warm_up_delay).timeout
 		
 		_close_ui()
@@ -227,8 +226,13 @@ func _pause() -> void:
 
 
 func _unpause() -> void:
-	_close_ui()
 	on_game_changed.emit(_games.find(_current_game))
+	
+	# Give warm up before unpausing the game
+	_open_ui("WarmUp")
+	await get_tree().create_timer(warm_up_delay).timeout
+	
+	_close_ui()
 
 
 # Frees given game with given name
