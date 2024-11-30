@@ -276,3 +276,12 @@ func _draw_grid() -> void:
 			
 			var cell_pos : Vector2 = Vector2(cell_size.x * c, cell_size.y * r)
 			draw_rect(Rect2(cell_pos, cell_size), odd_color)
+
+
+# Whenever the snake game is unpaused
+# reset the move timer so that the player
+# has time to give the direction input
+func _notification(what: int) -> void:
+	if what == NOTIFICATION_UNPAUSED:
+		_move_timer.stop()
+		_move_timer.start()
