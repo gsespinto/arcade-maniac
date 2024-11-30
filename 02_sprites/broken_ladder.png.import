@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://byqsnu4lgk18c"
-path="res://.godot/imported/stairs.png-cea21045744c57d9fbf2a6e719833e91.ctex"
+uid="uid://b7p3v2chk8jhd"
+path="res://.godot/imported/broken_ladder.png-4542f4fb425883ee1ca22df2ed58c086.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://02_sprites/stairs.png"
-dest_files=["res://.godot/imported/stairs.png-cea21045744c57d9fbf2a6e719833e91.ctex"]
+source_file="res://02_sprites/broken_ladder.png"
+dest_files=["res://.godot/imported/broken_ladder.png-4542f4fb425883ee1ca22df2ed58c086.ctex"]
 
 [params]
 
@@ -25,7 +25,7 @@ mipmaps/generate=false
 mipmaps/limit=-1
 roughness/mode=0
 roughness/src_normal=""
-process/fix_alpha_border=false
+process/fix_alpha_border=true
 process/premult_alpha=false
 process/normal_map_invert_y=false
 process/hdr_as_srgb=false

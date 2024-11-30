@@ -11,7 +11,10 @@ const SPEED : float = 125.0
 @export var player_detection_area : Area2D
 
 @export var direction : Direction = Direction.RIGHT 
-@export var _in_stairs : bool = false
+
+var can_move : bool = true
+var _in_stairs : bool = false
+
 
 
 func _ready() -> void:
@@ -20,12 +23,11 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
-	
 	# Add the gravity.
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 	
-	velocity.x = 0 if _in_stairs else direction * SPEED
+	velocity.x = 0 if (_in_stairs or not can_move) else direction * SPEED
 	
 	move_and_slide()
 
