@@ -241,8 +241,8 @@ func _eat_apple() -> void:
 		_set_apple_cell()
 		if move_time.size() > 0:
 			_move_timer.wait_time = move_time.pop_front()
+		play_sfx(apple_sfx)
 	
-	play_sfx(apple_sfx)
 	_update_snake()
 
 
