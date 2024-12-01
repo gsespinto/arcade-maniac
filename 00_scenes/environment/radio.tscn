@@ -1,8 +1,7 @@
-[gd_scene load_steps=7 format=4 uid="uid://c208limsev73x"]
+[gd_scene load_steps=6 format=4 uid="uid://c208limsev73x"]
 
 [ext_resource type="Script" path="res://01_scripts/radio.gd" id="1_t312u"]
 [ext_resource type="Texture2D" uid="uid://hnmlo2lyfdhr" path="res://03_models/radio/radio_blinn1_Base_color.png" id="1_u4vso"]
-[ext_resource type="AudioStream" uid="uid://bu7bajic6s6y8" path="res://04_sounds/game_music.wav" id="2_6ubcl"]
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_pc56h"]
 resource_name = "blinn1"
@@ -58,8 +57,6 @@ skeleton = NodePath("")
 
 [node name="antena_low" type="Node3D" parent="radio_low"]
 
-[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." groups=["music"]]
-stream = ExtResource("2_6ubcl")
-volume_db = -15.0
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+volume_db = -12.0
 unit_size = 2.0
-autoplay = true
