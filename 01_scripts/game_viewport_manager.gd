@@ -92,7 +92,7 @@ func _setup_games() -> void:
 		_setup_game(game)
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	# Debug input to switch between games
 	if not OS.has_feature("standalone") and Input.is_action_just_pressed("next_game"):
 		_go_to_next_game()

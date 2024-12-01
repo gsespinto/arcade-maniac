@@ -116,7 +116,7 @@ func _ready() -> void:
 	super._ready()
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if Engine.is_editor_hint():
 		queue_redraw()
 		return
@@ -144,11 +144,15 @@ func _move() -> void:
 	if not is_instance_valid(_current_snake) or _snake_points.is_empty():
 		return
 	
+	# Check if the input was valid
 	if _movement_input != Vector2i.ZERO:
 		_movement_input.x = sign(_movement_input.x)
 		if _movement_input.x * _movement_direction.x < 0:
 			_movement_input.x = _movement_direction.x
 		
+		# The snake should only turn horizontally or vertically
+		# In case of both inputs being given, 
+		# the horizontal takes priority
 		if _movement_input.x != 0:
 			_movement_input.y = 0
 		
@@ -156,14 +160,18 @@ func _move() -> void:
 		if _movement_input.y * _movement_direction.y < 0:
 			_movement_input.y = _movement_direction.y
 		
+		# If the movement input was valid,
+		# assign it and play turn sfx
 		if _movement_input != _movement_direction:
 			_movement_direction = _movement_input
 			play_sfx(turn_sfx)
 	
 	
-	var range : Array = range(_snake_points.size())
-	range.reverse()
-	for i in range:
+	# Look backwards assigning shifting the 
+	# points positions to the previous
+	var points_range : Array = range(_snake_points.size())
+	points_range.reverse()
+	for i in points_range:
 		if i == 0:
 			continue
 		
@@ -216,9 +224,6 @@ func _check_collision() -> bool:
 func _update_snake() -> void:
 	if not is_instance_valid(_current_snake) or _snake_points.is_empty():
 		return
-	
-	var column_sep : float = float(grid_size.x) / columns
-	var row_sep : float = float(grid_size.y) / rows
 	
 	var snake_line_positions : PackedVector2Array = []
 	for i in _snake_points.size() - 1:

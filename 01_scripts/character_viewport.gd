@@ -17,7 +17,7 @@ func _ready() -> void:
 	MusicManager.music_changed.connect(play_animation.bind("ButtonPress"))
 
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	_update_time_labels()
 
 

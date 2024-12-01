@@ -98,8 +98,8 @@ func unpause():
 	unpaused.emit()
 
 
-func set_tree_paused(paused : bool):
-	get_tree().set_pause(paused)
+func set_tree_paused(set_pause : bool):
+	get_tree().set_pause(set_pause)
 
 
 func get_current_time_string() -> String:

@@ -243,6 +243,11 @@ mesh = SubResource("PlaneMesh_xatlf")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, -3.44062)
 mesh = SubResource("PlaneMesh_xatlf")
 
+[node name="Wall5" type="MeshInstance3D" parent="Office"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 3.49458, 2, -0.0918162)
+mesh = SubResource("PlaneMesh_xatlf")
+metadata/_edit_group_ = true
+
 [node name="Props" type="Node3D" parent="Office"]
 
 [node name="Table2" parent="Office/Props" instance=ExtResource("18_1d1th")]
@@ -303,11 +308,12 @@ modulate = Color(0.200774, 0.439554, 0.28794, 1)
 lower_fade = 2.8541
 
 [node name="Decal5" type="Decal" parent="Office"]
-transform = Transform3D(1, 0, 0, 0, 0.00153585, -0.999999, 0, 0.999999, 0.00153585, 3.13033, 1.44308, 3.27065)
-size = Vector3(1.9834, 0.598328, 1.95697)
+transform = Transform3D(0.838723, 0.405185, 0.363825, 0.326954, 0.159599, -0.931466, -0.435483, 0.900196, 0.00138257, 2.90085, 1.44308, 3.59792)
+size = Vector3(2.61231, 0.598328, 1.95697)
 texture_albedo = ExtResource("32_1biga")
 modulate = Color(0.200774, 0.439554, 0.28794, 1)
-lower_fade = 2.8541
+upper_fade = 0.289781
+lower_fade = 1.37844
 
 [node name="Decal2" type="Decal" parent="Office"]
 transform = Transform3D(0.462553, 0.886451, -0.0157671, 0, 0.017784, 0.999842, 0.886591, -0.46248, 0.00822604, 2.52344, 1.28771, -2.72157)

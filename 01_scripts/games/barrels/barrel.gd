@@ -27,7 +27,7 @@ func _physics_process(delta: float) -> void:
 	if not is_on_floor():
 		velocity += get_gravity() * delta
 	
-	velocity.x = 0 if (_in_stairs or not can_move) else direction * SPEED
+	velocity.x = 0.0 if (_in_stairs or not can_move) else direction * SPEED
 	
 	move_and_slide()
 

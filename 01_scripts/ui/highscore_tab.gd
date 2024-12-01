@@ -40,7 +40,3 @@ func _notification(what: int) -> void:
 		if visible:
 			HighscoreManager.has_new_highscore = false
 			_set_new_highscore(false)
-
-
-func open_sub_tab(extra_arg_0: String) -> void:
-	pass # Replace with function body.

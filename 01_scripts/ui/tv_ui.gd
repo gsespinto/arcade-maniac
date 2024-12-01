@@ -103,14 +103,3 @@ func get_current_tab() -> String:
 
 func set_final_time():
 	final_time_label.set_text(GameManager.get_current_time_string())
-
-
-var toggle : bool = false
-func _input(event: InputEvent) -> void:
-	return
-	
-	# TODO: This is giving problems in the pause menu
-	if event.is_action_pressed("ui_cancel", false):
-		TranslationServer.set_locale("en" if toggle else "pt")
-		toggle = not toggle
-		close_sub_tab()
