@@ -57,6 +57,6 @@ skeleton = NodePath("")
 
 [node name="antena_low" type="Node3D" parent="radio_low"]
 
-[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="."]
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." groups=["music"]]
 volume_db = -12.0
 unit_size = 2.0
