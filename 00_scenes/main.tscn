@@ -1,7 +1,7 @@
 [gd_scene load_steps=45 format=3 uid="uid://bma26lnrtxwbd"]
 
 [ext_resource type="Script" path="res://01_scripts/camera_look_at.gd" id="1_jcqcm"]
-[ext_resource type="PackedScene" uid="uid://ccs84f1vhfvgm" path="res://00_scenes/spot_light_3d.tscn" id="2_ynn0a"]
+[ext_resource type="PackedScene" uid="uid://ccs84f1vhfvgm" path="res://00_scenes/environment/spot_light_3d.tscn" id="2_ynn0a"]
 [ext_resource type="Script" path="res://01_scripts/tvs_holder.gd" id="3_qqb4s"]
 [ext_resource type="PackedScene" uid="uid://c5co72s5pe4qt" path="res://00_scenes/tv.tscn" id="4_qgu10"]
 [ext_resource type="PackedScene" uid="uid://t6kste4a4hvi" path="res://00_scenes/tv_static.tscn" id="5_5gmnh"]
@@ -31,7 +31,7 @@
 [ext_resource type="PackedScene" uid="uid://cdophu8pjtndd" path="res://03_models/office/Notepad.glb" id="28_4idsi"]
 [ext_resource type="PackedScene" uid="uid://bm4ehqw5sgdei" path="res://03_models/office/Stool.glb" id="29_oyiww"]
 [ext_resource type="PackedScene" uid="uid://hjh6lpmfvfnu" path="res://03_models/office/Book_Pile_2.glb" id="30_eeuj6"]
-[ext_resource type="PackedScene" uid="uid://c208limsev73x" path="res://00_scenes/radio.tscn" id="31_deqwp"]
+[ext_resource type="PackedScene" uid="uid://c208limsev73x" path="res://00_scenes/environment/radio.tscn" id="31_deqwp"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_bdqev"]
 

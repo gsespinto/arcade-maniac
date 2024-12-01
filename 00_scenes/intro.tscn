@@ -1,0 +1,143 @@
+[gd_scene load_steps=15 format=3 uid="uid://bkgdps16vtiox"]
+
+[ext_resource type="Theme" uid="uid://bthy66vyauw8r" path="res://02_sprites/themes/tv_ui.tres" id="1_bt4ag"]
+[ext_resource type="Script" path="res://01_scripts/ui/intro.gd" id="1_clqe5"]
+[ext_resource type="PackedScene" uid="uid://t6kste4a4hvi" path="res://00_scenes/tv_static.tscn" id="1_cq5j8"]
+[ext_resource type="FontFile" uid="uid://c1h3hrghuk5dc" path="res://05_fonts/Tiny5-Regular.ttf" id="1_roxor"]
+[ext_resource type="Script" path="res://01_scripts/random_audio_player_2D.gd" id="4_rxtxo"]
+[ext_resource type="AudioStream" uid="uid://dwht1o567v2pk" path="res://04_sounds/keyboard_keys/keyboard_type_0.wav" id="5_h545d"]
+[ext_resource type="AudioStream" uid="uid://bko874ctqrlmi" path="res://04_sounds/keyboard_keys/keyboard_type_1.wav" id="6_ihh52"]
+[ext_resource type="AudioStream" uid="uid://bw7glm276xy33" path="res://04_sounds/keyboard_keys/keyboard_type_2.wav" id="7_ii877"]
+[ext_resource type="AudioStream" uid="uid://bp7vfuw0ph3nj" path="res://04_sounds/keyboard_keys/keyboard_type_3.wav" id="8_vlftn"]
+[ext_resource type="AudioStream" uid="uid://didkkoohre34q" path="res://04_sounds/keyboard_keys/keyboard_type_4.wav" id="9_ho5o6"]
+[ext_resource type="AudioStream" uid="uid://c184nsrl0nfkb" path="res://04_sounds/keyboard_keys/keyboard_type_5.wav" id="10_25inl"]
+[ext_resource type="AudioStream" uid="uid://bokdaonhor61h" path="res://04_sounds/tv_static_loop.wav" id="12_nuqu2"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_3jyy8"]
+viewport_path = NodePath("TextViewport")
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_c8tnp"]
+viewport_path = NodePath("StaticViewport")
+
+[node name="Intro" type="Control" node_paths=PackedStringArray("rich_label")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_bt4ag")
+script = ExtResource("1_clqe5")
+game_level = "res://00_scenes/main.tscn"
+rich_label = NodePath("TextViewport/Control/RichTextLabel")
+typing_time = 0.05
+break_time = 1.2
+blink_time = 0.3
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.0444852, 0.06095, 0.0526547, 1)
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+ratio = 1.7778
+
+[node name="TextOverlay" type="TextureRect" parent="AspectRatioContainer"]
+layout_mode = 2
+texture = SubResource("ViewportTexture_3jyy8")
+expand_mode = 1
+
+[node name="StaticOverlay" type="TextureRect" parent="."]
+self_modulate = Color(1, 1, 1, 0.341176)
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("ViewportTexture_c8tnp")
+expand_mode = 1
+
+[node name="ContinueBT" type="Button" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -356.0
+offset_top = -149.0
+offset_right = -26.0
+offset_bottom = -29.0
+grow_horizontal = 0
+grow_vertical = 0
+disabled = true
+text = "STR_CONTINUE"
+
+[node name="StaticViewport" type="SubViewport" parent="."]
+size = Vector2i(1920, 1080)
+
+[node name="TVStatic" parent="StaticViewport" instance=ExtResource("1_cq5j8")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = 0.0
+offset_bottom = 0.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextViewport" type="SubViewport" parent="."]
+transparent_bg = true
+size = Vector2i(1920, 1080)
+
+[node name="Control" type="Control" parent="TextViewport"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1920.0
+offset_bottom = 1080.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="TextViewport/Control"]
+modulate = Color(0.549958, 0.917789, 0.449694, 1)
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 150.0
+offset_top = 150.0
+offset_right = -150.0
+offset_bottom = -150.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/normal_font = ExtResource("1_roxor")
+theme_override_font_sizes/normal_font_size = 60
+text = "STR_INTRO"
+
+[node name="TypingAudio" type="AudioStreamPlayer2D" parent="."]
+volume_db = -5.0
+script = ExtResource("4_rxtxo")
+audio_clips = Array[AudioStream]([ExtResource("5_h545d"), ExtResource("6_ihh52"), ExtResource("7_ii877"), ExtResource("8_vlftn"), ExtResource("9_ho5o6"), ExtResource("10_25inl")])
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("12_nuqu2")
+volume_db = 18.0
+autoplay = true
+
+[connection signal="finished" from="." to="ContinueBT" method="grab_focus"]
+[connection signal="finished" from="." to="ContinueBT" method="set_visible" binds= [true]]
+[connection signal="finished" from="." to="ContinueBT" method="set_disabled" binds= [false]]
+[connection signal="typed" from="." to="TypingAudio" method="play_random"]
+[connection signal="pressed" from="ContinueBT" to="." method="go_to_game"]
+[connection signal="pressed" from="ContinueBT" to="TypingAudio" method="play_random"]
+[connection signal="pressed" from="ContinueBT" to="ContinueBT" method="set_focus_mode" binds= [0]]
+[connection signal="pressed" from="ContinueBT" to="ContinueBT" method="set_disabled" binds= [true]]

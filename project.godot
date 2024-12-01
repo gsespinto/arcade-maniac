@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Arcade Maniac"
-run/main_scene="res://00_scenes/main.tscn"
+run/main_scene="res://00_scenes/intro.tscn"
 config/features=PackedStringArray("4.3", "Forward Plus")
 boot_splash/image="res://02_sprites/boot_splash.png"
 config/icon="res://icon.svg"
