@@ -76,12 +76,13 @@ anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -356.0
-offset_top = -149.0
-offset_right = -26.0
-offset_bottom = -29.0
+offset_left = -217.0
+offset_top = -110.0
+offset_right = -17.0
+offset_bottom = -20.0
 grow_horizontal = 0
 grow_vertical = 0
+theme_override_font_sizes/font_size = 26
 disabled = true
 text = "STR_CONTINUE"
 

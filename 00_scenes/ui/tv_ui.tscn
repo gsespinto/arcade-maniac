@@ -20,7 +20,7 @@ theme = ExtResource("1_hpfey")
 script = ExtResource("1_02oip")
 game_scene = "res://00_scenes/main.tscn"
 tabs = [NodePath("MainMenu"), NodePath("PauseMenu"), NodePath("Won"), NodePath("WarmUp"), NodePath("Options"), NodePath("Audio"), NodePath("Highscores"), NodePath("HighscoresReset")]
-final_time_label = NodePath("Won/GridContainer/ButtonParent2/VBoxContainer/FinalTimeLabel")
+final_time_label = NodePath("Won/GridContainer/VBoxContainer/ButtonParent2/VBoxContainer/FinalTimeLabel")
 
 [node name="ReferenceRect" type="ReferenceRect" parent="."]
 layout_mode = 1
@@ -39,7 +39,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("2_yh2qu")
-focusable_items = [NodePath("GridContainer/ButtonParent/StartGame"), NodePath("GridContainer/ButtonParent2/Highscores"), NodePath("GridContainer/ButtonParent3/Options"), NodePath("GridContainer/ButtonParent4/Quit")]
+focusable_items = [NodePath("GridContainer/HBoxContainer/ButtonParent/StartGame"), NodePath("GridContainer/HBoxContainer/ButtonParent2/Highscores"), NodePath("GridContainer/ButtonParent3/Options")]
 
 [node name="Background" type="ColorRect" parent="MainMenu"]
 layout_mode = 1
@@ -68,7 +68,7 @@ theme_override_font_sizes/font_size = 135
 text = "STR_WELCOME"
 horizontal_alignment = 1
 
-[node name="GridContainer" type="GridContainer" parent="MainMenu"]
+[node name="GridContainer" type="VBoxContainer" parent="MainMenu"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -81,14 +81,18 @@ offset_right = 367.0
 offset_bottom = 245.0
 grow_horizontal = 2
 grow_vertical = 2
-columns = 2
 
-[node name="ButtonParent" type="Control" parent="MainMenu/GridContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MainMenu/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="StartGame" type="Button" parent="MainMenu/GridContainer/ButtonParent"]
+[node name="ButtonParent" type="Control" parent="MainMenu/GridContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="StartGame" type="Button" parent="MainMenu/GridContainer/HBoxContainer/ButtonParent"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -103,12 +107,12 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "STR_START"
 
-[node name="ButtonParent2" type="Control" parent="MainMenu/GridContainer"]
+[node name="ButtonParent2" type="Control" parent="MainMenu/GridContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Highscores" type="Button" parent="MainMenu/GridContainer/ButtonParent2"]
+[node name="Highscores" type="Button" parent="MainMenu/GridContainer/HBoxContainer/ButtonParent2"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -124,7 +128,7 @@ grow_vertical = 2
 theme_override_font_sizes/font_size = 40
 text = "STR_HIGHSCORES"
 
-[node name="Label" type="Label" parent="MainMenu/GridContainer/ButtonParent2/Highscores"]
+[node name="Label" type="Label" parent="MainMenu/GridContainer/HBoxContainer/ButtonParent2/Highscores"]
 layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
@@ -162,26 +166,6 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "STR_OPTIONS"
 
-[node name="ButtonParent4" type="Control" parent="MainMenu/GridContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="Quit" type="Button" parent="MainMenu/GridContainer/ButtonParent4"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -165.0
-offset_top = -60.0
-offset_right = 165.0
-offset_bottom = 60.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "STR_QUIT"
-
 [node name="PauseMenu" type="Control" parent="." node_paths=PackedStringArray("focusable_items")]
 visible = false
 layout_mode = 1
@@ -191,7 +175,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("2_yh2qu")
-focusable_items = [NodePath("GridContainer/ButtonParent/Resume"), NodePath("GridContainer/ButtonParent2/Options"), NodePath("GridContainer/ButtonParent3/Restart"), NodePath("GridContainer/ButtonParent4/Quit")]
+focusable_items = [NodePath("GridContainer/HBoxContainer/ButtonParent/Resume"), NodePath("GridContainer/HBoxContainer/ButtonParent2/Options"), NodePath("GridContainer/ButtonParent3/Restart")]
 
 [node name="Background" type="ColorRect" parent="PauseMenu"]
 layout_mode = 1
@@ -220,7 +204,7 @@ theme_override_font_sizes/font_size = 135
 text = "STR_PAUSED"
 horizontal_alignment = 1
 
-[node name="GridContainer" type="GridContainer" parent="PauseMenu"]
+[node name="GridContainer" type="VBoxContainer" parent="PauseMenu"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -233,14 +217,18 @@ offset_right = 367.0
 offset_bottom = 245.0
 grow_horizontal = 2
 grow_vertical = 2
-columns = 2
 
-[node name="ButtonParent" type="Control" parent="PauseMenu/GridContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="PauseMenu/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Resume" type="Button" parent="PauseMenu/GridContainer/ButtonParent"]
+[node name="ButtonParent" type="Control" parent="PauseMenu/GridContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Resume" type="Button" parent="PauseMenu/GridContainer/HBoxContainer/ButtonParent"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -255,12 +243,12 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "STR_RESUME"
 
-[node name="ButtonParent2" type="Control" parent="PauseMenu/GridContainer"]
+[node name="ButtonParent2" type="Control" parent="PauseMenu/GridContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Options" type="Button" parent="PauseMenu/GridContainer/ButtonParent2"]
+[node name="Options" type="Button" parent="PauseMenu/GridContainer/HBoxContainer/ButtonParent2"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -295,26 +283,6 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "STR_RESTART"
 
-[node name="ButtonParent4" type="Control" parent="PauseMenu/GridContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="Quit" type="Button" parent="PauseMenu/GridContainer/ButtonParent4"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -165.0
-offset_top = -60.0
-offset_right = 165.0
-offset_bottom = 60.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "STR_QUIT"
-
 [node name="Won" type="Control" parent="." node_paths=PackedStringArray("focusable_items")]
 visible = false
 layout_mode = 1
@@ -324,7 +292,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("2_yh2qu")
-focusable_items = [NodePath("GridContainer/ButtonParent/Restart"), NodePath("GridContainer/ButtonParent3/Highscore"), NodePath("GridContainer/ButtonParent4/Quit")]
+focusable_items = [NodePath("GridContainer/ButtonParent/Restart"), NodePath("GridContainer/VBoxContainer/ButtonParent3/Highscore")]
 
 [node name="Background" type="ColorRect" parent="Won"]
 layout_mode = 1
@@ -353,7 +321,7 @@ theme_override_font_sizes/font_size = 135
 text = "STR_WON"
 horizontal_alignment = 1
 
-[node name="GridContainer" type="GridContainer" parent="Won"]
+[node name="GridContainer" type="VBoxContainer" parent="Won"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -366,7 +334,83 @@ offset_right = 367.0
 offset_bottom = 245.0
 grow_horizontal = 2
 grow_vertical = 2
-columns = 2
+
+[node name="VBoxContainer" type="HBoxContainer" parent="Won/GridContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="ButtonParent2" type="Control" parent="Won/GridContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Won/GridContainer/VBoxContainer/ButtonParent2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Won/GridContainer/VBoxContainer/ButtonParent2/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.246591, 0.350128, 0.330989, 1)
+theme_override_font_sizes/font_size = 45
+text = "STR_FINAL_TIME"
+horizontal_alignment = 1
+vertical_alignment = 2
+clip_text = true
+
+[node name="FinalTimeLabel" type="Label" parent="Won/GridContainer/VBoxContainer/ButtonParent2/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_colors/font_color = Color(0.246591, 0.350128, 0.330989, 1)
+theme_override_font_sizes/font_size = 45
+text = "00:00:00"
+horizontal_alignment = 1
+clip_text = true
+
+[node name="ButtonParent3" type="Control" parent="Won/GridContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Highscore" type="Button" parent="Won/GridContainer/VBoxContainer/ButtonParent3"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -165.0
+offset_top = -60.0
+offset_right = 165.0
+offset_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 40
+text = "STR_HIGHSCORES"
+
+[node name="Label" type="Label" parent="Won/GridContainer/VBoxContainer/ButtonParent3/Highscore"]
+z_index = 5
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -89.0
+offset_top = -6.5
+offset_right = 60.0
+offset_bottom = 33.5
+grow_horizontal = 0
+rotation = 0.523599
+pivot_offset = Vector2(75, 20)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 35
+text = "STR_NEW"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="ButtonParent" type="Control" parent="Won/GridContainer"]
 layout_mode = 2
@@ -387,98 +431,6 @@ offset_bottom = 60.0
 grow_horizontal = 2
 grow_vertical = 2
 text = "STR_RESTART"
-
-[node name="ButtonParent2" type="Control" parent="Won/GridContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="VBoxContainer" type="VBoxContainer" parent="Won/GridContainer/ButtonParent2"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Label" type="Label" parent="Won/GridContainer/ButtonParent2/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_colors/font_color = Color(0.246591, 0.350128, 0.330989, 1)
-theme_override_font_sizes/font_size = 45
-text = "STR_FINAL_TIME"
-horizontal_alignment = 1
-vertical_alignment = 2
-clip_text = true
-
-[node name="FinalTimeLabel" type="Label" parent="Won/GridContainer/ButtonParent2/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_colors/font_color = Color(0.246591, 0.350128, 0.330989, 1)
-theme_override_font_sizes/font_size = 45
-text = "00:00:00"
-horizontal_alignment = 1
-clip_text = true
-
-[node name="ButtonParent3" type="Control" parent="Won/GridContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="Highscore" type="Button" parent="Won/GridContainer/ButtonParent3"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -165.0
-offset_top = -60.0
-offset_right = 165.0
-offset_bottom = 60.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/font_size = 40
-text = "STR_HIGHSCORES"
-
-[node name="Label" type="Label" parent="Won/GridContainer/ButtonParent3/Highscore"]
-z_index = 5
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -89.0
-offset_top = -6.5
-offset_right = 60.0
-offset_bottom = 33.5
-grow_horizontal = 0
-rotation = 0.523599
-pivot_offset = Vector2(75, 20)
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 35
-text = "STR_NEW"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="ButtonParent4" type="Control" parent="Won/GridContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="Quit" type="Button" parent="Won/GridContainer/ButtonParent4"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -165.0
-offset_top = -60.0
-offset_right = 165.0
-offset_bottom = 60.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "STR_QUIT"
 
 [node name="WarmUp" type="Control" parent="."]
 visible = false
@@ -516,8 +468,7 @@ theme_override_font_sizes/font_size = 531
 text = "II"
 horizontal_alignment = 1
 
-[node name="Options" type="Control" parent="." node_paths=PackedStringArray("fullscreen_bt", "volume_slider", "music_slider", "locale_bt", "focusable_items")]
-visible = false
+[node name="Options" type="Control" parent="." node_paths=PackedStringArray("volume_slider", "music_slider", "locale_bt", "focusable_items")]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -525,11 +476,10 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("4_aqmmq")
-fullscreen_bt = NodePath("GridContainer/ButtonParent/Options")
-volume_slider = NodePath("../Audio/GridContainer2/ButtonParent3/VBoxContainer/GameVolSlider")
-music_slider = NodePath("../Audio/GridContainer2/ButtonParent/VBoxContainer/MusicSlider")
-locale_bt = NodePath("GridContainer/ButtonParent2/Locale")
-focusable_items = [NodePath("GridContainer/ButtonParent/Options"), NodePath("GridContainer/ButtonParent2/Locale"), NodePath("GridContainer/ButtonParent3/Audio"), NodePath("GridContainer/ButtonParent4/Back")]
+volume_slider = NodePath("../Audio/GridContainer2/HBoxContainer/ButtonParent3/VBoxContainer/GameVolSlider")
+music_slider = NodePath("../Audio/GridContainer2/HBoxContainer/ButtonParent/VBoxContainer/MusicSlider")
+locale_bt = NodePath("GridContainer/HBoxContainer/ButtonParent2/Locale")
+focusable_items = [NodePath("GridContainer/HBoxContainer/ButtonParent2/Locale"), NodePath("GridContainer/HBoxContainer/ButtonParent3/Audio"), NodePath("GridContainer/ButtonParent4/Back")]
 
 [node name="Background" type="ColorRect" parent="Options"]
 layout_mode = 1
@@ -558,7 +508,7 @@ theme_override_font_sizes/font_size = 105
 text = "STR_OPTIONS"
 horizontal_alignment = 1
 
-[node name="GridContainer" type="GridContainer" parent="Options"]
+[node name="GridContainer" type="VBoxContainer" parent="Options"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -571,36 +521,18 @@ offset_right = 367.0
 offset_bottom = 245.0
 grow_horizontal = 2
 grow_vertical = 2
-columns = 2
 
-[node name="ButtonParent" type="Control" parent="Options/GridContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Options/GridContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Options" type="Button" parent="Options/GridContainer/ButtonParent"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -165.0
-offset_top = -60.0
-offset_right = 165.0
-offset_bottom = 60.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_font_sizes/font_size = 37
-text = "STR_FULLSCREEN_ON"
-autowrap_mode = 2
-
-[node name="ButtonParent2" type="Control" parent="Options/GridContainer"]
+[node name="ButtonParent2" type="Control" parent="Options/GridContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Locale" type="Button" parent="Options/GridContainer/ButtonParent2"]
+[node name="Locale" type="Button" parent="Options/GridContainer/HBoxContainer/ButtonParent2"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -615,12 +547,12 @@ grow_horizontal = 2
 grow_vertical = 2
 text = "LOCALE"
 
-[node name="ButtonParent3" type="Control" parent="Options/GridContainer"]
+[node name="ButtonParent3" type="Control" parent="Options/GridContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Audio" type="Button" parent="Options/GridContainer/ButtonParent3"]
+[node name="Audio" type="Button" parent="Options/GridContainer/HBoxContainer/ButtonParent3"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -664,7 +596,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("2_yh2qu")
-focusable_items = [NodePath("GridContainer2/ButtonParent/VBoxContainer/MusicSlider"), NodePath("GridContainer2/ButtonParent2/SelectMusic"), NodePath("GridContainer2/ButtonParent3/VBoxContainer/GameVolSlider"), NodePath("GridContainer2/ButtonParent4/Back")]
+focusable_items = [NodePath("GridContainer2/HBoxContainer/ButtonParent/VBoxContainer/MusicSlider"), NodePath("GridContainer2/HBoxContainer/ButtonParent3/VBoxContainer/GameVolSlider"), NodePath("GridContainer2/ButtonParent4/Back")]
 
 [node name="Background" type="ColorRect" parent="Audio"]
 layout_mode = 1
@@ -693,7 +625,7 @@ theme_override_font_sizes/font_size = 135
 text = "STR_AUDIO"
 horizontal_alignment = 1
 
-[node name="GridContainer2" type="GridContainer" parent="Audio"]
+[node name="GridContainer2" type="VBoxContainer" parent="Audio"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -706,14 +638,18 @@ offset_right = 367.0
 offset_bottom = 245.0
 grow_horizontal = 2
 grow_vertical = 2
-columns = 2
 
-[node name="ButtonParent" type="Control" parent="Audio/GridContainer2"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Audio/GridContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Selected" type="TextureRect" parent="Audio/GridContainer2/ButtonParent"]
+[node name="ButtonParent" type="Control" parent="Audio/GridContainer2/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="Selected" type="TextureRect" parent="Audio/GridContainer2/HBoxContainer/ButtonParent"]
 visible = false
 self_modulate = Color(0.969651, 0.875611, 0.461756, 1)
 layout_mode = 1
@@ -730,7 +666,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("5_6g2eb")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Audio/GridContainer2/ButtonParent"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Audio/GridContainer2/HBoxContainer/ButtonParent"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -739,7 +675,7 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="Label" type="Label" parent="Audio/GridContainer2/ButtonParent/VBoxContainer"]
+[node name="Label" type="Label" parent="Audio/GridContainer2/HBoxContainer/ButtonParent/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.333333, 0.333333, 0.333333, 1)
 theme_override_font_sizes/font_size = 50
@@ -747,24 +683,24 @@ text = "STR_MUSIC_VOLUME"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="MusicSlider" type="HSlider" parent="Audio/GridContainer2/ButtonParent/VBoxContainer"]
+[node name="MusicSlider" type="HSlider" parent="Audio/GridContainer2/HBoxContainer/ButtonParent/VBoxContainer"]
 custom_minimum_size = Vector2(320, 50)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_stretch_ratio = 0.0
 focus_neighbor_right = NodePath("../../../ButtonParent3/VBoxContainer/GameVolSlider")
-focus_neighbor_bottom = NodePath("../../../ButtonParent2/SelectMusic")
+focus_neighbor_bottom = NodePath("../../../../ButtonParent4/Back")
 min_value = -40.0
 max_value = 10.0
 rounded = true
 editable = false
 
-[node name="ButtonParent3" type="Control" parent="Audio/GridContainer2"]
+[node name="ButtonParent3" type="Control" parent="Audio/GridContainer2/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Selected" type="TextureRect" parent="Audio/GridContainer2/ButtonParent3"]
+[node name="Selected" type="TextureRect" parent="Audio/GridContainer2/HBoxContainer/ButtonParent3"]
 visible = false
 self_modulate = Color(0.969651, 0.875611, 0.461756, 1)
 layout_mode = 1
@@ -781,7 +717,7 @@ grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("5_6g2eb")
 
-[node name="VBoxContainer" type="VBoxContainer" parent="Audio/GridContainer2/ButtonParent3"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Audio/GridContainer2/HBoxContainer/ButtonParent3"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -790,7 +726,7 @@ grow_horizontal = 2
 grow_vertical = 2
 alignment = 1
 
-[node name="Label" type="Label" parent="Audio/GridContainer2/ButtonParent3/VBoxContainer"]
+[node name="Label" type="Label" parent="Audio/GridContainer2/HBoxContainer/ButtonParent3/VBoxContainer"]
 layout_mode = 2
 theme_override_colors/font_color = Color(0.333333, 0.333333, 0.333333, 1)
 theme_override_font_sizes/font_size = 50
@@ -798,37 +734,17 @@ text = "STR_GAME_VOLUME"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="GameVolSlider" type="HSlider" parent="Audio/GridContainer2/ButtonParent3/VBoxContainer"]
+[node name="GameVolSlider" type="HSlider" parent="Audio/GridContainer2/HBoxContainer/ButtonParent3/VBoxContainer"]
 custom_minimum_size = Vector2(320, 50)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_stretch_ratio = 0.0
 focus_neighbor_left = NodePath("../../../ButtonParent/VBoxContainer/MusicSlider")
-focus_neighbor_bottom = NodePath("../../../ButtonParent4/Back")
+focus_neighbor_bottom = NodePath("../../../../ButtonParent4/Back")
 min_value = -40.0
 max_value = 10.0
 rounded = true
 editable = false
-
-[node name="ButtonParent2" type="Control" parent="Audio/GridContainer2"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="SelectMusic" type="Button" parent="Audio/GridContainer2/ButtonParent2"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -165.0
-offset_top = -60.0
-offset_right = 165.0
-offset_bottom = 60.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "STR_SELECT_MUSIC"
 
 [node name="ButtonParent4" type="Control" parent="Audio/GridContainer2"]
 layout_mode = 2
@@ -860,7 +776,7 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("6_d6s3i")
 highscore_items = [NodePath("HighscoreTable/HighscoreItem"), NodePath("HighscoreTable/HighscoreItem2"), NodePath("HighscoreTable/HighscoreItem3")]
-new_highscore_indicators = [NodePath("../MainMenu/GridContainer/ButtonParent2/Highscores/Label"), NodePath("../Won/GridContainer/ButtonParent3/Highscore/Label")]
+new_highscore_indicators = [NodePath("../MainMenu/GridContainer/HBoxContainer/ButtonParent2/Highscores/Label"), NodePath("../Won/GridContainer/VBoxContainer/ButtonParent3/Highscore/Label")]
 reset_button = NodePath("GridContainer/ButtonParent3/Reset")
 focusable_items = [NodePath("GridContainer/ButtonParent4/Back"), NodePath("GridContainer/ButtonParent3/Reset")]
 
@@ -1100,32 +1016,27 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[connection signal="pressed" from="MainMenu/GridContainer/ButtonParent/StartGame" to="." method="start_game"]
-[connection signal="pressed" from="MainMenu/GridContainer/ButtonParent2/Highscores" to="." method="open_sub_tab" binds= ["Highscores"]]
+[connection signal="pressed" from="MainMenu/GridContainer/HBoxContainer/ButtonParent/StartGame" to="." method="start_game"]
+[connection signal="pressed" from="MainMenu/GridContainer/HBoxContainer/ButtonParent2/Highscores" to="." method="open_sub_tab" binds= ["Highscores"]]
 [connection signal="pressed" from="MainMenu/GridContainer/ButtonParent3/Options" to="." method="open_sub_tab" binds= ["Options"]]
-[connection signal="pressed" from="MainMenu/GridContainer/ButtonParent4/Quit" to="." method="quit_game"]
-[connection signal="pressed" from="PauseMenu/GridContainer/ButtonParent/Resume" to="." method="resume_game"]
-[connection signal="pressed" from="PauseMenu/GridContainer/ButtonParent2/Options" to="." method="open_sub_tab" binds= ["Options"]]
+[connection signal="pressed" from="PauseMenu/GridContainer/HBoxContainer/ButtonParent/Resume" to="." method="resume_game"]
+[connection signal="pressed" from="PauseMenu/GridContainer/HBoxContainer/ButtonParent2/Options" to="." method="open_sub_tab" binds= ["Options"]]
 [connection signal="pressed" from="PauseMenu/GridContainer/ButtonParent3/Restart" to="." method="restart_game"]
-[connection signal="pressed" from="PauseMenu/GridContainer/ButtonParent4/Quit" to="." method="quit_game"]
+[connection signal="pressed" from="Won/GridContainer/VBoxContainer/ButtonParent3/Highscore" to="." method="open_sub_tab" binds= ["Highscores"]]
 [connection signal="pressed" from="Won/GridContainer/ButtonParent/Restart" to="." method="restart_game"]
-[connection signal="pressed" from="Won/GridContainer/ButtonParent3/Highscore" to="." method="open_sub_tab" binds= ["Highscores"]]
-[connection signal="pressed" from="Won/GridContainer/ButtonParent4/Quit" to="." method="quit_game"]
-[connection signal="pressed" from="Options/GridContainer/ButtonParent/Options" to="Options" method="toggle_fullscreen"]
-[connection signal="pressed" from="Options/GridContainer/ButtonParent2/Locale" to="Options" method="cycle_locales"]
-[connection signal="pressed" from="Options/GridContainer/ButtonParent3/Audio" to="." method="open_sub_tab" binds= ["Audio"]]
+[connection signal="pressed" from="Options/GridContainer/HBoxContainer/ButtonParent2/Locale" to="Options" method="cycle_locales"]
+[connection signal="pressed" from="Options/GridContainer/HBoxContainer/ButtonParent3/Audio" to="." method="open_sub_tab" binds= ["Audio"]]
 [connection signal="pressed" from="Options/GridContainer/ButtonParent4/Back" to="." method="close_sub_tab"]
-[connection signal="focus_entered" from="Audio/GridContainer2/ButtonParent/VBoxContainer/MusicSlider" to="Audio/GridContainer2/ButtonParent/Selected" method="set_visible" binds= [true]]
-[connection signal="focus_exited" from="Audio/GridContainer2/ButtonParent/VBoxContainer/MusicSlider" to="Audio/GridContainer2/ButtonParent/Selected" method="set_visible" binds= [false]]
-[connection signal="value_changed" from="Audio/GridContainer2/ButtonParent/VBoxContainer/MusicSlider" to="Options" method="set_music_volume"]
-[connection signal="focus_entered" from="Audio/GridContainer2/ButtonParent3/VBoxContainer/GameVolSlider" to="Audio/GridContainer2/ButtonParent3/Selected" method="set_visible" binds= [true]]
-[connection signal="focus_exited" from="Audio/GridContainer2/ButtonParent3/VBoxContainer/GameVolSlider" to="Audio/GridContainer2/ButtonParent3/Selected" method="set_visible" binds= [false]]
-[connection signal="value_changed" from="Audio/GridContainer2/ButtonParent3/VBoxContainer/GameVolSlider" to="Options" method="set_game_volume"]
-[connection signal="pressed" from="Audio/GridContainer2/ButtonParent2/SelectMusic" to="." method="open_music"]
+[connection signal="focus_entered" from="Audio/GridContainer2/HBoxContainer/ButtonParent/VBoxContainer/MusicSlider" to="Audio/GridContainer2/HBoxContainer/ButtonParent/Selected" method="set_visible" binds= [true]]
+[connection signal="focus_exited" from="Audio/GridContainer2/HBoxContainer/ButtonParent/VBoxContainer/MusicSlider" to="Audio/GridContainer2/HBoxContainer/ButtonParent/Selected" method="set_visible" binds= [false]]
+[connection signal="value_changed" from="Audio/GridContainer2/HBoxContainer/ButtonParent/VBoxContainer/MusicSlider" to="Options" method="set_music_volume"]
+[connection signal="focus_entered" from="Audio/GridContainer2/HBoxContainer/ButtonParent3/VBoxContainer/GameVolSlider" to="Audio/GridContainer2/HBoxContainer/ButtonParent3/Selected" method="set_visible" binds= [true]]
+[connection signal="focus_exited" from="Audio/GridContainer2/HBoxContainer/ButtonParent3/VBoxContainer/GameVolSlider" to="Audio/GridContainer2/HBoxContainer/ButtonParent3/Selected" method="set_visible" binds= [false]]
+[connection signal="value_changed" from="Audio/GridContainer2/HBoxContainer/ButtonParent3/VBoxContainer/GameVolSlider" to="Options" method="set_game_volume"]
 [connection signal="pressed" from="Audio/GridContainer2/ButtonParent4/Back" to="." method="close_sub_tab"]
 [connection signal="pressed" from="Highscores/GridContainer/ButtonParent3/Reset" to="." method="open_sub_tab" binds= ["HighscoresReset"]]
 [connection signal="pressed" from="Highscores/GridContainer/ButtonParent4/Back" to="." method="close_sub_tab"]
 [connection signal="pressed" from="HighscoresReset/GridContainer/ButtonParent3/Confirm" to="." method="close_sub_tab"]
-[connection signal="pressed" from="HighscoresReset/GridContainer/ButtonParent3/Confirm" to="Highscores" method="reset_focus"]
 [connection signal="pressed" from="HighscoresReset/GridContainer/ButtonParent3/Confirm" to="Highscores" method="reset_highscores"]
+[connection signal="pressed" from="HighscoresReset/GridContainer/ButtonParent3/Confirm" to="Highscores" method="reset_focus"]
 [connection signal="pressed" from="HighscoresReset/GridContainer/ButtonParent4/Back" to="." method="close_sub_tab"]

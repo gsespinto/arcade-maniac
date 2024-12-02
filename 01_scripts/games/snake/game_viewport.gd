@@ -136,6 +136,7 @@ func lose() -> void:
 
 func _get_movement_input() -> void:
 	var direction : Vector2 = Input.get_vector("ui_left", "ui_right", "ui_up", "ui_down")
+	direction = direction.normalized()
 	if direction != Vector2.ZERO:
 		_movement_input = Vector2i(sign(direction.x), sign(direction.y))
 
